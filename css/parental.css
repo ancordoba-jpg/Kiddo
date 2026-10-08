@@ -1,0 +1,702 @@
+/**
+ * KIDDO - Estilos del Modo Padres y Control Parental
+ * Diseño limpio, informativo, estructurado y protegido
+ */
+
+/* ======================================================
+   VISTA INICIAL DE AJUSTES & ACCESO AL CONTROL PARENTAL
+   ====================================================== */
+.settings-overview-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.parent-control-access-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F7FAFC 100%);
+  border: 2.5px solid #CBD5E1;
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.parent-control-access-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.parent-access-badge {
+  display: inline-block;
+  background: #2D3748;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 10px;
+}
+
+.parent-access-header {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.parent-access-icon {
+  font-size: 38px;
+  flex-shrink: 0;
+}
+
+.parent-access-header h3 {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 800;
+  color: #2D3748;
+  margin-bottom: 4px;
+}
+
+.parent-access-header p {
+  font-size: 12px;
+  color: #718096;
+  line-height: 1.4;
+}
+
+/* ======================================================
+   BLOQUEO / PUERTA DE ENTRADA CON PIN
+   ====================================================== */
+.parent-gate-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid #E2E8F0;
+  max-width: 360px;
+  margin: 10px auto;
+}
+
+.parent-gate-icon {
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
+.parent-gate-card h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: #2D3748;
+  margin-bottom: 6px;
+}
+
+.parent-gate-desc {
+  font-size: 13px;
+  color: #718096;
+  line-height: 1.4;
+  margin-bottom: 18px;
+}
+
+.pin-display-wrapper {
+  margin-bottom: 18px;
+}
+
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #EDF2F7;
+  border: 2px solid #CBD5E1;
+  transition: all 0.2s;
+}
+
+.pin-dot.filled {
+  background: #3182CE;
+  border-color: #2B6CB0;
+  transform: scale(1.15);
+}
+
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pin-key-btn {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  padding: 12px 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: #2D3748;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2E8F0;
+  transition: all 0.1s ease;
+}
+
+.pin-key-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+  background: #EDF2F7;
+}
+
+.pin-key-btn.key-clear {
+  font-size: 14px;
+  color: #E53E3E;
+}
+
+.pin-key-btn.key-submit {
+  font-size: 14px;
+  color: #3182CE;
+  background: #EBF8FF;
+  border-color: #BEE3F8;
+}
+
+.pin-error-banner {
+  background: #FFF5F5;
+  border: 1px solid #FEB2B2;
+  color: #C53030;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  margin-top: 10px;
+}
+
+/* ======================================================
+   PANEL PRINCIPAL DE PADRES (DESBLOQUEADO)
+   ====================================================== */
+.parent-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.parent-dash-header {
+  background: #2D3748;
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: var(--shadow-soft);
+}
+
+.parent-badge {
+  background: #4A5568;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.parent-profile-info h2 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.parent-profile-info p {
+  font-size: 12px;
+  color: #CBD5E1;
+}
+
+.parent-exit-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Navegación interna de pestañas */
+.parent-tabs-nav {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.parent-tab-btn {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius-pill);
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4A5568;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.parent-tab-btn.active {
+  background: #3182CE;
+  color: #FFFFFF;
+  border-color: #2B6CB0;
+  box-shadow: 0 4px 10px rgba(49, 130, 206, 0.25);
+}
+
+.parent-tab-content {
+  display: none;
+}
+
+.parent-tab-content.active {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Tarjetas de Métricas */
+.parent-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.metric-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.metric-icon {
+  font-size: 14px;
+}
+
+.metric-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #718096;
+}
+
+.metric-value {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: #2D3748;
+}
+
+.metric-value small {
+  font-size: 11px;
+  font-weight: 600;
+  color: #718096;
+}
+
+.metric-progress {
+  width: 100%;
+  height: 5px;
+  background: #EDF2F7;
+  border-radius: 4px;
+  margin: 6px 0;
+  overflow: hidden;
+}
+
+.metric-bar {
+  height: 100%;
+  background: #3182CE;
+}
+
+.metric-hint {
+  font-size: 10px;
+  color: #718096;
+}
+
+/* Cajas de Sección General */
+.parent-section-box {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.parent-section-box h3 {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 800;
+  color: #2D3748;
+  margin-bottom: 6px;
+}
+
+.config-desc {
+  font-size: 12px;
+  color: #718096;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+/* Barras de Funciones Más Utilizadas */
+.features-bars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feature-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4A5568;
+}
+
+.feature-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #EDF2F7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.feature-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* Progreso Educativo */
+.education-progress-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edu-progress-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edu-progress-info {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edu-progress-info strong {
+  font-size: 12px;
+  color: #2D3748;
+}
+
+.edu-progress-info span {
+  font-size: 10px;
+  color: #718096;
+}
+
+.edu-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #EDF2F7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.edu-bar-fill {
+  height: 100%;
+  background: #48BB78;
+  border-radius: 4px;
+}
+
+.edu-score {
+  font-size: 12px;
+  font-weight: 800;
+  color: #2D3748;
+  width: 35px;
+  text-align: right;
+}
+
+/* Slider de Límite Diario */
+.limit-slider-wrap {
+  margin: 10px 0;
+}
+
+.slider-val-display {
+  font-size: 15px;
+  color: #2D3748;
+  margin-bottom: 8px;
+}
+
+.slider-val-display strong {
+  color: #3182CE;
+  font-size: 20px;
+}
+
+.kiddo-range-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #E2E8F0;
+  outline: none;
+  cursor: pointer;
+}
+
+.slider-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #A0AEC0;
+  margin-top: 6px;
+}
+
+/* Horarios */
+.time-range-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.time-input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4A5568;
+  margin-bottom: 4px;
+}
+
+.kiddo-time-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #CBD5E1;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Toggles / Switches de Permisos */
+.toggles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toggle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #EDF2F7;
+}
+
+.toggle-item:last-child {
+  border-bottom: none;
+}
+
+.toggle-label strong {
+  display: block;
+  font-size: 13px;
+  color: #2D3748;
+}
+
+.toggle-label small {
+  font-size: 11px;
+  color: #718096;
+}
+
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-round {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #CBD5E1;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.slider-round:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider-round {
+  background-color: #48BB78;
+}
+
+input:checked + .slider-round:before {
+  transform: translateX(20px);
+}
+
+.change-pin-row {
+  display: flex;
+  gap: 8px;
+}
+
+.kiddo-text-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #CBD5E1;
+  font-size: 14px;
+}
+
+.kiddo-btn-action {
+  background: #3182CE;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Vinculación de Dispositivos */
+.device-pairing-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.device-qr-mock {
+  width: 90px;
+  height: 90px;
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qr-box {
+  text-align: center;
+}
+
+.qr-pattern {
+  width: 54px;
+  height: 54px;
+  background: repeating-conic-gradient(#2D3748 0% 25%, #FFFFFF 0% 50%) 50% / 10px 10px;
+  border-radius: 4px;
+  margin: 0 auto 4px;
+}
+
+.qr-sub {
+  font-size: 8px;
+  font-weight: 800;
+  color: #718096;
+}
+
+.device-info-col {
+  flex: 1;
+}
+
+.sync-status-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.sync-status-badge.online {
+  background: #C6F6D5;
+  color: #22543D;
+}
+
+.device-code-box {
+  margin-bottom: 6px;
+}
+
+.device-code-box label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #718096;
+}
+
+.sync-code-val {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 800;
+  color: #2B6CB0;
+  letter-spacing: 1px;
+}
+
+.device-meta {
+  font-size: 11px;
+  color: #718096;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.sync-now-btn {
+  background: #3182CE;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sync-toast-banner {
+  background: #C6F6D5;
+  border: 1.5px solid #9AE6B4;
+  color: #22543D;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  margin-top: 12px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}

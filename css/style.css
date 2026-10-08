@@ -1,0 +1,300 @@
+/**
+ * KIDDO - Sistema de Diseño Global, Tokens Pastel y Animaciones
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+  /* Paleta Pastel Oficial Solicitada */
+  --lavender-pink: #FFADD3;
+  --lemon-chiffon: #FCF6BD;
+  --nyanza: #D0F4DE;
+  --uranian-blue: #A9DEF9;
+  --mauve: #E4C1F9;
+  --bg-cream: #FFFCF7;
+
+  /* Paleta Pastel Primaria Complementaria */
+  --pastel-pink: #FFADD3;
+  --pastel-pink-light: #FFF0F5;
+  --pastel-blue: #A9DEF9;
+  --pastel-blue-light: #EBF8FF;
+  --pastel-mint: #D0F4DE;
+  --pastel-mint-light: #F0FFF4;
+  --pastel-yellow: #FCF6BD;
+  --pastel-yellow-light: #FFFFF0;
+  --pastel-lavender: #E4C1F9;
+  --pastel-lavender-light: #FAF5FF;
+  --pastel-peach: #FEEBC8;
+  --pastel-peach-light: #FFFAF0;
+
+  /* Tonos de Interfaz Neutros */
+  --bg-app: #FFFCF7;
+  --bg-card: #FFFFFF;
+  --text-dark: #2D3748;
+  --text-muted: #718096;
+  --text-light: #A0AEC0;
+
+  /* Acentos Vivos pero Suaves */
+  --accent-primary: #3182CE;
+  --accent-secondary: #FFADD3;
+  --accent-success: #38A169;
+  --accent-warning: #D69E2E;
+  --accent-purple: #805AD5;
+
+  /* Sombras y Bordes */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 9999px;
+  --shadow-soft: 0 8px 24px rgba(149, 157, 165, 0.12);
+  --shadow-hover: 0 12px 32px rgba(149, 157, 165, 0.22);
+  --shadow-button: 0 6px 0 rgba(0, 0, 0, 0.08);
+
+  /* Tipografías */
+  --font-heading: 'Fredoka', 'Nunito', cursive, sans-serif;
+  --font-body: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Reset y Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, #EBF8FF 0%, #FAF5FF 50%, #FFF0F3 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor tipo Dispositivo Móvil */
+.app-device-wrapper {
+  width: 100%;
+  max-width: 440px;
+  height: 100vh;
+  max-height: 900px;
+  background-color: var(--bg-app);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 36px;
+  border: 8px solid #FFFFFF;
+}
+
+@media (max-width: 480px) {
+  .app-device-wrapper {
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+/* Encabezado Superior (Header) - Totalmente estable, sin reflow */
+.app-top-header {
+  height: 64px;
+  background: #FFFCF7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  z-index: 50;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.brand-koala-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-koala-icon svg,
+.brand-koala-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  color: #2D3748;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: baseline;
+}
+
+.brand-title .brand-dot {
+  color: #FF80AB;
+  font-size: 28px;
+  line-height: 0;
+  margin-left: 1px;
+}
+
+/* Cápsula de tiempo de pantalla */
+.screen-time-counter {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #EBF7FF;
+  border: 1.5px solid #BAE3FF;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 800;
+  color: #1E88E5;
+  box-shadow: 0 2px 8px rgba(169, 222, 249, 0.25);
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.screen-time-icon {
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Contenedor de la Aplicación Principal */
+#main-app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#main-app-container.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Área Principal de Contenido */
+.app-content-viewport {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 84px; /* Espacio para barra inferior */
+  scroll-behavior: smooth;
+}
+
+.app-content-viewport::-webkit-scrollbar {
+  width: 6px;
+}
+.app-content-viewport::-webkit-scrollbar-thumb {
+  background-color: var(--pastel-blue);
+  border-radius: 10px;
+}
+
+/* ESTADOS DE PANTALLA (CONTROL DE NAVEGACIÓN ESTRICTO) */
+.kiddo-screen {
+  display: none !important;
+  padding: 16px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.kiddo-screen.active {
+  display: block !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Clases de Visibilidad Universal */
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Elementos de Fondo Animados */
+.ambient-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floating-star {
+  position: absolute;
+  font-size: 18px;
+  animation: starTwinkle 4s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.star-1 { top: 12%; left: 8%; animation-delay: 0s; }
+.star-2 { top: 22%; right: 10%; animation-delay: 1.5s; font-size: 22px; }
+.star-3 { top: 45%; left: 88%; animation-delay: 2.3s; }
+.star-4 { top: 75%; left: 6%; animation-delay: 0.8s; font-size: 16px; }
+
+.floating-cloud {
+  position: absolute;
+  opacity: 0.55;
+  animation: cloudFloat 18s ease-in-out infinite alternate;
+}
+
+.cloud-1 { top: 8%; left: -20px; width: 90px; }
+.cloud-2 { top: 35%; right: -30px; width: 110px; animation-duration: 24s; }
+
+/* ANIMACIONES GLOBALES */
+@keyframes starTwinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+  50% { transform: scale(1.3) rotate(15deg); opacity: 0.9; }
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateX(0px); }
+  100% { transform: translateX(40px); }
+}
+
+@keyframes koalaNod {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+/* Accesibilidad: Reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
