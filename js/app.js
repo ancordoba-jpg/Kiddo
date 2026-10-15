@@ -237,6 +237,12 @@ class KiddoApp {
     if (welcomeHello) {
       welcomeHello.textContent = `¡Hola, ${KIDDO_DATA.user.name}!`;
     }
+
+    // Montar Puky 2D oficial si aún no está montado
+    const mount = document.getElementById('puky2d-mount');
+    if (mount && window.puky2D && !document.getElementById('puky2d-img')) {
+      window.puky2D.mountTo('puky2d-mount');
+    }
   }
 
   openCategory(category) {

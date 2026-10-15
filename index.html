@@ -314,10 +314,14 @@
                 </div>
               </div>
 
-              <!-- Columna Central: Puky 3D con Contenedor Fijo Reservado -->
+              <!-- Columna Central: Puky 2D (mascota oficial) -->
               <div class="puky-fixed-stage-wrapper" id="home-puky-stage">
-                <div class="puky-character-box">
-                  <img src="assets/koala_transparent.png" alt="Puky el Koala Oficial de Kiddo" class="puky-character-img" width="220" height="220">
+                <div class="puky-character-box" id="puky2d-mount">
+                  <!-- Puky2DController monta aquí la imagen oficial -->
+                  <!-- Fallback visible si JS falla -->
+                  <noscript>
+                    <img src="assets/puky2d/frames/puky-idle.png.png" alt="Puky el Koala Oficial de Kiddo" class="puky-character-img" width="200" height="200">
+                  </noscript>
                 </div>
               </div>
 
