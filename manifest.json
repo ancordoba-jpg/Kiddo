@@ -1,5 +1,5 @@
 {
-  "name": "Kiddo - Aventuras con Puky",
+  "name": "Kiddo",
   "short_name": "Kiddo",
   "description": "Aplicación educativa infantil con Puky el Koala. Aprende, juega y crece.",
   "start_url": "./index.html",
@@ -9,7 +9,11 @@
   "background_color": "#FFF5F8",
   "theme_color": "#FF6B9D",
   "lang": "es",
-  "categories": ["education", "kids", "games"],
+  "categories": [
+    "education",
+    "kids",
+    "games"
+  ],
   "icons": [
     {
       "src": "icons/icon-72x72.png",
