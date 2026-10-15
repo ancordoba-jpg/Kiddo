@@ -25,9 +25,9 @@ class KiddoParentalManager {
   renderSettingsOverview(container) {
     container.innerHTML = `
       <div class="settings-overview-view">
-        <div class="home-header-banner" style="background: linear-gradient(135deg, #E9D8FD 0%, #BEE3F8 100%);">
-          <h2>Ajustes y Configuración ⚙️</h2>
-          <p>Opciones de la aplicación y modo exclusivo para adultos</p>
+        <div class="home-header-banner" style="background: linear-gradient(135deg, #A9DEF9 0%, #E4C1F9 100%); border-radius: 26px; padding: 20px 18px; border: 2px solid rgba(255, 255, 255, 0.85); box-shadow: 0 8px 24px rgba(169, 222, 249, 0.28);">
+          <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: #26354D; margin: 0 0 4px;">Ajustes y Configuración ⚙️</h2>
+          <p style="font-family: var(--font-body); font-size: 13px; color: #4A5568; font-weight: 600; margin: 0;">Opciones de la aplicación y modo exclusivo para adultos.</p>
         </div>
 
         <!-- Tarjeta Destacada de Acceso al Control Parental -->
@@ -40,27 +40,27 @@ class KiddoParentalManager {
               <p>Supervisa el tiempo de pantalla, actividades, límites y vincula tus dispositivos.</p>
             </div>
           </div>
-          <button class="kiddo-btn-primary" style="margin-top: 14px; background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);">
+          <button class="kiddo-btn-primary" style="margin-top: 14px; background: linear-gradient(180deg, #5AB7FB 0%, #3FA1F5 100%); box-shadow: 0 4px 0 #2B8BE0, 0 8px 18px rgba(63, 161, 245, 0.35);">
             <span>Acceder con Contraseña</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <span style="font-size: 16px; margin-left: 4px;">➔</span>
           </button>
         </div>
 
         <!-- Opciones Generales Básicas -->
-        <div class="parent-section-box" style="margin-top: 16px;">
+        <div class="parent-section-box">
           <h3>Información de la Aplicación</h3>
-          <div style="font-size: 13px; color: #4A5568; line-height: 1.8;">
-            <p>🐨 <strong>Personaje:</strong> Puky el Koala</p>
-            <p>📱 <strong>Versión:</strong> 1.0.0 (Kiddo Mobile)</p>
-            <p>🎨 <strong>Tema visual:</strong> Pastel Infantil Armonioso</p>
+          <div style="font-size: 13.5px; color: #4A5568; line-height: 2;">
+            <p style="margin: 0;">🐨 <strong>Personaje:</strong> Puky el Koala</p>
+            <p style="margin: 0;">📱 <strong>Versión:</strong> 1.0.0 (Kiddo Mobile)</p>
+            <p style="margin: 0;">🎨 <strong>Tema visual:</strong> Pastel Infantil Armonioso</p>
           </div>
         </div>
 
         <!-- Opción de Cerrar Sesión -->
-        <div class="parent-section-box" style="margin-top: 16px;">
+        <div class="parent-section-box">
           <h3>Sesión de Usuario</h3>
-          <p style="font-size: 13px; color: #71809A; margin-bottom: 12px;">Perfil activo: <strong>${KIDDO_DATA.user.name}</strong></p>
-          <button class="kiddo-btn-primary" style="background: #FFF5F5; border: 1.5px solid #FEB2B2; color: #E53E3E; box-shadow: none;" onclick="window.kiddoApp.logout()">
+          <p style="font-size: 13.5px; color: #71809A; margin-bottom: 12px;">Perfil activo: <strong style="color: #0284C7;">${KIDDO_DATA.user.name}</strong></p>
+          <button class="kiddo-btn-primary" style="background: #FFE4E6; border: 1.5px solid #FECDD3; color: #E11D48; box-shadow: 0 4px 0 #FDA4AF;" onclick="window.kiddoApp.logout()">
             <span>🚪 Cerrar Sesión</span>
           </button>
         </div>

@@ -702,25 +702,25 @@
   white-space: nowrap;
 }
 
-/* Colores pastel exactos de fondo para cada categoría */
+/* Colores pastel exactos de fondo para cada categoría según Imagen 2 */
 .cat-animales {
-  background: var(--lemon-chiffon, #FCF6BD);
+  background: #FCF6BD; /* amarillo mantequilla */
 }
 
 .cat-juegos {
-  background: #FFD4E5;
+  background: #E4C1F9; /* lila/morado pastel */
 }
 
 .cat-musica {
-  background: var(--nyanza, #D0F4DE);
+  background: #D0F4DE; /* verde menta */
 }
 
 .cat-cuentos {
-  background: var(--uranian-blue, #A9DEF9);
+  background: #A9DEF9; /* celeste */
 }
 
 .cat-magia {
-  background: var(--mauve, #E4C1F9);
+  background: #FFD5BA; /* melocotón / lila suave */
 }
 
 /* ─── 2.4 Sección Actividades Recientes ─── */
@@ -1124,103 +1124,125 @@
    4. PANTALLA MISIONES
    ====================================================== */
 .missions-header-card {
-  background: linear-gradient(135deg, #FEFCBF 0%, #FEEBC8 100%);
-  border-radius: var(--radius-lg);
-  padding: 16px;
+  background: linear-gradient(135deg, #FFF9DB 0%, #FEF08A 60%, #FDE047 100%);
+  border-radius: 26px;
+  padding: 18px 16px 16px;
   margin-bottom: 16px;
-  border: 2px solid #FFFFFF;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(253, 224, 71, 0.22);
+  position: relative;
+  overflow: hidden;
 }
 
 .missions-header-info h2 {
   font-family: var(--font-heading);
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 800;
-  color: #744210;
+  color: #26354D;
+  margin-bottom: 4px;
 }
 
 .missions-header-info p {
-  font-size: 12px;
-  color: #975A16;
-  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #4A5568;
+  font-weight: 600;
+  margin: 0;
 }
 
 .missions-progress-bar-wrap {
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .missions-progress-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 13px;
   font-weight: 700;
-  color: #744210;
-  margin-bottom: 4px;
+  color: #26354D;
+  margin-bottom: 6px;
 }
 
 .missions-percent-badge {
   background: #FFFFFF;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: var(--radius-pill);
+  font-weight: 800;
+  color: #26354D;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
 .missions-progress-track {
   width: 100%;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.7);
+  height: 12px;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: var(--radius-pill);
   overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
 }
 
 .missions-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #48BB78, #38A169);
+  background: linear-gradient(90deg, #34D399, #10B981);
   border-radius: var(--radius-pill);
   transition: width 0.3s ease;
 }
 
 .missions-category-block {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .missions-cat-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .missions-cat-title h3 {
   font-family: var(--font-heading);
   font-size: 16px;
   font-weight: 800;
-  color: #4A5568;
+  color: #26354D;
+  margin: 0;
+}
+
+.missions-cat-icon {
+  font-size: 20px;
 }
 
 .mission-item-card {
   background: #FFFFFF;
-  border-radius: var(--radius-md);
-  padding: 14px;
+  border-radius: 20px;
+  padding: 14px 14px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  border: 2px solid transparent;
+  box-shadow: 0 4px 16px rgba(61, 69, 92, 0.06);
+  border: 1.5px solid rgba(0, 0, 0, 0.03);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mission-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(61, 69, 92, 0.1);
 }
 
 .mission-item-card.is-completed {
-  background: #F0FFF4;
-  border-color: var(--pastel-mint);
-  opacity: 0.85;
+  background: #F0FDF4;
+  border-color: #BBF7D0;
 }
 
 .mission-checkbox {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  border: 2.5px solid #CBD5E1;
+  border: 2px solid #CBD5E1;
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1228,17 +1250,20 @@
   color: #FFFFFF;
   font-size: 14px;
   flex-shrink: 0;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .mission-checkbox.checked {
-  background: #48BB78;
-  border-color: #48BB78;
+  background: #10B981;
+  border-color: #10B981;
 }
 
 .mission-icon-wrap {
-  font-size: 24px;
+  font-size: 26px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mission-details {
@@ -1249,41 +1274,70 @@
 .mission-top-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .mission-title {
-  font-size: 14px;
+  font-family: var(--font-heading);
+  font-size: 14.5px;
   font-weight: 800;
-  color: #2D3748;
+  color: #26354D;
+  margin: 0;
 }
 
 .mission-title.strikethrough {
-  text-decoration: line-through;
-  color: #718096;
+  text-decoration: none;
 }
 
 .mission-tag-badge {
+  font-family: var(--font-heading);
   font-size: 10px;
-  font-weight: 800;
-  padding: 2px 6px;
+  font-weight: 700;
+  padding: 2px 8px;
   border-radius: var(--radius-pill);
 }
 
 .mission-tag-badge.in_app {
-  background: var(--pastel-blue);
-  color: #2B6CB0;
+  background: #E0F2FE;
+  color: #0284C7;
 }
 
 .mission-tag-badge.out_app {
-  background: var(--pastel-peach);
-  color: #C05621;
+  background: #FEF3C7;
+  color: #D97706;
 }
 
 .mission-desc {
+  font-family: var(--font-body);
   font-size: 12px;
-  color: #718096;
-  margin-top: 2px;
+  color: #71809A;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+.mission-status-indicator {
+  flex-shrink: 0;
+}
+
+.status-pill {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.status-pill.pending-pill {
+  background: #FFE4E6;
+  color: #E11D48;
+}
+
+.status-pill.completed-pill {
+  background: #D1FAE5;
+  color: #059669;
 }
 
 /* ======================================================
@@ -1521,7 +1575,8 @@
   border-radius: var(--radius-pill);
   padding: 4px;
   margin-bottom: 16px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 4px 14px rgba(61, 69, 92, 0.06);
+  border: 1.5px solid rgba(0,0,0,0.03);
 }
 
 .music-subtab-btn {
@@ -1531,17 +1586,114 @@
   padding: 10px 8px;
   border-radius: var(--radius-pill);
   font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
-  color: #718096;
+  color: #71809A;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .music-subtab-btn.active {
-  background: var(--accent-primary);
+  background: #A855F7;
   color: #FFFFFF;
-  box-shadow: 0 4px 10px rgba(49, 130, 206, 0.3);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);
+}
+
+/* ─── XILÓFONO / PIANO VIRTUAL (Imagen 6) ─── */
+.virtual-piano-experience {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 4px;
+}
+
+.piano-puky-companion {
+  background: linear-gradient(135deg, #FFF0F5 0%, #F5F3FF 100%);
+  border: 2px solid #FFCDE1;
+  border-radius: 22px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 6px 18px rgba(255, 173, 211, 0.2);
+}
+
+.piano-puky-avatar {
+  font-size: 36px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.piano-puky-avatar.jump-bounce {
+  transform: translateY(-8px) scale(1.1);
+}
+
+.piano-speech-bubble {
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #26354D;
+  line-height: 1.35;
+}
+
+.piano-keyboard-wrapper {
+  background: #FDF6EC;
+  border: 4px solid #F6E2CA;
+  border-radius: 28px;
+  padding: 12px 10px 18px;
+  box-shadow: 0 10px 30px rgba(180, 140, 80, 0.15), inset 0 2px 6px rgba(255, 255, 255, 0.8);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.piano-keys-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+}
+
+.piano-key {
+  flex: 1;
+  min-width: 0;
+  height: 180px;
+  background: #FFFFFF;
+  border: 1.5px solid #F1E5D8;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 2px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #E2D3C0, 0 8px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  position: relative;
+  outline: none;
+}
+
+.piano-key:active,
+.piano-key.is-pressed {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 #E2D3C0, 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.key-note-name {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  color: #26354D;
+}
+
+.key-color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .music-relaxing-grid {
@@ -1667,63 +1819,112 @@
 }
 
 /* ======================================================
-   7. SECCIÓN CUENTOS Y LECTOR DE CUENTOS
+   7. SECCIÓN CUENTOS Y LECTOR DE CUENTOS (Fiel a Imagen 9)
    ====================================================== */
 .stories-catalog-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 4px 24px;
 }
 
 .story-card {
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  box-shadow: var(--shadow-soft);
+  border-radius: 24px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(61, 69, 92, 0.06);
   cursor: pointer;
-  border: 2px solid #FFFFFF;
+  border: 1.5px solid rgba(0, 0, 0, 0.04);
   display: flex;
   gap: 14px;
   align-items: center;
-  transition: transform 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
 }
 
 .story-card:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(61, 69, 92, 0.1);
 }
 
 .story-card-icon-wrap {
-  width: 56px;
-  height: 56px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: var(--radius-md);
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, #FFF0F5 0%, #EBF8FF 100%);
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 34px;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .story-card-info {
   flex: 1;
+  min-width: 0;
 }
 
 .story-card-title {
   font-family: var(--font-heading);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
-  color: #2D3748;
+  color: #26354D;
+  margin: 0 0 2px;
 }
 
 .story-card-author {
-  font-size: 11px;
+  font-family: var(--font-heading);
+  font-size: 11.5px;
   font-weight: 700;
-  color: #718096;
+  color: #EC4899;
   margin-bottom: 4px;
 }
 
 .story-card-desc {
+  font-family: var(--font-body);
   font-size: 12px;
-  color: #4A5568;
+  color: #71809A;
+  line-height: 1.3;
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.story-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.story-card-pages {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94A3B8;
+}
+
+.story-read-btn {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+  color: #E11D48;
+  font-family: var(--font-heading);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.story-read-btn:hover {
+  transform: scale(1.04);
+}
   margin-bottom: 8px;
 }
 
