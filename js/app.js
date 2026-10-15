@@ -97,7 +97,7 @@ class KiddoApp {
     this.isAuthenticated = false;
     try {
       sessionStorage.removeItem('kiddo_session_active');
-    } catch (err) {}
+    } catch (err) { }
 
     if (window.kiddoAudio && typeof window.kiddoAudio.pauseCurrentTrack === 'function') {
       window.kiddoAudio.pauseCurrentTrack();
@@ -138,7 +138,7 @@ class KiddoApp {
     this.isAuthenticated = true;
     try {
       sessionStorage.setItem('kiddo_session_active', 'true');
-    } catch (err) {}
+    } catch (err) { }
     this.currentVideoAge = this.getInitialAgeGroup();
 
     if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
@@ -197,7 +197,7 @@ class KiddoApp {
     }
 
     // Renderizado bajo demanda según sección
-    switch(screenName) {
+    switch (screenName) {
       case 'inicio':
         this.renderHomeScreen();
         break;
@@ -348,14 +348,56 @@ class KiddoApp {
   }
 
   // 10. SECCIÓN "PUKY"
+
   renderPukyScreen() {
     const container = document.getElementById('puky-3d-room-canvas');
-    if (container && window.puky3D) {
-      setTimeout(() => {
-        window.puky3D.initRoomPuky(container);
-      }, 50);
-    }
+    if (!container) return;
+
+    // Evitar duplicar a Puky al regresar a esta pantalla.
+    if (container.querySelector('#puky-room-2d')) return;
+
+    container.replaceChildren();
+
+    const puky = document.createElement('img');
+    puky.id = 'puky-room-2d';
+    puky.src = 'assets/puky2d/frames/puky-idle.png.png';
+    puky.alt = 'Puky, mascota oficial de Kiddo';
+    puky.draggable = false;
+
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'flex-end';
+    container.style.paddingBottom = '110px';
+    container.style.boxSizing = 'border-box';
+
+    puky.style.width = 'auto';
+    puky.style.height = '100%';
+    puky.style.maxHeight = '100%';
+    puky.style.maxWidth = '85%';
+    puky.style.objectFit = 'contain';
+
+    container.appendChild(puky);
+
+
+    // Reaccionar cuando el usuario acaricia a Puky
+    let pettingTimer = null;
+
+    puky.style.cursor = 'pointer';
+    puky.style.touchAction = 'manipulation';
+
+    puky.addEventListener('click', () => {
+      if (pettingTimer) clearTimeout(pettingTimer);
+
+      puky.src = 'assets/puky2d/frames/puky-petting.png.png';
+
+      pettingTimer = setTimeout(() => {
+        puky.src = 'assets/puky2d/frames/puky-idle.png.png';
+        pettingTimer = null;
+      }, 1500);
+    });
+
   }
+
 
   openPukyCustomization() {
     if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
@@ -717,8 +759,8 @@ class KiddoApp {
 
     container.innerHTML = `
       ${categories.map(cat => {
-        const catVideos = filteredItems.filter(v => v.category === cat.id);
-        return `
+      const catVideos = filteredItems.filter(v => v.category === cat.id);
+      return `
           <div class="video-category-section" id="video-section-${cat.id}">
             <div class="video-cat-header">
               <div class="video-cat-title-wrap">
@@ -763,7 +805,7 @@ class KiddoApp {
             `}
           </div>
         `;
-      }).join('')}
+    }).join('')}
 
       <!-- Sección Canales Infantiles Recomendados (Mantenida exactamente igual) -->
       <div class="video-category-section channels-section">
