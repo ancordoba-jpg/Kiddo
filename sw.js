@@ -98,6 +98,32 @@ self.addEventListener('fetch', (event) => {
   // Ignorar peticiones a CDN externos (Three.js, Google Fonts, etc.)
   const externalHosts = ['cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
   if (externalHosts.some(host => url.hostname.includes(host))) {
+
+    // Manifest e iconos: consultar primero la version actual
+    if (
+      url.origin === self.location.origin &&
+      (url.pathname.endsWith('/manifest.json') ||
+        url.pathname.includes('/icons/'))
+    ) {
+      event.respondWith(
+        fetch(request).then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            event.waitUntil(
+              caches.open(STATIC_CACHE).then((cache) => {
+                return cache.put(request, copy);
+              })
+            );
+          }
+          return response;
+        }).catch(async () => {
+          const cached = await caches.match(request);
+          if (cached) return cached;
+          return new Response('Recurso no disponible', { status: 503 });
+        })
+      );
+      return;
+    }
     event.respondWith(
       caches.match(request).then((cached) => {
         if (cached) return cached;
@@ -122,7 +148,7 @@ self.addEventListener('fetch', (event) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(STATIC_CACHE).then(cache => cache.put(request, networkResponse));
           }
-        }).catch(() => {});
+        }).catch(() => { });
         return cachedResponse;
       }
 
