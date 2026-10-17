@@ -1,0 +1,8 @@
+
+/* KIDDO - Nuevo fondo de bienvenida */
+#screen-inicio .home-welcome-card {
+    background-image: url("../assets/home-redesign/banner-bienvenida.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

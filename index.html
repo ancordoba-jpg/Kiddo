@@ -56,8 +56,10 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/home-redesign.css">
   <link rel="stylesheet" href="css/parental.css">
   <link rel="stylesheet" href="css/games.css">
+  <link rel="stylesheet" href="css/games-redesign.css">
 </head>
 
 <body>
@@ -231,53 +233,13 @@
              ======================================================= -->
         <section class="kiddo-screen active" id="screen-inicio" aria-label="Sección Inicio">
 
-          <!-- 1.1 Tarjeta de Bienvenida con Degradado, Estrellas y Nube -->
+          <!-- 1.1 Banner de Bienvenida -->
           <div class="home-welcome-card">
-            <div class="welcome-decor-stars" aria-hidden="true">
-              <!-- Estrella 3D dorada -->
-              <svg class="welcome-star-primary" viewBox="0 0 32 32" width="30" height="30">
-                <defs>
-                  <linearGradient id="starGradHome" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FEE082" />
-                    <stop offset="100%" stop-color="#F59E0B" />
-                  </linearGradient>
-                  <filter id="starGlowHome" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#F59E0B" flood-opacity="0.35" />
-                  </filter>
-                </defs>
-                <path
-                  d="M16 2 L19.8 11.2 L29.7 11.8 L22.1 18.2 L24.5 28 L16 22.8 L7.5 28 L9.9 18.2 L2.3 11.8 L12.2 11.2 Z"
-                  fill="url(#starGradHome)" filter="url(#starGlowHome)" />
-              </svg>
-              <!-- Estrellita pequeña complementaria -->
-              <svg class="welcome-star-secondary" viewBox="0 0 20 20" width="16" height="16">
-                <path d="M10 1 L12 7 L18 8 L13 12 L15 18 L10 14 L5 18 L7 12 L2 8 L8 7 Z" fill="#FDE68A" />
-              </svg>
-            </div>
-
-            <div class="welcome-decor-cloud" aria-hidden="true">
-              <!-- Nube esponjosa blanca 3D -->
-              <svg viewBox="0 0 80 50" width="64" height="40" fill="none">
-                <defs>
-                  <filter id="cloudShadowHome" x="-10%" y="-10%" width="120%" height="120%">
-                    <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" flood-color="rgba(0,0,0,0.07)" />
-                  </filter>
-                </defs>
-                <path
-                  d="M18 36 C10 36 6 28 14 23 C10 13 24 9 32 16 C39 4 58 6 62 18 C71 14 78 22 74 30 C80 35 76 44 64 42 C56 47 28 47 18 36 Z"
-                  fill="#FFFFFF" filter="url(#cloudShadowHome)" />
-              </svg>
-            </div>
-
             <div class="welcome-content">
               <h2 class="welcome-title">
                 <span class="welcome-text-hello">¡Hola, Mateo!</span>
                 <span class="welcome-sparkles" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="#F59E0B">
-                    <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" />
-                  </svg>
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="#FBBF24"
-                    style="margin-left: -5px; margin-top: -6px;">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="#F59E0B">
                     <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" />
                   </svg>
                 </span>
@@ -286,217 +248,52 @@
             </div>
           </div>
 
-          <!-- 1.2 Tarjeta Principal de Puky (Hero Card) -->
+          <!-- 1.2 Tarjeta Hero: Puky en el Paisaje -->
           <div class="puky-hero-card">
-            <!-- Paisaje inferior decorativo: lomas y arbustos -->
-            <div class="hero-stage-scenery" aria-hidden="true">
-              <svg class="scenery-hill-svg" viewBox="0 0 400 100" preserveAspectRatio="none">
-                <path d="M0,55 Q100,35 200,42 Q300,48 400,50 L400,100 L0,100 Z" fill="#F4FAF3" />
-                <path d="M0,68 Q120,50 210,56 Q310,62 400,66 L400,100 L0,100 Z" fill="#E5F8E4" />
-              </svg>
-              <div class="scenery-bush scenery-bush-left">
-                <svg viewBox="0 0 70 80" width="56" height="66">
-                  <path d="M10 75 C0 55 10 30 28 40 C35 15 55 25 52 50 C65 58 60 75 45 75 Z" fill="#A7E8BD"
-                    opacity="0.9" />
-                  <path d="M18 75 C10 60 20 42 35 50 C40 32 55 40 50 60 C58 66 54 75 40 75 Z" fill="#8BE0A7"
-                    opacity="0.85" />
-                </svg>
-              </div>
-              <div class="scenery-bush scenery-bush-right">
-                <svg viewBox="0 0 70 80" width="56" height="66">
-                  <path d="M60 75 C70 55 60 30 42 40 C35 15 15 25 18 50 C5 58 10 75 25 75 Z" fill="#A7E8BD"
-                    opacity="0.9" />
-                  <path d="M52 75 C60 60 50 42 35 50 C30 32 15 40 20 60 C12 66 16 75 30 75 Z" fill="#8BE0A7"
-                    opacity="0.85" />
-                </svg>
-              </div>
+            <!-- Globo izquierdo: imagen oficial «¡Vamos a aprender juntos!» -->
+            <div class="hero-bubble hero-bubble-left" aria-hidden="true">
+              <img src="assets/home-redesign/globo-aprender-blanco.png" alt="¡Vamos a aprender juntos!" class="bubble-img">
             </div>
 
-            <!-- Contenido del Hero Card (3 Columnas con Aislamiento de Layout) -->
-            <div class="hero-elements-container">
-              <!-- Columna Izquierda: Acentos, Texto y Corazón -->
-              <div class="hero-left-col">
-                <div class="accent-dashes top-dashes" aria-hidden="true">
-                  <span class="dash"></span>
-                  <span class="dash"></span>
-                </div>
-                <p class="hero-invite-text">
-                  <span>¡Vamos</span>
-                  <span>a aprender</span>
-                  <span>juntos!</span>
-                </p>
-                <div class="hero-heart-left" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="#FFA5C8">
-                    <path
-                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                </div>
-                <div class="accent-dashes bottom-dashes" aria-hidden="true">
-                  <span class="dash"></span>
-                  <span class="dash"></span>
-                </div>
-              </div>
+            <!-- Personaje Puky central -->
+            <div class="hero-puky-wrapper">
+              <img src="assets/home-redesign/puky-home.png" alt="Puky el Koala" class="hero-puky-img">
+            </div>
 
-              <!-- Columna Central: Puky 2D (mascota oficial) -->
-              <div class="puky-fixed-stage-wrapper" id="home-puky-stage">
-                <div class="puky-character-box" id="puky2d-mount">
-                  <!-- Puky2DController monta aquí la imagen oficial -->
-                  <!-- Fallback visible si JS falla -->
-                  <noscript>
-                    <img src="assets/puky2d/frames/puky-idle.png.png" alt="Puky el Koala Oficial de Kiddo"
-                      class="puky-character-img" width="200" height="200">
-                  </noscript>
-                </div>
-              </div>
-
-              <!-- Columna Derecha: Acentos y Bocadillo de Diálogo -->
-              <div class="hero-right-col">
-                <div class="accent-dashes top-dashes-right" aria-hidden="true">
-                  <span class="dash"></span>
-                  <span class="dash"></span>
-                </div>
-                <div class="puky-speech-bubble">
-                  <p class="speech-text">
-                    <span>¡Puky te</span>
-                    <span>manda un gran</span>
-                    <span>abrazo!</span>
-                  </p>
-                  <div class="speech-heart" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="#FFA5C8">
-                      <path
-                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
+            <!-- Globo derecho: imagen oficial rosa -->
+            <div class="hero-bubble hero-bubble-right" aria-label="¡Puky te manda un gran abrazo!">
+              <img src="assets/home-redesign/globo-aprender-rosa.png" alt="¡Puky te manda un gran abrazo!" title="¡Puky te manda un gran abrazo!" class="bubble-img">
             </div>
           </div>
 
-          <!-- 1.3 Botones de Categorías (5 botones cuadrados redondeados) -->
+          <!-- 1.3 Accesos Rápidos con imágenes PNG oficiales -->
           <div class="categories-row-section" role="region" aria-label="Categorías principales">
-            <!-- 1. Animales -->
-            <button class="category-btn cat-animales" onclick="window.kiddoApp.openCategory('animales')"
-              title="Animales">
-              <div class="category-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 44 44" width="38" height="38" fill="none">
-                  <!-- Orejas perrito -->
-                  <path d="M10 12 C5 17 4 25 8 27 C12 28 13 22 13 15 Z" fill="#C98A5B" />
-                  <path d="M34 12 C39 17 40 25 36 27 C32 28 31 22 31 15 Z" fill="#C98A5B" />
-                  <!-- Cabeza -->
-                  <circle cx="22" cy="22" r="14" fill="#FCE7D2" />
-                  <!-- Hocico -->
-                  <ellipse cx="22" cy="25" rx="8" ry="6" fill="#FFF7ED" />
-                  <!-- Ojos -->
-                  <circle cx="17" cy="19" r="2.5" fill="#1E293B" />
-                  <circle cx="17.8" cy="18" r="0.9" fill="#FFFFFF" />
-                  <circle cx="27" cy="19" r="2.5" fill="#1E293B" />
-                  <circle cx="27.8" cy="18" r="0.9" fill="#FFFFFF" />
-                  <!-- Nariz -->
-                  <ellipse cx="22" cy="23.5" rx="2.5" ry="1.8" fill="#1E293B" />
-                  <!-- Lengua -->
-                  <path d="M20 25.5 Q22 27.5 24 25.5" stroke="#1E293B" stroke-width="1.2" stroke-linecap="round" />
-                  <path d="M21 26.5 Q22 29.5 23 26.5" fill="#F472B6" />
-                </svg>
-              </div>
-              <span class="category-label">Animales</span>
+
+            <!-- 1. Videos -->
+            <button class="category-btn cat-videos" onclick="window.kiddoApp.navigateTo('videos')" title="Videos" id="cat-btn-videos">
+              <img src="assets/home-redesign/acceso-videos.png" alt="Videos" class="category-png-img">
             </button>
 
             <!-- 2. Juegos -->
-            <button class="category-btn cat-juegos" onclick="window.kiddoApp.navigateTo('juegos')" title="Juegos">
-              <div class="category-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 44 44" width="38" height="38" fill="none">
-                  <defs>
-                    <linearGradient id="gpGradHome" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#9333EA" />
-                      <stop offset="100%" stop-color="#6B21A8" />
-                    </linearGradient>
-                  </defs>
-                  <rect x="7" y="13" width="30" height="18" rx="9" fill="url(#gpGradHome)" />
-                  <ellipse cx="11" cy="23" rx="5" ry="7" fill="#7E22CE" />
-                  <ellipse cx="33" cy="23" rx="5" ry="7" fill="#7E22CE" />
-                  <rect x="12" y="19" width="8" height="2.8" rx="1.2" fill="#E9D5FF" />
-                  <rect x="14.6" y="16.4" width="2.8" height="8" rx="1.2" fill="#E9D5FF" />
-                  <circle cx="28" cy="18" r="1.5" fill="#FBBF24" />
-                  <circle cx="32" cy="18" r="1.5" fill="#38BDF8" />
-                  <circle cx="30" cy="21.5" r="1.5" fill="#F43F5E" />
-                  <circle cx="26" cy="21.5" r="1.5" fill="#4ADE80" />
-                  <circle cx="20" cy="21" r="1" fill="#C084FC" />
-                  <circle cx="24" cy="21" r="1" fill="#C084FC" />
-                </svg>
-              </div>
-              <span class="category-label">Juegos</span>
+            <button class="category-btn cat-juegos" onclick="window.kiddoApp.navigateTo('juegos')" title="Juegos" id="cat-btn-juegos">
+              <img src="assets/home-redesign/acceso-juegos.png" alt="Juegos" class="category-png-img">
             </button>
 
             <!-- 3. Música -->
-            <button class="category-btn cat-musica" onclick="window.kiddoApp.navigateTo('musica')" title="Música">
-              <div class="category-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 44 44" width="38" height="38" fill="none">
-                  <defs>
-                    <linearGradient id="noteGradHome" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#F472B6" />
-                      <stop offset="100%" stop-color="#DB2777" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M16 11 L31 7 L31 11 L16 15 Z" fill="url(#noteGradHome)" />
-                  <rect x="16" y="11" width="3.2" height="18" rx="1.6" fill="url(#noteGradHome)" />
-                  <rect x="28" y="7" width="3.2" height="19" rx="1.6" fill="url(#noteGradHome)" />
-                  <ellipse cx="13.5" cy="28" rx="5" ry="3.8" transform="rotate(-20 13.5 28)"
-                    fill="url(#noteGradHome)" />
-                  <ellipse cx="25.5" cy="25" rx="5" ry="3.8" transform="rotate(-20 25.5 25)"
-                    fill="url(#noteGradHome)" />
-                  <ellipse cx="12.5" cy="27" rx="2.5" ry="1.5" transform="rotate(-20 12.5 27)" fill="#FCE7F3" />
-                  <ellipse cx="24.5" cy="24" rx="2.5" ry="1.5" transform="rotate(-20 24.5 24)" fill="#FCE7F3" />
-                </svg>
-              </div>
-              <span class="category-label">Música</span>
+            <button class="category-btn cat-musica" onclick="window.kiddoApp.navigateTo('musica')" title="Música" id="cat-btn-musica">
+              <img src="assets/home-redesign/acceso-musica.png" alt="Música" class="category-png-img">
             </button>
 
             <!-- 4. Cuentos -->
-            <button class="category-btn cat-cuentos" onclick="window.kiddoApp.navigateTo('cuentos')" title="Cuentos">
-              <div class="category-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 44 44" width="38" height="38" fill="none">
-                  <defs>
-                    <linearGradient id="bkGradHome" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#38BDF8" />
-                      <stop offset="100%" stop-color="#0284C7" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M7 28 C14 26 21 28 22 29 C23 28 30 26 37 28 L37 31 C30 29 23 31 22 32 C21 31 14 29 7 31 Z"
-                    fill="url(#bkGradHome)" />
-                  <path d="M8 14 C14 12 20 14 21 16 L21 28 C20 26 14 24 8 26 Z" fill="#FFFFFF" />
-                  <path d="M8 15.5 C14 13.5 20 15.5 21 17.5 L21 28.5 C20 26.5 14 24.5 8 26.5 Z" fill="#F8FAFC" />
-                  <path d="M36 14 C30 12 24 14 23 16 L23 28 C24 26 30 24 36 26 Z" fill="#FFFFFF" />
-                  <path d="M36 15.5 C30 13.5 24 15.5 23 17.5 L23 28.5 C24 26.5 30 24.5 36 26.5 Z" fill="#F8FAFC" />
-                  <path d="M21 16 Q22 24 23 28 L21.5 33 L20 31 L18.5 33 L20 28 Z" fill="#EC4899" />
-                </svg>
-              </div>
-              <span class="category-label">Cuentos</span>
+            <button class="category-btn cat-cuentos" onclick="window.kiddoApp.navigateTo('cuentos')" title="Cuentos" id="cat-btn-cuentos">
+              <img src="assets/home-redesign/acceso-cuentos.png" alt="Cuentos" class="category-png-img">
             </button>
 
             <!-- 5. Magia -->
-            <button class="category-btn cat-magia" onclick="window.kiddoApp.openCategory('magia')" title="Magia">
-              <div class="category-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 44 44" width="38" height="38" fill="none">
-                  <defs>
-                    <linearGradient id="wandGradHome" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#C084FC" />
-                      <stop offset="100%" stop-color="#7E22CE" />
-                    </linearGradient>
-                    <linearGradient id="magicStarGradHome" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#FDE047" />
-                      <stop offset="100%" stop-color="#EAB308" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M12 34 L25 21 L28 24 L15 37 Z" fill="url(#wandGradHome)" />
-                  <path d="M12 34 L15 31 L18 34 L15 37 Z" fill="#E9D5FF" />
-                  <path d="M29 11 L31.5 16.5 L37 17.5 L32.8 21.2 L34 27 L29 24 L24 27 L25.2 21.2 L21 17.5 L26.5 16.5 Z"
-                    fill="url(#magicStarGradHome)" />
-                  <path d="M37 9 L38 12 L41 13 L38 14 L37 17 L36 14 L33 13 L36 12 Z" fill="#FDE047" />
-                  <path d="M22 8 L22.8 10.2 L25 11 L22.8 11.8 L22 14 L21.2 11.8 L19 11 L21.2 10.2 Z" fill="#FACC15" />
-                </svg>
-              </div>
-              <span class="category-label">Magia</span>
+            <button class="category-btn cat-magia" onclick="window.kiddoApp.openCategory('magia')" title="Magia" id="cat-btn-magia">
+              <img src="assets/home-redesign/acceso-magia.png" alt="Magia" class="category-png-img">
             </button>
+
           </div>
 
           <!-- 1.4 Sección Actividades Recientes -->
@@ -514,12 +311,10 @@
 
             <div class="recent-activities-list">
               <!-- Actividad 1: Aprender sumas -->
-              <div class="activity-pill-card card-blue" onclick="window.kiddoApp.openGameModal('sumas')" role="button"
-                tabindex="0">
+              <div class="activity-pill-card card-blue" onclick="window.kiddoApp.openGameModal('sumas')" role="button" tabindex="0">
                 <div class="activity-badge-icon badge-blue" aria-hidden="true">
                   <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
-                    <rect x="4" y="5" width="24" height="22" rx="4" fill="#38BDF8" stroke="#0284C7"
-                      stroke-width="1.5" />
+                    <rect x="4" y="5" width="24" height="22" rx="4" fill="#38BDF8" stroke="#0284C7" stroke-width="1.5" />
                     <rect x="7" y="8" width="18" height="16" rx="2" fill="#E0F2FE" />
                     <line x1="7" y1="12" x2="25" y2="12" stroke="#94A3B8" stroke-width="1.2" />
                     <line x1="7" y1="16" x2="25" y2="16" stroke="#94A3B8" stroke-width="1.2" />
@@ -546,16 +341,12 @@
               </div>
 
               <!-- Actividad 2: Caperucita Roja -->
-              <div class="activity-pill-card card-pink" onclick="window.kiddoStories.openStory('caperucita')"
-                role="button" tabindex="0">
+              <div class="activity-pill-card card-pink" onclick="window.kiddoStories.openStory('caperucita')" role="button" tabindex="0">
                 <div class="activity-badge-icon badge-pink" aria-hidden="true">
                   <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
-                    <path d="M5 21 C10 19 15 21 16 22 C17 21 22 19 27 21 L27 23 C22 21 17 23 16 24 C15 23 10 21 5 23 Z"
-                      fill="#EC4899" />
-                    <path d="M6 10 C11 8 15 10 16 12 L16 21 C15 19 11 17 6 19 Z" fill="#FFFFFF" stroke="#F472B6"
-                      stroke-width="0.8" />
-                    <path d="M26 10 C21 8 17 10 16 12 L16 21 C17 19 21 17 26 19 Z" fill="#FFFFFF" stroke="#F472B6"
-                      stroke-width="0.8" />
+                    <path d="M5 21 C10 19 15 21 16 22 C17 21 22 19 27 21 L27 23 C22 21 17 23 16 24 C15 23 10 21 5 23 Z" fill="#EC4899" />
+                    <path d="M6 10 C11 8 15 10 16 12 L16 21 C15 19 11 17 6 19 Z" fill="#FFFFFF" stroke="#F472B6" stroke-width="0.8" />
+                    <path d="M26 10 C21 8 17 10 16 12 L16 21 C17 19 21 17 26 19 Z" fill="#FFFFFF" stroke="#F472B6" stroke-width="0.8" />
                     <path d="M16 12 Q16.5 17 17.5 20 L16.5 24 L15.5 22.5 L14.5 24 L15.5 20 Z" fill="#38BDF8" />
                   </svg>
                 </div>
@@ -570,13 +361,10 @@
               </div>
 
               <!-- Actividad 3: Dibujar un arcoíris -->
-              <div class="activity-pill-card card-green" onclick="window.kiddoApp.openGameModal('dibujo')" role="button"
-                tabindex="0">
+              <div class="activity-pill-card card-green" onclick="window.kiddoApp.openGameModal('dibujo')" role="button" tabindex="0">
                 <div class="activity-badge-icon badge-green" aria-hidden="true">
                   <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
-                    <path
-                      d="M16 4 C23 4 28 8 28 15 C28 21 24 27 18 27 C15 27 14 25 12 25 C10 25 8 27 6 25 C4 23 4 19 5 15 C6 9 10 4 16 4 Z"
-                      fill="#FDE68A" stroke="#F59E0B" stroke-width="1.2" />
+                    <path d="M16 4 C23 4 28 8 28 15 C28 21 24 27 18 27 C15 27 14 25 12 25 C10 25 8 27 6 25 C4 23 4 19 5 15 C6 9 10 4 16 4 Z" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.2" />
                     <circle cx="21" cy="21" r="2.2" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1" />
                     <circle cx="11" cy="9" r="2" fill="#EF4444" />
                     <circle cx="17" cy="8" r="2" fill="#3B82F6" />
@@ -602,13 +390,48 @@
 
         </section>
 
-        <!-- 2. SECCIÓN: JUEGOS -->
+        <!-- 2. SECCIÓN: JUEGOS (REDISEÑO OFICIAL) -->
         <section class="kiddo-screen" id="screen-juegos" aria-label="Sección Juegos">
-          <div class="games-main-banner">
-            <h2>Juegos 🎮</h2>
-            <p>Aprende jugando con Puky</p>
+          <!-- Banner Principal de Juegos -->
+          <div class="games-banner-card" role="banner" aria-label="Juegos: Aprende jugando con Puky">
+            <img src="assets/games-redesign/banner-juegos.png.png" alt="Juegos - Aprende jugando con Puky" class="games-banner-img">
           </div>
-          <div class="games-selection-grid" id="games-grid-container"></div>
+
+          <!-- Catálogo de Juegos (Grilla de 2 Columnas) -->
+          <div class="games-selection-grid" id="games-grid-container" role="region" aria-label="Catálogo de Juegos">
+            <!-- 1. Memoria -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openMemory()" aria-label="Jugar a Memoria" id="btn-game-memory">
+              <img src="assets/games-redesign/card-memoria.png.png" alt="Memoria - Encuentra las parejas" class="game-card-img" draggable="false">
+            </button>
+            <!-- 2. Aprender a Sumar -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openSums()" aria-label="Jugar a Aprender a Sumar" id="btn-game-sums">
+              <img src="assets/games-redesign/card-aprender-sumar.png.png" alt="Aprender a Sumar - Suma del 1 al 100" class="game-card-img" draggable="false">
+            </button>
+            <!-- 3. Aprender a Restar -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openSubtraction()" aria-label="Jugar a Aprender a Restar" id="btn-game-subtraction">
+              <img src="assets/games-redesign/card-aprender-restar.png.png" alt="Aprender a Restar - Restas sin negativos" class="game-card-img" draggable="false">
+            </button>
+            <!-- 4. Multiplicar -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openMultiplication()" aria-label="Jugar a Multiplicar" id="btn-game-multiplication">
+              <img src="assets/games-redesign/card-multiplicar.png.png" alt="Multiplicar - Elige una tabla del 1 al 10" class="game-card-img" draggable="false">
+            </button>
+            <!-- 5. Dividir -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openDivision()" aria-label="Jugar a Dividir" id="btn-game-division">
+              <img src="assets/games-redesign/card-dividir.png.png" alt="Dividir - Divisiones exactas" class="game-card-img" draggable="false">
+            </button>
+            <!-- 6. Aprender la Hora -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openClock()" aria-label="Jugar a Aprender la Hora" id="btn-game-clock">
+              <img src="assets/games-redesign/card-aprender-hora.png.png" alt="Aprender la Hora - Reloj analógico" class="game-card-img" draggable="false">
+            </button>
+            <!-- 7. Completar Sílabas -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openSyllables()" aria-label="Jugar a Completar Sílabas" id="btn-game-syllables">
+              <img src="assets/games-redesign/card-completar-silabas.png.png" alt="Completar Sílabas - Forma palabras divertidas" class="game-card-img" draggable="false">
+            </button>
+            <!-- 8. Armar Palabras -->
+            <button class="game-card-btn" onclick="window.kiddoGames.openWordBuilder()" aria-label="Jugar a Armar Palabras" id="btn-game-wordbuilder">
+              <img src="assets/games-redesign/card-armar-palabras.png.png" alt="Armar Palabras - Ordena las letras y forma palabras" class="game-card-img" draggable="false">
+            </button>
+          </div>
         </section>
 
         <!-- 3. SECCIÓN: MISIONES -->

@@ -1,0 +1,410 @@
+/* ============================================================
+   KIDDO — Rediseño Pantalla Inicio (home-redesign.css)
+   Todos los estilos son específicos de #screen-inicio
+   ============================================================ */
+
+/* ── 1. CONTENEDOR GENERAL ─────────────────────────────────── */
+#screen-inicio {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 14px 24px;
+  background: #FFF9FA;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* ── 2. BANNER DE BIENVENIDA (Centrado perfecto H y V) ─────── */
+#screen-inicio .home-welcome-card {
+  position: relative;
+  background-image: url("../assets/home-redesign/banner-bienvenida.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(160, 100, 220, 0.15);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#screen-inicio .home-welcome-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+#screen-inicio .welcome-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+#screen-inicio .welcome-title {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  font-size: clamp(20px, 5.2vw, 25px);
+  font-weight: 700;
+  color: #2D1B69;
+  margin: 0 0 3px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+#screen-inicio .welcome-text-hello {
+  color: #2D1B69;
+}
+
+#screen-inicio .welcome-sparkles {
+  display: inline-flex;
+  align-items: center;
+  animation: sparkle-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50%       { transform: scale(1.18) rotate(12deg); opacity: 0.85; }
+}
+
+#screen-inicio .welcome-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(12.5px, 3.2vw, 14px);
+  color: #533076;
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* ── 3. HERO CARD (Paisaje + Puky Centrado + Globos Simétricos) */
+#screen-inicio .puky-hero-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background-image: url("../assets/home-redesign/paisaje-puky.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  min-height: clamp(210px, 52vw, 260px);
+  height: clamp(210px, 52vw, 260px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 6px 22px rgba(160, 100, 200, 0.18);
+  box-sizing: border-box;
+}
+
+/* Puky Koala central — perfectamente centrado, pies firmes sobre la colina */
+#screen-inicio .hero-puky-wrapper {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#screen-inicio .hero-puky-img {
+  width: clamp(135px, 33vw, 180px);
+  height: auto;
+  max-height: calc(clamp(210px, 52vw, 260px) - 20px);
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.15));
+  animation: puky-gentle-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes puky-gentle-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* Globos de diálogo distribuidos armónica y simétricamente (PNGs oficiales) */
+#screen-inicio .hero-bubble {
+  position: absolute;
+  top: clamp(14px, 4.5vw, 24px);
+  z-index: 3;
+  pointer-events: none;
+}
+
+#screen-inicio .bubble-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+}
+
+/* Globo Izquierdo: blanco («¡Vamos a aprender juntos!») */
+#screen-inicio .hero-bubble-left {
+  left: clamp(6px, 2.2vw, 16px);
+  width: clamp(98px, 25.5vw, 132px);
+  animation: bubble-sway-left 3.6s ease-in-out infinite;
+}
+
+/* Globo Derecho: rosa oficial («¡Puky te manda un gran abrazo!») */
+#screen-inicio .hero-bubble-right {
+  right: clamp(6px, 2.2vw, 16px);
+  width: clamp(98px, 25.5vw, 132px);
+  animation: bubble-sway-right 3.6s ease-in-out infinite;
+}
+
+@keyframes bubble-sway-left {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%       { transform: translateY(-4px) rotate(1.5deg); }
+}
+
+@keyframes bubble-sway-right {
+  0%, 100% { transform: translateY(0) rotate(1.5deg); }
+  50%       { transform: translateY(-4px) rotate(-1.5deg); }
+}
+
+/* ── 4. ACCESOS RÁPIDOS (5 PNG Uniformes y Equidistantes) ──── */
+#screen-inicio .categories-row-section {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(6px, 1.8vw, 10px);
+  padding: 2px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#screen-inicio .category-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 18px;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#screen-inicio .category-btn:hover,
+#screen-inicio .category-btn:focus-visible {
+  transform: translateY(-3px) scale(1.05);
+  filter: brightness(1.05);
+}
+
+#screen-inicio .category-btn:active {
+  transform: scale(0.95);
+  filter: brightness(0.95);
+}
+
+#screen-inicio .category-png-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  border-radius: 18px;
+  pointer-events: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* ── 5. ACTIVIDADES RECIENTES (Alineación exacta a maqueta) ─── */
+#screen-inicio .recent-activities-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#screen-inicio .recent-activities-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+}
+
+#screen-inicio .recent-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#screen-inicio .clipboard-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+#screen-inicio .recent-title {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  font-size: clamp(16px, 4.2vw, 18px);
+  font-weight: 700;
+  color: #2D1B69;
+  margin: 0;
+}
+
+#screen-inicio .view-all-activities-btn {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 999px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+#screen-inicio .view-all-activities-btn:hover {
+  background: #F8FAFC;
+  color: #334155;
+  border-color: #CBD5E1;
+}
+
+#screen-inicio .chevron-arrow {
+  font-size: 16px;
+  line-height: 1;
+}
+
+#screen-inicio .recent-activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Tarjetas individuales de actividad con sombras y bordes limpios */
+#screen-inicio .activity-pill-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+#screen-inicio .activity-pill-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+#screen-inicio .activity-pill-card:active {
+  transform: scale(0.98);
+}
+
+#screen-inicio .card-blue {
+  background: #F0F8FF;
+  border: 1px solid #D6E8FF;
+}
+
+#screen-inicio .card-pink {
+  background: #FFF2F7;
+  border: 1px solid #FCD7E8;
+}
+
+#screen-inicio .card-green {
+  background: #F0FDF5;
+  border: 1px solid #D1FAE5;
+}
+
+#screen-inicio .activity-badge-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#screen-inicio .badge-blue  { background: #D6ECFF; }
+#screen-inicio .badge-pink  { background: #FDE2EF; }
+#screen-inicio .badge-green { background: #D1FAE5; }
+
+#screen-inicio .activity-details {
+  flex: 1;
+  min-width: 0;
+}
+
+#screen-inicio .activity-name {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#screen-inicio .activity-status {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12.5px;
+  color: #64748B;
+  margin: 0;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#screen-inicio .activity-status.status-success {
+  color: #10B981;
+  font-weight: 700;
+}
+
+/* Alineación horizontal perfecta del timestamp y la flecha */
+#screen-inicio .activity-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+#screen-inicio .activity-timestamp {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#screen-inicio .activity-chevron {
+  font-size: 16px;
+  color: #94A3B8;
+  font-weight: 700;
+  line-height: 1;
+}

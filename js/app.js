@@ -273,19 +273,17 @@ class KiddoApp {
     this.navigateTo('misiones');
   }
 
-  // 8. SECCIÓN "JUEGOS"
+  // 8. SECCIÓN "JUEGOS" (Rediseño visual con tarjetas PNG oficiales)
   renderGamesScreen() {
     const container = document.getElementById('games-grid-container');
     if (!container) return;
 
-    // Si existe el nuevo motor de juegos, usar la lista nueva
+    // Si existe el nuevo motor de juegos, usar la lista con tarjetas oficiales
     const gamesList = window.KIDDO_GAMES_LIST || [];
     if (gamesList.length > 0) {
       container.innerHTML = gamesList.map(game => `
-        <button class="game-select-card color-${game.color}" onclick="${game.action}" aria-label="Jugar ${game.name}">
-          <div class="game-card-emoji">${game.emoji}</div>
-          <div class="game-card-name">${game.name}</div>
-          <div class="game-card-desc">${game.desc}</div>
+        <button class="game-card-btn" onclick="${game.action}" aria-label="Jugar a ${game.name}" id="btn-game-${game.id}">
+          <img src="${game.image || 'assets/games-redesign/card-' + game.id + '.png.png'}" alt="${game.name} - ${game.desc}" class="game-card-img" draggable="false">
         </button>
       `).join('');
       return;
@@ -293,10 +291,8 @@ class KiddoApp {
 
     // Fallback: lista antigua de KIDDO_DATA.games
     container.innerHTML = (KIDDO_DATA.games || []).map(game => `
-      <button class="game-select-card color-pink" onclick="window.kiddoApp.openGameModal('${game.id}')" aria-label="Jugar ${game.name}">
-        <div class="game-card-emoji">${game.icon}</div>
-        <div class="game-card-name">${game.name}</div>
-        <div class="game-card-desc">${game.description}</div>
+      <button class="game-card-btn" onclick="window.kiddoApp.openGameModal('${game.id}')" aria-label="Jugar ${game.name}">
+        <div class="game-card-name" style="padding: 16px; font-weight: bold;">${game.name}</div>
       </button>
     `).join('');
   }

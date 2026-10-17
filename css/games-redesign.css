@@ -1,0 +1,152 @@
+/* ============================================================
+   KIDDO — Rediseño Pantalla Juegos (games-redesign.css)
+   Estilos específicos para #screen-juegos y su catálogo visual
+   ============================================================ */
+
+/* ── 1. CONTENEDOR GENERAL DE JUEGOS ───────────────────────── */
+#screen-juegos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 14px 105px;
+  background: #FFF9FA;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── 2. BANNER PRINCIPAL DE JUEGOS ─────────────────────────── */
+#screen-juegos .games-banner-card {
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(160, 100, 220, 0.14);
+  box-sizing: border-box;
+  background: transparent !important;
+  line-height: 0;
+}
+
+#screen-juegos .games-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ── 3. GRILLA DE JUEGOS (2 COLUMNAS UNIFORMES) ─────────────── */
+#screen-juegos .games-selection-grid,
+#screen-juegos #games-grid-container {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: clamp(10px, 2.5vw, 14px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Anular pseudo-elementos o fondos heredados */
+#screen-juegos .games-selection-grid::after,
+#screen-juegos .games-selection-grid::before,
+#screen-juegos #games-grid-container::after,
+#screen-juegos #games-grid-container::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* ── 4. BOTONES / TARJETAS DE JUEGO (SIN MÁRGENES NI FONDOS BLANCOS) ── */
+#screen-juegos #games-grid-container button,
+#screen-juegos .game-card-btn,
+#screen-juegos .game-select-card {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: block !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.18s ease;
+}
+
+/* Anular flechas, emojis o textos residuales */
+#screen-juegos #games-grid-container button::before,
+#screen-juegos #games-grid-container button::after,
+#screen-juegos .game-card-btn::before,
+#screen-juegos .game-card-btn::after,
+#screen-juegos .game-select-card::before,
+#screen-juegos .game-select-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Efectos interactivos limpios */
+#screen-juegos #games-grid-container button:hover,
+#screen-juegos #games-grid-container button:focus-visible,
+#screen-juegos .game-card-btn:hover,
+#screen-juegos .game-card-btn:focus-visible,
+#screen-juegos .game-select-card:hover,
+#screen-juegos .game-select-card:focus-visible {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.03);
+  box-shadow: none !important;
+}
+
+#screen-juegos #games-grid-container button:active,
+#screen-juegos .game-card-btn:active,
+#screen-juegos .game-select-card:active {
+  transform: scale(0.96);
+  filter: brightness(0.97);
+}
+
+/* ── 5. IMÁGENES DE LAS TARJETAS (100% VISIBLES, SIN RECORTES NI BORDES) ── */
+#screen-juegos #games-grid-container img,
+#screen-juegos .game-card-img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important; /* El PNG ya contiene las esquinas redondeadas y su sombra */
+  box-shadow: none !important;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+/* ── 6. RESPONSIVE Y ACCESIBILIDAD ─────────────────────────── */
+@media (max-width: 340px) {
+  #screen-juegos {
+    padding: 10px 8px 95px;
+    gap: 10px;
+  }
+  #screen-juegos .games-selection-grid,
+  #screen-juegos #games-grid-container {
+    gap: 8px !important;
+  }
+}
+
+@media (min-width: 600px) {
+  #screen-juegos .games-selection-grid,
+  #screen-juegos #games-grid-container {
+    gap: 16px !important;
+  }
+}

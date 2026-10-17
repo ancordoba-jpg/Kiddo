@@ -1369,6 +1369,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Encuentra las parejas',
     emoji: '🧠',
     color: 'pink',
+    image: 'assets/games-redesign/card-memoria.png.png',
     action: 'window.kiddoGames.openMemory()'
   },
   {
@@ -1377,6 +1378,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Suma del 1 al 100',
     emoji: '➕',
     color: 'blue',
+    image: 'assets/games-redesign/card-aprender-sumar.png.png',
     action: 'window.kiddoGames.openSums()'
   },
   {
@@ -1385,6 +1387,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Restas sin negativos',
     emoji: '➖',
     color: 'yellow',
+    image: 'assets/games-redesign/card-aprender-restar.png.png',
     action: 'window.kiddoGames.openSubtraction()'
   },
   {
@@ -1393,6 +1396,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Elige una tabla del 1 al 10',
     emoji: '✖️',
     color: 'green',
+    image: 'assets/games-redesign/card-multiplicar.png.png',
     action: 'window.kiddoGames.openMultiplication()'
   },
   {
@@ -1401,6 +1405,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Divisiones exactas',
     emoji: '➗',
     color: 'purple',
+    image: 'assets/games-redesign/card-dividir.png.png',
     action: 'window.kiddoGames.openDivision()'
   },
   {
@@ -1409,6 +1414,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Reloj analógico',
     emoji: '🕒',
     color: 'orange',
+    image: 'assets/games-redesign/card-aprender-hora.png.png',
     action: 'window.kiddoGames.openClock()'
   },
   {
@@ -1417,6 +1423,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Completa la palabra',
     emoji: '🔤',
     color: 'mint',
+    image: 'assets/games-redesign/card-completar-silabas.png.png',
     action: 'window.kiddoGames.openSyllables()'
   },
   {
@@ -1425,6 +1432,7 @@ window.KIDDO_GAMES_LIST = [
     desc: 'Ordena las letras',
     emoji: '🔡',
     color: 'sky',
+    image: 'assets/games-redesign/card-armar-palabras.png.png',
     action: 'window.kiddoGames.openWordBuilder()'
   },
 ];
