@@ -1,0 +1,528 @@
+﻿/**
+ * ===================================================================
+ * KIDDO — REDISEÑO VISUAL COMPLETO DE LA SECCIÓN MISIONES v2.0
+ * ===================================================================
+ */
+
+/* 0. CONTENEDOR PRINCIPAL */
+.missions-redesign-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 10px 12px 110px;
+  box-sizing: border-box;
+}
+
+/* ===================================================================
+   1. ENCABEZADO (HERO CARD) — GRID: Puky 38% | Contenido 62%
+   =================================================================== */
+.mr-hero-card {
+  position: relative;
+  background-color: #FFF3B0;
+  background-image: url('../assets/missions-redesign/fondo-progreso.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 28px;
+  border: 3px solid rgba(255,255,255,0.9);
+  box-shadow: 0 10px 32px rgba(245,158,11,0.25);
+  display: grid;
+  grid-template-columns: 38% 62%;
+  align-items: end;
+  overflow: hidden;
+  margin-bottom: 20px;
+  min-height: 200px;
+}
+
+/* Columna Izquierda: Puky */
+.mr-puky-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 0 4px;
+  align-self: end;
+  z-index: 2;
+  min-height: 170px;
+}
+
+.mr-puky-img {
+  width: 100%;
+  max-width: 170px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 4px 10px rgba(150,80,10,0.18));
+}
+
+/* Columna Derecha: Contenido */
+.mr-hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 14px 16px 8px;
+  gap: 6px;
+  z-index: 2;
+  min-width: 0;
+}
+
+/* Estrellas decorativas (posición absoluta solo para decoración) */
+.mr-stars-decoration {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 40px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.mr-stars-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: mrStarFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes mrStarFloat {
+  0%   { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* Fecha */
+.mr-date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.92);
+  border: 1.5px solid #FEF08A;
+  border-radius: 999px;
+  padding: 3px 11px;
+  width: fit-content;
+  max-width: 100%;
+  box-shadow: 0 2px 6px rgba(180,83,9,0.1);
+}
+
+.mr-date-calendar-icon {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.mr-date-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #78350F;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Título */
+.mr-hero-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(18px, 4.8vw, 22px);
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* Subtítulo */
+.mr-hero-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(10.5px, 2.6vw, 12.5px);
+  font-weight: 700;
+  color: #374151;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Barras de progreso */
+.mr-progress-slot {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(4px);
+  border-radius: 14px;
+  padding: 7px 10px;
+  border: 1.5px solid rgba(255,255,255,0.95);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.mr-slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  gap: 4px;
+}
+
+.mr-slot-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #1E293B;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.mr-slot-title strong { font-weight: 800; }
+
+.mr-percent-pill {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #059669;
+  background: #fff;
+  border: 1px solid #A7F3D0;
+  border-radius: 999px;
+  padding: 1px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mr-level-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #78350F;
+  background: linear-gradient(135deg, #FEF08A 0%, #FBBF24 100%);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mr-stars-label {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mr-track {
+  width: 100%;
+  height: 9px;
+  background: rgba(241,245,249,0.9);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1.5px 3px rgba(0,0,0,0.07);
+}
+
+.mr-track-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease-out;
+  min-width: 3px;
+}
+
+.mr-fill-green { background: linear-gradient(90deg, #34D399 0%, #10B981 100%); }
+.mr-fill-gold  { background: linear-gradient(90deg, #FBBF24 0%, #F59E0B 100%); }
+
+/* ===================================================================
+   2. SECCIONES DE MISIONES
+   =================================================================== */
+.mr-category-section { margin-bottom: 22px; }
+
+.mr-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 2px;
+}
+
+.mr-section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mr-cat-icon-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #818CF8, #6366F1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  box-shadow: 0 3px 8px rgba(99,102,241,0.28);
+  flex-shrink: 0;
+}
+
+.mr-cat-icon-badge.mr-badge-orange {
+  background: linear-gradient(135deg, #FBBF24, #F59E0B);
+  box-shadow: 0 3px 8px rgba(245,158,11,0.28);
+}
+
+.mr-section-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.mr-section-sparkles { font-size: 13px; opacity: 0.85; }
+
+.mr-section-counter {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  background: #E2E8F0;
+  color: #334155;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.8);
+  white-space: nowrap;
+}
+
+/* ===================================================================
+   3. TARJETAS DE MISIONES — Layout: Estado arriba + Grid Illus|Contenido
+   =================================================================== */
+.mr-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mr-mission-card {
+  position: relative;
+  background-color: #FFFDF7;
+  background-image: url('../assets/missions-redesign/fondo-mision.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 24px;
+  border: 2.5px solid rgba(255,255,255,0.95);
+  box-shadow: 0 6px 20px rgba(71,85,105,0.09);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mr-mission-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(71,85,105,0.13);
+}
+
+.mr-mission-card.is-completed { border-color: #BBF7D0; }
+
+/* Fila de estado en la parte superior */
+.mr-card-status-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 14px 0 14px;
+}
+
+/* Cuerpo principal: grid ilustración + contenido */
+.mr-card-main {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  align-items: center;
+  padding: 8px 14px 14px 10px;
+}
+
+/* Zona ilustración */
+.mr-card-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px 4px 4px;
+}
+
+.mr-mission-illus {
+  width: 100%;
+  max-width: 88px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: 12px;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.1));
+}
+
+.mr-mission-icon-emoji {
+  font-size: 52px;
+  line-height: 1;
+  display: block;
+  text-align: center;
+}
+
+/* Zona contenido */
+.mr-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Estado */
+.mr-status-pill {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.mr-status-pill.status-pending    { background: #FEE2E2; color: #DC2626; border: 1px solid #FECACA; }
+.mr-status-pill.status-in-progress{ background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+.mr-status-pill.status-completed  { background: #D1FAE5; color: #059669; border: 1px solid #A7F3D0; }
+
+/* Título */
+.mr-mission-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.mr-mission-title.completed-title { color: #166534; }
+
+/* Etiqueta Auto/Manual */
+.mr-tag-pill {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.mr-tag-pill.tag-auto   { background: #E0F2FE; color: #0284C7; border: 1px solid #BAE6FD; }
+.mr-tag-pill.tag-manual { background: #FEF3C7; color: #D97706; border: 1px solid #FDE68A; }
+
+/* Descripción */
+.mr-mission-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #475569;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Progreso parcial */
+.mr-partial-pill {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  background: #EEF2FF;
+  color: #4F46E5;
+  border: 1px solid #C7D2FE;
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+}
+
+/* Botones */
+.mr-card-action-wrap { margin-top: 2px; }
+
+.mr-action-btn-blue {
+  background: linear-gradient(180deg, #0EA5E9 0%, #0284C7 100%);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(2,132,199,0.32);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.mr-action-btn-blue:hover  { transform: translateY(-1.5px); box-shadow: 0 6px 16px rgba(2,132,199,0.42); }
+.mr-action-btn-blue:active { transform: translateY(0); }
+
+.mr-action-btn-orange {
+  background: linear-gradient(180deg, #FBBF24 0%, #D97706 100%);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(217,119,6,0.32);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.mr-action-btn-orange:hover { transform: translateY(-1.5px); box-shadow: 0 6px 16px rgba(217,119,6,0.42); }
+
+/* Badge cumplida */
+.mr-done-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #15803D;
+  background: #DCFCE7;
+  border: 1.5px solid #86EFAC;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(22,101,52,0.1);
+}
+
+/* ===================================================================
+   4. RESPONSIVE
+   =================================================================== */
+@media (max-width: 400px) {
+  .mr-hero-card     { grid-template-columns: 36% 64%; min-height: 185px; border-radius: 22px; }
+  .mr-puky-wrapper  { min-height: 155px; }
+  .mr-puky-img      { max-width: 140px; }
+  .mr-hero-content  { padding: 12px 12px 12px 6px; gap: 5px; }
+  .mr-hero-title    { font-size: 17px; }
+  .mr-hero-subtitle { font-size: 10px; }
+  .mr-date-text     { font-size: 10px; }
+  .mr-progress-slot { padding: 6px 8px; }
+  .mr-track         { height: 8px; }
+  .mr-card-main     { grid-template-columns: 28% 72%; padding: 6px 12px 12px 8px; }
+  .mr-mission-illus { max-width: 72px; }
+  .mr-mission-title { font-size: 14px; }
+  .mr-mission-desc  { font-size: 11.5px; }
+  .mr-action-btn-blue, .mr-action-btn-orange { font-size: 11.5px; padding: 7px 14px; }
+}
+
+@media (min-width: 480px) {
+  .mr-hero-card     { grid-template-columns: 35% 65%; min-height: 215px; }
+  .mr-puky-img      { max-width: 185px; }
+  .mr-hero-title    { font-size: 23px; }
+  .mr-mission-illus { max-width: 96px; }
+}
+
+@media (min-width: 600px) {
+  .missions-redesign-container { max-width: 520px; }
+  .mr-hero-card    { border-radius: 32px; }
+  .mr-mission-card { border-radius: 28px; }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .mr-stars-img, .mr-mission-card,
+  .mr-action-btn-blue, .mr-action-btn-orange, .mr-track-fill {
+    animation: none !important;
+    transition: none !important;
+  }
+}

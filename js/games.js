@@ -412,6 +412,16 @@ class KiddoGames {
     const totalToMatch = this._memoryPairs;
     if (st.matched >= totalToMatch) {
       const elapsed = Math.round((Date.now() - st.startTime) / 1000);
+      if (window.KiddoMissionEvents) {
+        window.KiddoMissionEvents.emit('game_completed', {
+          gameId: 'memory',
+          size: st.size,
+          difficulty: st.size === 3 ? 'easy' : st.size === 6 ? 'medium' : 'hard',
+          matched: st.matched,
+          attempts: st.attempts,
+          elapsedSeconds: elapsed
+        });
+      }
       this._setTimeout(() => {
         const zone = this._getContentZone();
         if (!zone) return;
@@ -571,6 +581,14 @@ class KiddoGames {
         this._renderMathQuestion();
       } else {
         const typeName = st.type === 'sumas' ? 'Sumas' : 'Restas';
+        if (window.KiddoMissionEvents) {
+          window.KiddoMissionEvents.emit('game_completed', {
+            gameId: st.type === 'sumas' ? 'sums' : 'subtraction',
+            type: st.type,
+            score: st.score,
+            total: st.questions.length
+          });
+        }
         this._showResult(st.score, st.questions.length, `¡Fin de ${typeName}!`, null, `
           <button class="game-btn-primary" onclick="window.kiddoGames._startMathGame('${st.type}')">🔄 Jugar otra vez</button>
           <button class="game-btn-secondary" onclick="window.kiddoGames.closeGame()">🏠 Volver a Juegos</button>
@@ -704,6 +722,14 @@ class KiddoGames {
         this._updateProgress(st.current + 1, st.questions.length);
         this._renderMultQuestion();
       } else {
+        if (window.KiddoMissionEvents) {
+          window.KiddoMissionEvents.emit('game_completed', {
+            gameId: 'multiplication',
+            tableNum: st.tableNum,
+            score: st.score,
+            total: 10
+          });
+        }
         this._showResult(st.score, 10,
           `¡Completaste la tabla del ${st.tableNum}!`, null, `
           <button class="game-btn-primary" onclick="window.kiddoGames._startTimesTable(${st.tableNum})">🔄 Practicar nuevamente</button>
@@ -871,6 +897,14 @@ class KiddoGames {
         this._updateProgress(st.current + 1, st.questions.length);
         this._renderDivQuestion();
       } else {
+        if (window.KiddoMissionEvents) {
+          window.KiddoMissionEvents.emit('game_completed', {
+            gameId: 'division',
+            digits: st.digits,
+            score: st.score,
+            total: 10
+          });
+        }
         this._showResult(st.score, 10, '¡División completada!', null, `
           <button class="game-btn-primary" onclick="window.kiddoGames._startDivision(${st.digits})">🔄 Jugar otra vez</button>
           <button class="game-btn-secondary" onclick="window.kiddoGames.openDivision()">➗ Cambiar dificultad</button>
@@ -1064,6 +1098,13 @@ class KiddoGames {
         this._updateProgress(st.current + 1, st.questions.length);
         this._renderClockQuestion();
       } else {
+        if (window.KiddoMissionEvents) {
+          window.KiddoMissionEvents.emit('game_completed', {
+            gameId: 'clock',
+            score: st.score,
+            total: 10
+          });
+        }
         this._showResult(st.score, 10, '¡Eres un experto del tiempo!', null, `
           <button class="game-btn-primary" onclick="window.kiddoGames.openClock()">🔄 Jugar otra vez</button>
           <button class="game-btn-secondary" onclick="window.kiddoGames.closeGame()">🏠 Volver a Juegos</button>
@@ -1174,6 +1215,13 @@ class KiddoGames {
         this._updateProgress(st.current + 1, st.pool.length);
         this._renderSyllQuestion();
       } else {
+        if (window.KiddoMissionEvents) {
+          window.KiddoMissionEvents.emit('game_completed', {
+            gameId: 'syllables',
+            score: st.score,
+            total: 10
+          });
+        }
         this._showResult(st.score, 10, '¡Experto en sílabas!', null, `
           <button class="game-btn-primary" onclick="window.kiddoGames.openSyllables()">🔄 Jugar otra vez</button>
           <button class="game-btn-secondary" onclick="window.kiddoGames.closeGame()">🏠 Volver a Juegos</button>
@@ -1330,6 +1378,13 @@ class KiddoGames {
 
     if (isCorrect) st.score++;
 
+    if (window.KiddoMissionEvents) {
+      window.KiddoMissionEvents.emit('word_completed', {
+        word: item.word,
+        isCorrect: isCorrect
+      });
+    }
+
     if (window.kiddoAudio) {
       if (isCorrect && typeof window.kiddoAudio.playSuccessChime === 'function') window.kiddoAudio.playSuccessChime();
       else if (typeof window.kiddoAudio.playBubbleSound === 'function') window.kiddoAudio.playBubbleSound();
@@ -1345,6 +1400,13 @@ class KiddoGames {
         this._updateProgress(st.current + 1, st.pool.length);
         this._renderWordBuilderQuestion();
       } else {
+        if (window.KiddoMissionEvents) {
+          window.KiddoMissionEvents.emit('game_completed', {
+            gameId: 'words',
+            score: st.score,
+            total: 10
+          });
+        }
         this._showResult(st.score, 10, '¡Palabras completadas!', null, `
           <button class="game-btn-primary" onclick="window.kiddoGames.openWordBuilder()">🔄 Jugar otra vez</button>
           <button class="game-btn-secondary" onclick="window.kiddoGames.closeGame()">🏠 Volver a Juegos</button>

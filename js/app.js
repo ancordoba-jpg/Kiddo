@@ -143,6 +143,10 @@ class KiddoApp {
 
     if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
 
+    if (window.kiddoMissions) {
+      window.kiddoMissions.loadOrInitializeState();
+    }
+
     // 1. Ocultar completamente la pantalla de registro
     const loginScreen = document.getElementById('screen-login');
     if (loginScreen) {

@@ -1,114 +1,1818 @@
 /**
- * Gestor de Misiones Diarias (Dentro y Fuera de la Aplicación)
+ * ===================================================================
+ * KIDDO — SISTEMA INTEGRAL DE MISIONES DIARIAS Y NIVELES
+ * ===================================================================
+ * Misiones Automáticas (Dentro de Kiddo) y Manuales (Vida Diaria).
+ * Adaptación por Edad, Persistencia Versionada, Reinicio Diario Real
+ * y Conexión Directa con Juegos, Cuentos y Piano Virtual.
  */
 
-class KiddoMissionsManager {
+// ===================================================================
+// 1. SISTEMA CENTRALIZADO DE EVENTOS: KiddoMissionEvents
+// ===================================================================
+class KiddoMissionEventBus {
   constructor() {
-    this.missions = KIDDO_DATA.missions;
+    this._listeners = {};
+    this._processedEventIds = new Set();
   }
 
-  render(containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const inAppMissions = this.missions.filter(m => m.type === 'in_app');
-    const outAppMissions = this.missions.filter(m => m.type === 'out_app');
-
-    const completedCount = this.missions.filter(m => m.completed).length;
-    const totalCount = this.missions.length;
-    const progressPercent = Math.round((completedCount / totalCount) * 100);
-
-    container.innerHTML = `
-      <!-- Cabecera de progreso diario -->
-      <div class="missions-header-card">
-        <div class="missions-header-info">
-          <h2>Lista de Misiones Diarias ⭐</h2>
-          <p>¡Completa tus tareas dentro de la app y en tu día a día!</p>
-        </div>
-        <div class="missions-progress-bar-wrap">
-          <div class="missions-progress-meta">
-            <span>Progreso de hoy: <strong>${completedCount} de ${totalCount} completadas</strong></span>
-            <span class="missions-percent-badge">${progressPercent}%</span>
-          </div>
-          <div class="missions-progress-track">
-            <div class="missions-progress-fill" style="width: ${progressPercent}%;"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sección 1: Misiones dentro de la app -->
-      <div class="missions-category-block">
-        <div class="missions-cat-title">
-          <span class="missions-cat-icon">📱</span>
-          <h3>Misiones en la Aplicación</h3>
-        </div>
-        <div class="missions-list">
-          ${inAppMissions.map(m => this.renderMissionItem(m)).join('')}
-        </div>
-      </div>
-
-      <!-- Sección 2: Misiones fuera de la app (vida diaria) -->
-      <div class="missions-category-block">
-        <div class="missions-cat-title">
-          <span class="missions-cat-icon">🌟</span>
-          <h3>Misiones para realizar fuera de la aplicación</h3>
-        </div>
-        <div class="missions-list">
-          ${outAppMissions.map(m => this.renderMissionItem(m)).join('')}
-        </div>
-      </div>
-    `;
+  on(eventName, callback) {
+    if (!this._listeners[eventName]) {
+      this._listeners[eventName] = [];
+    }
+    this._listeners[eventName].push(callback);
   }
 
-  renderMissionItem(mission) {
-    const isDone = mission.completed;
-    return `
-      <div class="mission-item-card ${isDone ? 'is-completed' : 'is-pending'}" id="mission-${mission.id}" onclick="window.kiddoMissions.toggleMission('${mission.id}')">
-        <div class="mission-checkbox ${isDone ? 'checked' : ''}">
-          ${isDone ? '✓' : ''}
-        </div>
-        <div class="mission-icon-wrap">
-          <span class="mission-icon">${mission.icon}</span>
-        </div>
-        <div class="mission-details">
-          <div class="mission-top-row">
-            <h4 class="mission-title ${isDone ? 'strikethrough' : ''}">${mission.title}</h4>
-            <span class="mission-tag-badge ${mission.type}">${mission.tag}</span>
-          </div>
-          <p class="mission-desc">${mission.description}</p>
-        </div>
-        <div class="mission-status-indicator">
-          <span class="status-pill ${isDone ? 'completed-pill' : 'pending-pill'}">
-            ${isDone ? '¡Completada!' : 'Pendiente'}
-          </span>
-        </div>
-      </div>
-    `;
+  off(eventName, callback) {
+    if (!this._listeners[eventName]) return;
+    this._listeners[eventName] = this._listeners[eventName].filter(cb => cb !== callback);
   }
 
-  toggleMission(missionId) {
-    const mission = this.missions.find(m => m.id === missionId);
-    if (!mission) return;
+  emit(eventName, payload = {}) {
+    // Protección contra duplicados accidentales
+    const eventId = payload.eventId || `${eventName}-${Date.now()}-${Math.random()}`;
+    if (this._processedEventIds.has(eventId)) {
+      return;
+    }
+    this._processedEventIds.add(eventId);
 
-    mission.completed = !mission.completed;
-
-    if (mission.completed) {
-      if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
-      if (window.kiddoApp) {
-        window.kiddoApp.addRecentActivity({
-          type: 'mission',
-          icon: '⭐',
-          title: `Misión: ${mission.title}`,
-          subtitle: '¡Misión completada con éxito!',
-          color: '#C6F6D5'
-        });
-      }
-    } else {
-      if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    // Mantener tamaño acotado del buffer de IDs
+    if (this._processedEventIds.size > 200) {
+      const firstEntry = this._processedEventIds.values().next().value;
+      this._processedEventIds.delete(firstEntry);
     }
 
-    this.render('missions-content-container');
+    const eventData = {
+      ...payload,
+      eventName,
+      eventId,
+      timestamp: payload.timestamp || Date.now()
+    };
+
+    if (this._listeners[eventName]) {
+      this._listeners[eventName].forEach(cb => {
+        try {
+          cb(eventData);
+        } catch (err) {
+          console.error(`[KiddoMissionEvents] Error al procesar evento '${eventName}':`, err);
+        }
+      });
+    }
+
+    // Listener universal para el gestor de misiones
+    if (window.kiddoMissions && typeof window.kiddoMissions.onEventReceived === 'function') {
+      try {
+        window.kiddoMissions.onEventReceived(eventName, eventData);
+      } catch (err) {
+        console.error('[KiddoMissionEvents] Error en kiddoMissions.onEventReceived:', err);
+      }
+    }
   }
 }
 
+window.KiddoMissionEvents = new KiddoMissionEventBus();
+
+
+// ===================================================================
+// 2. BANCO COMPLETO DE MISIONES
+// ===================================================================
+
+const KIDDO_MISSION_BANKS = {
+  // MISIONES DENTRO DE LA APP (AUTOMÁTICAS)
+  in_app: [
+    // ----------------- Grupo 4-6 años -----------------
+    {
+      id: 'in-mem-easy',
+      ageGroups: ['4-6'],
+      category: 'game',
+      icon: '🧠',
+      title: 'Encontrá las parejas',
+      description: 'Completá una partida de Memoria en tablero 3×3 (Fácil).',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'memory', param: 3 },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'memory' &&
+          (event.size === 3 || event.difficulty === 'easy');
+      }
+    },
+    {
+      id: 'in-sums-easy',
+      ageGroups: ['4-6'],
+      category: 'game',
+      icon: '➕',
+      title: 'Desafío de sumas',
+      description: 'Terminá una ronda de sumas con al menos 5 aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'sums' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'sums' &&
+          (event.score >= 5);
+      }
+    },
+    {
+      id: 'in-subs-easy',
+      ageGroups: ['4-6'],
+      category: 'game',
+      icon: '➖',
+      title: 'Aventura de restas',
+      description: 'Terminá una ronda de restas con al menos 5 aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'subtraction' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'subtraction' &&
+          (event.score >= 5);
+      }
+    },
+    {
+      id: 'in-syll-easy',
+      ageGroups: ['4-6'],
+      category: 'game',
+      icon: '🔤',
+      title: 'Descubrí las sílabas',
+      description: 'Completá una ronda del juego de sílabas con al menos 5 aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'syllables' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'syllables' &&
+          (event.score >= 5);
+      }
+    },
+    {
+      id: 'in-words-easy',
+      ageGroups: ['4-6'],
+      category: 'game',
+      icon: '🧩',
+      title: 'Pequeño constructor de palabras',
+      description: 'Armá 3 palabras correctamente en el juego de palabras.',
+      target: 3,
+      targetLabel: 'palabras',
+      navigation: { screen: 'juegos', action: 'words' },
+      evaluator: (event, mission) => {
+        if (event.eventName === 'word_completed' && event.isCorrect) {
+          return 1; // suma 1 al progreso acumulado
+        }
+        return false;
+      }
+    },
+    {
+      id: 'in-story-caperucita',
+      ageGroups: ['4-6'],
+      category: 'story',
+      icon: '👧🧺',
+      title: 'Hora del cuento: Caperucita',
+      description: 'Leé el cuento completo de Caperucita Roja hasta el final.',
+      target: 1,
+      targetLabel: 'cuento',
+      navigation: { screen: 'cuentos', action: 'story', param: 'caperucita' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'story_completed' && event.storyId === 'caperucita';
+      }
+    },
+    {
+      id: 'in-story-cerditos',
+      ageGroups: ['4-6'],
+      category: 'story',
+      icon: '🐷🏠',
+      title: 'Hora del cuento: Los tres cerditos',
+      description: 'Leé el cuento completo de Los tres cerditos hasta el final.',
+      target: 1,
+      targetLabel: 'cuento',
+      navigation: { screen: 'cuentos', action: 'story', param: 'tres-cerditos' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'story_completed' && event.storyId === 'tres-cerditos';
+      }
+    },
+    {
+      id: 'in-piano-1min',
+      ageGroups: ['4-6'],
+      category: 'music',
+      icon: '🎹',
+      title: 'Pequeño pianista',
+      description: 'Tocá el piano de Puky durante 1 minuto de práctica activa.',
+      target: 60, // 60 segundos activos
+      targetLabel: 'segundos',
+      navigation: { screen: 'musica', action: 'piano' },
+      evaluator: (event, mission) => {
+        if (event.eventName === 'piano_activity' && event.secondsGained) {
+          return event.secondsGained; // suma segundos
+        }
+        return false;
+      }
+    },
+
+    // ----------------- Grupo 7-9 años -----------------
+    {
+      id: 'in-mem-med',
+      ageGroups: ['7-9'],
+      category: 'game',
+      icon: '🧠',
+      title: 'Supermemoria 6×6',
+      description: 'Completá una partida de Memoria en tablero 6×6 (Medio).',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'memory', param: 6 },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'memory' &&
+          (event.size === 6 || event.difficulty === 'medium');
+      }
+    },
+    {
+      id: 'in-sums-med',
+      ageGroups: ['7-9'],
+      category: 'game',
+      icon: '➕',
+      title: 'Maestro de sumas',
+      description: 'Completá el juego de sumas con 7 o más respuestas correctas.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'sums' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'sums' &&
+          (event.score >= 7);
+      }
+    },
+    {
+      id: 'in-subs-med',
+      ageGroups: ['7-9'],
+      category: 'game',
+      icon: '➖',
+      title: 'Maestro de restas',
+      description: 'Completá el juego de restas con 7 o más respuestas correctas.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'subtraction' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'subtraction' &&
+          (event.score >= 7);
+      }
+    },
+    {
+      id: 'in-mult-med',
+      ageGroups: ['7-9'],
+      category: 'game',
+      icon: '✖️',
+      title: 'Tablas de multiplicar',
+      description: 'Completá una ronda de multiplicación con 7 o más aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'multiplication' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'multiplication' &&
+          (event.score >= 7);
+      }
+    },
+    {
+      id: 'in-clock-med',
+      ageGroups: ['7-9'],
+      category: 'game',
+      icon: '⏰',
+      title: 'Aprendiz del reloj',
+      description: 'Completá el juego de la hora con 6 o más aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'clock' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'clock' &&
+          (event.score >= 6);
+      }
+    },
+    {
+      id: 'in-words-med',
+      ageGroups: ['7-9'],
+      category: 'game',
+      icon: '🧩',
+      title: 'Palabras sin parar',
+      description: 'Armá 5 palabras correctamente en el juego de palabras.',
+      target: 5,
+      targetLabel: 'palabras',
+      navigation: { screen: 'juegos', action: 'words' },
+      evaluator: (event, mission) => {
+        if (event.eventName === 'word_completed' && event.isCorrect) {
+          return 1;
+        }
+        return false;
+      }
+    },
+    {
+      id: 'in-story-patito',
+      ageGroups: ['7-9'],
+      category: 'story',
+      icon: '🦆🦢',
+      title: 'Hora del cuento: El patito feo',
+      description: 'Leé el cuento completo de El patito feo hasta el final.',
+      target: 1,
+      targetLabel: 'cuento',
+      navigation: { screen: 'cuentos', action: 'story', param: 'patito-feo' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'story_completed' && event.storyId === 'patito-feo';
+      }
+    },
+    {
+      id: 'in-story-cenicienta',
+      ageGroups: ['7-9'],
+      category: 'story',
+      icon: '👠✨',
+      title: 'Hora del cuento: Cenicienta',
+      description: 'Leé el cuento completo de Cenicienta hasta el final.',
+      target: 1,
+      targetLabel: 'cuento',
+      navigation: { screen: 'cuentos', action: 'story', param: 'cenicienta' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'story_completed' && event.storyId === 'cenicienta';
+      }
+    },
+    {
+      id: 'in-piano-2min',
+      ageGroups: ['7-9'],
+      category: 'music',
+      icon: '🎹',
+      title: 'Melodía creativa',
+      description: 'Tocá el piano de Puky durante 2 minutos de práctica activa.',
+      target: 120, // 120 segundos
+      targetLabel: 'segundos',
+      navigation: { screen: 'musica', action: 'piano' },
+      evaluator: (event, mission) => {
+        if (event.eventName === 'piano_activity' && event.secondsGained) {
+          return event.secondsGained;
+        }
+        return false;
+      }
+    },
+
+    // ----------------- Grupo 10-12 años -----------------
+    {
+      id: 'in-mem-hard',
+      ageGroups: ['10-12'],
+      category: 'game',
+      icon: '🧠',
+      title: 'Desafío Memoria 7×7',
+      description: 'Superá el tablero de Memoria 7×7 con Puky incluido.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'memory', param: 7 },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'memory' &&
+          (event.size === 7 || event.difficulty === 'hard');
+      }
+    },
+    {
+      id: 'in-math-challenge',
+      ageGroups: ['10-12'],
+      category: 'game',
+      icon: '➕',
+      title: 'Reto de cálculo mental',
+      description: 'Completá sumas o restas con 8 o más aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'sums' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          (event.gameId === 'sums' || event.gameId === 'subtraction') &&
+          (event.score >= 8);
+      }
+    },
+    {
+      id: 'in-mult-advanced',
+      ageGroups: ['10-12'],
+      category: 'game',
+      icon: '✖️',
+      title: 'Experto en multiplicación',
+      description: 'Completá una ronda de tablas con 8 o más aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'multiplication' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'multiplication' &&
+          (event.score >= 8);
+      }
+    },
+    {
+      id: 'in-div-challenge',
+      ageGroups: ['10-12'],
+      category: 'game',
+      icon: '÷',
+      title: 'Misión división',
+      description: 'Completá el juego de divisiones con al menos 7 aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'division' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'division' &&
+          (event.score >= 7);
+      }
+    },
+    {
+      id: 'in-clock-advanced',
+      ageGroups: ['10-12'],
+      category: 'game',
+      icon: '⏰',
+      title: 'Maestro del tiempo',
+      description: 'Completá el juego de la hora con 8 o más aciertos.',
+      target: 1,
+      targetLabel: 'partida',
+      navigation: { screen: 'juegos', action: 'clock' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'game_completed' &&
+          event.gameId === 'clock' &&
+          (event.score >= 8);
+      }
+    },
+    {
+      id: 'in-words-hard',
+      ageGroups: ['10-12'],
+      category: 'game',
+      icon: '🧩',
+      title: 'Gran constructor de palabras',
+      description: 'Armá 8 palabras correctamente en el juego de palabras.',
+      target: 8,
+      targetLabel: 'palabras',
+      navigation: { screen: 'juegos', action: 'words' },
+      evaluator: (event, mission) => {
+        if (event.eventName === 'word_completed' && event.isCorrect) {
+          return 1;
+        }
+        return false;
+      }
+    },
+    {
+      id: 'in-story-blancanieves',
+      ageGroups: ['10-12'],
+      category: 'story',
+      icon: '🍎👑',
+      title: 'Hora del cuento: Blancanieves',
+      description: 'Leé el cuento completo de Blancanieves hasta el final.',
+      target: 1,
+      targetLabel: 'cuento',
+      navigation: { screen: 'cuentos', action: 'story', param: 'blancanieves' },
+      evaluator: (event, mission) => {
+        return event.eventName === 'story_completed' && event.storyId === 'blancanieves';
+      }
+    },
+    {
+      id: 'in-piano-3min',
+      ageGroups: ['10-12'],
+      category: 'music',
+      icon: '🎹',
+      title: 'Concierto en el piano',
+      description: 'Tocá el piano de Puky durante 3 minutos de práctica activa.',
+      target: 180, // 180 segundos
+      targetLabel: 'segundos',
+      navigation: { screen: 'musica', action: 'piano' },
+      evaluator: (event, mission) => {
+        if (event.eventName === 'piano_activity' && event.secondsGained) {
+          return event.secondsGained;
+        }
+        return false;
+      }
+    }
+  ],
+
+  // MISIONES FUERA DE LA APP (MANUALES)
+  out_app: [
+    // ---------------- Orden y responsabilidad ----------------
+    {
+      id: 'out-ord-juguetes',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '🧸',
+      title: 'Guardar los juguetes',
+      description: 'Dejá tus juguetes guardados en su caja o lugar correspondiente.',
+      confirmMsg: '¿Guardaste tus juguetes en su lugar?'
+    },
+    {
+      id: 'out-ord-cama',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '🛏️',
+      title: 'Tender la cama',
+      description: 'Acomodá tus sábanas y almohada (pedí ayuda si la necesitás).',
+      confirmMsg: '¿Acomodaste o tendiste tu cama hoy?'
+    },
+    {
+      id: 'out-ord-libros',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '📚',
+      title: 'Ordenar los libros',
+      description: 'Colocá los libros o cuadernos bien acomodados en su estante.',
+      confirmMsg: '¿Ordenaste los libros o cuadernos?'
+    },
+    {
+      id: 'out-ord-utiles',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '✏️',
+      title: 'Guardar útiles escolares',
+      description: 'Reuní tus lápices, colores y tijeras en su cartuchera.',
+      confirmMsg: '¿Guardaste todos tus útiles escolares?'
+    },
+    {
+      id: 'out-ord-mochila',
+      ageGroups: ['7-9', '10-12'],
+      category: 'orden',
+      icon: '🎒',
+      title: 'Preparar la mochila',
+      description: 'Revisá y dejá lista la mochila para tus próximas actividades.',
+      confirmMsg: '¿Dejaste lista y ordenada la mochila?'
+    },
+    {
+      id: 'out-ord-ropa',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '👕',
+      title: 'Acomodar la ropa',
+      description: 'Llevá la ropa limpia a su lugar o la ropa para lavar al canasto.',
+      confirmMsg: '¿Acomodaste tu ropa con cuidado?'
+    },
+    {
+      id: 'out-ord-mesa',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '🍽️',
+      title: 'Ayudar a poner la mesa',
+      description: 'Colaborá llevando servilletas, cubiertos o vasos con supervisión.',
+      confirmMsg: '¿Ayudaste a poner la mesa en familia?'
+    },
+    {
+      id: 'out-ord-papeles',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'orden',
+      icon: '🗑️',
+      title: 'Lugar de estudio limpio',
+      description: 'Recogé papeles o restos de punta de lápiz de tu mesa de trabajo.',
+      confirmMsg: '¿Dejaste tu espacio de estudio libre de papeles?'
+    },
+    {
+      id: 'out-ord-espacio',
+      ageGroups: ['7-9', '10-12'],
+      category: 'orden',
+      icon: '✨',
+      title: 'Espacio personal impecable',
+      description: 'Elegí un pequeño rincón o cajón y dejalo bien organizado.',
+      confirmMsg: '¿Organizaste un pequeño espacio personal?'
+    },
+
+    // ---------------- Creatividad ----------------
+    {
+      id: 'out-crea-animal',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'creatividad',
+      icon: '🎨',
+      title: 'Dibujar un animal',
+      description: 'Dibujá en una hoja a tu animal preferido y mostráselo a alguien.',
+      confirmMsg: '¿Hiciste el dibujo de tu animal favorito?'
+    },
+    {
+      id: 'out-crea-arcoiris',
+      ageGroups: ['4-6', '7-9'],
+      category: 'creatividad',
+      icon: '🌈',
+      title: 'Dibujar un arcoíris',
+      description: 'Pintá un arcoíris brillante con tus colores más alegres.',
+      confirmMsg: '¿Pintaste tu arcoíris de colores?'
+    },
+    {
+      id: 'out-crea-casa',
+      ageGroups: ['4-6', '7-9'],
+      category: 'creatividad',
+      icon: '🏡',
+      title: 'Dibujar una casa fantástica',
+      description: 'Inventá una casa con ventanas mágicas, chimenea o jardín.',
+      confirmMsg: '¿Dibujaste tu casa fantástica?'
+    },
+    {
+      id: 'out-crea-familia',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'creatividad',
+      icon: '👨‍👩‍👧',
+      title: 'Dibujo para personas queridas',
+      description: 'Creá un dibujo especial dedicado a tu familia o amigos.',
+      confirmMsg: '¿Hiciste un dibujo con cariño para alguien querido?'
+    },
+    {
+      id: 'out-crea-personaje',
+      ageGroups: ['7-9', '10-12'],
+      category: 'creatividad',
+      icon: '🦸',
+      title: 'Inventar un personaje',
+      description: 'Creá un personaje nuevo, dale un nombre y un poder divertido.',
+      confirmMsg: '¿Inventaste tu personaje original?'
+    },
+    {
+      id: 'out-crea-historia',
+      ageGroups: ['7-9', '10-12'],
+      category: 'creatividad',
+      icon: '📝',
+      title: 'Crear una historia corta',
+      description: 'Escribí o contale a un adulto un cuento breve de tres momentos.',
+      confirmMsg: '¿Creaste y compartiste tu historia corta?'
+    },
+    {
+      id: 'out-crea-origami',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'creatividad',
+      icon: '📄',
+      title: 'Figura con papel',
+      description: 'Hacé un barquito, un avión de papel o una figura plegada.',
+      confirmMsg: '¿Plegaste una linda figura con papel?'
+    },
+    {
+      id: 'out-crea-bloques',
+      ageGroups: ['4-6', '7-9'],
+      category: 'creatividad',
+      icon: '🧱',
+      title: 'Construir con bloques',
+      description: 'Armá una torre, puente o castillo con bloques o cajas.',
+      confirmMsg: '¿Construiste algo divertido con bloques?'
+    },
+    {
+      id: 'out-crea-3colores',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'creatividad',
+      icon: '🖍️',
+      title: 'Reto de tres colores',
+      description: 'Elegí solamente 3 lápices de color y hacé un dibujo completo.',
+      confirmMsg: '¿Completaste el dibujo usando solo tres colores?'
+    },
+    {
+      id: 'out-crea-feliz',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'creatividad',
+      icon: '⭐',
+      title: 'Dibujar lo que te hizo sonreír',
+      description: 'Dibujá un momento lindo que hayas vivido hoy o esta semana.',
+      confirmMsg: '¿Dibujaste un momento que te hizo sonreír?'
+    },
+
+    // ---------------- Familia y convivencia ----------------
+    {
+      id: 'out-fam-abrazo',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '🤗',
+      title: 'Gesto de cariño o saludo amable',
+      description: 'Dale un abrazo a alguien de confianza si ambos quieren, o regalá una sonrisa cálida.',
+      confirmMsg: '¿Compartiste un gesto de cariño o saludo amable?'
+    },
+    {
+      id: 'out-fam-amable',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '💬',
+      title: 'Decir algo amable',
+      description: 'Hacé un cumplido sincero a un familiar, compañero o cuidador.',
+      confirmMsg: '¿Dijiste algo amable a otra persona hoy?'
+    },
+    {
+      id: 'out-fam-ayuda',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '🤝',
+      title: 'Ayudar en una tarea sencilla',
+      description: 'Preguntale a alguien en casa en qué pequeña cosa podés colaborar.',
+      confirmMsg: '¿Colaboraste con una tarea sencilla en casa?'
+    },
+    {
+      id: 'out-fam-juego',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '🎲',
+      title: 'Compartir un juego',
+      description: 'Jugá a la ronda, a las cartas o a un juego de mesa en familia.',
+      confirmMsg: '¿Compartiste un juego divertido con alguien?'
+    },
+    {
+      id: 'out-fam-gracias',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '🙏',
+      title: 'Dar las gracias',
+      description: 'Agradecé con cariño por una comida, una ayuda o un lindo momento.',
+      confirmMsg: '¿Distes las gracias con una sonrisa hoy?'
+    },
+    {
+      id: 'out-fam-escuchar',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '👂',
+      title: 'Escuchar con atención',
+      description: 'Escuchá atentamente lo que otra persona te cuente sin interrumpir.',
+      confirmMsg: '¿Escuchaste con atención y respeto a otra persona?'
+    },
+    {
+      id: 'out-fam-contar',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'familia',
+      icon: '💡',
+      title: 'Compartir lo aprendido',
+      description: 'Contale a alguien un dato curioso o algo divertido que aprendiste hoy.',
+      confirmMsg: '¿Compartiste con alguien algo interesante que aprendiste?'
+    },
+
+    // ---------------- Hábitos saludables ----------------
+    {
+      id: 'out-hab-fruta',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '🍎',
+      title: 'Comer una fruta rica',
+      description: 'Disfrutá una manzana, banana o tu fruta preferida, con permiso de un adulto.',
+      confirmMsg: '¿Comiste una fruta saludable hoy?'
+    },
+    {
+      id: 'out-hab-agua',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '💧',
+      title: 'Tomar un vaso de agua',
+      description: 'Mantenete fresco e hidratado bebiendo un buen vaso de agua pura.',
+      confirmMsg: '¿Tomaste un vaso de agua fresca?'
+    },
+    {
+      id: 'out-hab-manos',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '🧼',
+      title: 'Lavarse las manos',
+      description: 'Lavate bien las manos con agua y jabón cantando una cancioncita.',
+      confirmMsg: '¿Te lavaste las manos con agua y jabón?'
+    },
+    {
+      id: 'out-hab-dientes',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '🪥',
+      title: 'Cepillarse los dientes',
+      description: 'Cepillá tus dientes con cuidado después de comer o antes de descansar.',
+      confirmMsg: '¿Te cepillaste los dientes cuidadosamente?'
+    },
+    {
+      id: 'out-hab-bailar',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '💃',
+      title: 'Bailar una canción',
+      description: 'Poné tu música favorita y bailá libremente llenando tu cuerpo de energía.',
+      confirmMsg: '¿Bailaste tu canción favorita?'
+    },
+    {
+      id: 'out-hab-estirar',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '🤸',
+      title: 'Movimientos suaves',
+      description: 'Estirá los brazos hacia el cielo y rotá los hombros suavemente.',
+      confirmMsg: '¿Realizaste movimientos suaves y estiramiento?'
+    },
+    {
+      id: 'out-hab-aire',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '🌳',
+      title: 'Jugar al aire libre',
+      description: 'Tomá un poco de sol o disfrutá unos minutos en el patio o balcón seguro.',
+      confirmMsg: '¿Disfrutaste un momento al aire libre?'
+    },
+    {
+      id: 'out-hab-pantallas',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '👀',
+      title: 'Pausa de pantallas',
+      description: 'Apartá la vista de pantallas durante 15 minutos y mirá a lo lejos.',
+      confirmMsg: '¿Hiciste una pausa de pantallas de al menos 15 minutos?'
+    },
+    {
+      id: 'out-hab-respirar',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'salud',
+      icon: '🧘',
+      title: 'Respiraciones tranquilas',
+      description: 'Hacé 3 respiraciones profundas inflando la panza como un globito.',
+      confirmMsg: '¿Practicaste tus 3 respiraciones tranquilas?'
+    },
+
+    // ---------------- Aprendizaje ----------------
+    {
+      id: 'out-apr-tarea',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'aprendizaje',
+      icon: '📖',
+      title: 'Actividad escolar o curiosidad',
+      description: 'Realizá una tarea de la escuela o investigá algo que te dé curiosidad.',
+      confirmMsg: '¿Avanzaste con tus tareas o descubriste algo nuevo?'
+    },
+    {
+      id: 'out-apr-lectura',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'aprendizaje',
+      icon: '📕',
+      title: 'Practicar lectura en papel',
+      description: 'Leé al menos dos páginas de un libro o historieta física.',
+      confirmMsg: '¿Practicaste lectura en un libro o revista?'
+    },
+    {
+      id: 'out-apr-escribir',
+      ageGroups: ['4-6', '7-9'],
+      category: 'aprendizaje',
+      icon: '✍️',
+      title: 'Escribir tres palabras',
+      description: 'Escribí tres palabras lindas en un papel (ej: SOL, PAZ, AMOR).',
+      confirmMsg: '¿Escribiste tus tres palabras en una hoja?'
+    },
+    {
+      id: 'out-apr-contar',
+      ageGroups: ['4-6', '7-9'],
+      category: 'aprendizaje',
+      icon: '🔢',
+      title: 'Contar objetos en casa',
+      description: 'Contá cuántas sillas, ventanas o cucharas hay en una habitación.',
+      confirmMsg: '¿Contaste objetos con atención en casa?'
+    },
+    {
+      id: 'out-apr-palabra',
+      ageGroups: ['7-9', '10-12'],
+      category: 'aprendizaje',
+      icon: '💡',
+      title: 'Aprender una palabra nueva',
+      description: 'Buscá en el diccionario o preguntá el significado de una palabra desconocida.',
+      confirmMsg: '¿Aprendiste y usaste una nueva palabra hoy?'
+    },
+    {
+      id: 'out-apr-figuras',
+      ageGroups: ['4-6', '7-9'],
+      category: 'aprendizaje',
+      icon: '🔺',
+      title: 'Buscar figuras geométricas',
+      description: 'Encontrá en tu casa un círculo, un cuadrado y un rectángulo.',
+      confirmMsg: '¿Identificaste tres figuras geométricas a tu alrededor?'
+    },
+    {
+      id: 'out-apr-planta',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'aprendizaje',
+      icon: '🌱',
+      title: 'Observar y cuidar una planta',
+      description: 'Mirá la forma de sus hojas y ayudá a regarla con permiso.',
+      confirmMsg: '¿Observaste o cuidaste una plantita?'
+    },
+    {
+      id: 'out-apr-leeradul',
+      ageGroups: ['4-6', '7-9', '10-12'],
+      category: 'aprendizaje',
+      icon: '👥',
+      title: 'Leer junto a un adulto',
+      description: 'Compartí unos minutos de lectura compartida con mamá, papá o un familiar.',
+      confirmMsg: '¿Leíste unos minutos junto a un adulto?'
+    }
+  ]
+};
+
+
+// ===================================================================
+// 3. MAPA CENTRALIZADO DE ILUSTRACIONES DE MISIONES
+// ===================================================================
+// Clave: id de misión o categoría → ruta real del PNG en assets/missions-redesign/
+// Todos los archivos tienen extensión .png.png por como fueron subidos al proyecto.
+
+const MISSION_IMAGE_MAP = {
+  // === POR ID ESPECÍFICO (mayor prioridad) ===
+
+  // Memoria
+  'in-mem-easy': 'assets/missions-redesign/logo.juegodememoria.png.png',
+  'in-mem-med':  'assets/missions-redesign/logo.juegodememoria.png.png',
+  'in-mem-hard': 'assets/missions-redesign/logo.juegodememoria.png.png',
+
+  // Sumas
+  'in-sums-easy':      'assets/missions-redesign/logo.sumar.png.png',
+  'in-sums-med':       'assets/missions-redesign/logo.sumar.png.png',
+  'in-math-challenge': 'assets/missions-redesign/logo.sumar.png.png',
+
+  // Restas
+  'in-subs-easy': 'assets/missions-redesign/logo.restas.png.png',
+  'in-subs-med':  'assets/missions-redesign/logo.restas.png.png',
+
+  // Multiplicación
+  'in-mult-med':      'assets/missions-redesign/logo.multiplicar.png.png',
+  'in-mult-advanced': 'assets/missions-redesign/logo.multiplicar.png.png',
+
+  // División
+  'in-div-challenge': 'assets/missions-redesign/logo.division.png.png',
+
+  // Aprender la hora
+  'in-clock-med':      'assets/missions-redesign/logo.aprendeconvideos.png.png',
+  'in-clock-advanced': 'assets/missions-redesign/logo.aprendelahora.png.png',
+
+  // Sílabas
+  'in-syll-easy': 'assets/missions-redesign/logo.silabas.png.png',
+
+  // Palabras
+  'in-words-easy': 'assets/missions-redesign/logo.armarpalabras.png.png',
+  'in-words-med':  'assets/missions-redesign/logo.armarpalabras.png.png',
+  'in-words-hard': 'assets/missions-redesign/logo.armarpalabras.png.png',
+
+  // Cuentos
+  'in-story-caperucita':  'assets/missions-redesign/logo.cuento.caperucita.png.png',
+  'in-story-cerditos':    'assets/missions-redesign/logo.cuento.trescerditos.png.png',
+  'in-story-patito':      'assets/missions-redesign/logo.cuento.papitofeo.png.png',
+  'in-story-cenicienta':  'assets/missions-redesign/logo.cuento.cenicienta.png.png',
+  'in-story-blancanieves':'assets/missions-redesign/logo.cuento.blancanieves.png.png',
+
+  // Piano
+  'in-piano-1min': 'assets/missions-redesign/logo.tocarelpiano.png.png',
+  'in-piano-2min': 'assets/missions-redesign/logo.tocarelpiano.png.png',
+  'in-piano-3min': 'assets/missions-redesign/logo.tocarelpiano.png.png',
+
+  // === MISIONES MANUALES POR ID ===
+
+  // Orden
+  'out-ord-juguetes': 'assets/missions-redesign/logo.juguetes.png.png',
+  'out-ord-cama':     'assets/missions-redesign/logo.cama.png.png',
+  'out-ord-libros':   'assets/missions-redesign/logo.armarpalabras.png.png',
+  'out-ord-utiles':   'assets/missions-redesign/logo.armarpalabras.png.png',
+  'out-ord-mochila':  'assets/missions-redesign/logo.armarpalabras.png.png',
+  'out-ord-ropa':     'assets/missions-redesign/logo.cama.png.png',
+  'out-ord-mesa':     'assets/missions-redesign/logo.fruta.png.png',
+  'out-ord-papeles':  'assets/missions-redesign/logo.juguetes.png.png',
+  'out-ord-espacio':  'assets/missions-redesign/logo.juguetes.png.png',
+
+  // Creatividad / Dibujar
+  'out-crea-animal':     'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-arcoiris':   'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-casa':       'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-familia':    'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-personaje':  'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-historia':   'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-origami':    'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-bloques':    'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-3colores':   'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-feliz':      'assets/missions-redesign/logo.dibujar.png.png',
+
+  // Familia
+  'out-fam-abrazo':   'assets/missions-redesign/logo.abrazar.png.png',
+  'out-fam-amable':   'assets/missions-redesign/logo.agradecer.png.png',
+  'out-fam-ayuda':    'assets/missions-redesign/logo.agradecer.png.png',
+  'out-fam-juego':    'assets/missions-redesign/logo.abrazar.png.png',
+  'out-fam-gracias':  'assets/missions-redesign/logo.agradecer.png.png',
+  'out-fam-escuchar': 'assets/missions-redesign/logo.abrazar.png.png',
+  'out-fam-contar':   'assets/missions-redesign/logo.agradecer.png.png',
+
+  // Salud
+  'out-hab-fruta':     'assets/missions-redesign/logo.fruta.png.png',
+  'out-hab-agua':      'assets/missions-redesign/logo.fruta.png.png',
+  'out-hab-manos':     'assets/missions-redesign/logo.fruta.png.png',
+  'out-hab-dientes':   'assets/missions-redesign/logo.fruta.png.png',
+  'out-hab-bailar':    'assets/missions-redesign/logo.bailar.png.png',
+  'out-hab-estirar':   'assets/missions-redesign/logo.bailar.png.png',
+  'out-hab-aire':      'assets/missions-redesign/logo.bailar.png.png',
+  'out-hab-pantallas': 'assets/missions-redesign/logo.pantalla.png.png',
+  'out-hab-respirar':  'assets/missions-redesign/logo.meditacion.png.png',
+
+  // Aprendizaje
+  'out-apr-tarea':    'assets/missions-redesign/logo.armarpalabras.png.png',
+  'out-apr-lectura':  'assets/missions-redesign/logo.cuento.caperucita.png.png',
+  'out-apr-escribir': 'assets/missions-redesign/logo.silabas.png.png',
+  'out-apr-contar':   'assets/missions-redesign/logo.sumar.png.png',
+  'out-apr-palabra':  'assets/missions-redesign/logo.armarpalabras.png.png',
+  'out-apr-figuras':  'assets/missions-redesign/logo.sumar.png.png',
+  'out-apr-planta':   'assets/missions-redesign/logo.fruta.png.png',
+  'out-apr-leeradul': 'assets/missions-redesign/logo.cuento.caperucita.png.png'
+};
+
+// Función auxiliar para obtener la ilustración de una misión
+function getMissionImage(missionId, category) {
+  // 1. Buscar por ID específico
+  if (MISSION_IMAGE_MAP[missionId]) {
+    return MISSION_IMAGE_MAP[missionId];
+  }
+  // 2. Fallback por categoría
+  const categoryFallbacks = {
+    'game':  'assets/missions-redesign/logo.juegodememoria.png.png',
+    'story': 'assets/missions-redesign/logo.cuento.caperucita.png.png',
+    'music': 'assets/missions-redesign/logo.tocarelpiano.png.png',
+    'orden': 'assets/missions-redesign/logo.juguetes.png.png',
+    'creatividad': 'assets/missions-redesign/logo.dibujar.png.png',
+    'familia': 'assets/missions-redesign/logo.abrazar.png.png',
+    'salud': 'assets/missions-redesign/logo.fruta.png.png',
+    'aprendizaje': 'assets/missions-redesign/logo.armarpalabras.png.png'
+  };
+  return categoryFallbacks[category] || null;
+}
+
+// ===================================================================
+// 3. MOTOR PRINCIPAL DE MISIONES: KiddoMissionsManager
+// ===================================================================
+
+class KiddoMissionsManager {
+  constructor() {
+    this.STORAGE_VERSION = 1;
+    this.CONFIG = {
+      inAppCount: 3,
+      outAppCount: 3,
+      starsRequiredPerLevel: 5
+    };
+
+    this.pendingConfirmMissionId = null;
+    this.state = null;
+    this.init();
+  }
+
+  // Identificador de usuario activo
+  getProfileId() {
+    try {
+      if (typeof KIDDO_DATA !== 'undefined' && KIDDO_DATA?.user?.name) {
+        return KIDDO_DATA.user.name.toLowerCase().trim();
+      }
+    } catch (e) { }
+    return 'default_user';
+  }
+
+  // Cálculo de la edad a partir de la fecha de nacimiento
+  getChildAge() {
+    try {
+      const birthStr = typeof KIDDO_DATA !== 'undefined' ? KIDDO_DATA?.user?.birthdate : null;
+      if (!birthStr) return 6; // Edad orientativa por defecto (Mateo)
+
+      let birthDate;
+      if (birthStr.includes('/')) {
+        const parts = birthStr.split('/');
+        if (parts.length === 3) {
+          birthDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+        }
+      } else {
+        birthDate = new Date(birthStr);
+      }
+
+      if (isNaN(birthDate.getTime())) return 6;
+
+      const now = new Date();
+      let age = now.getFullYear() - birthDate.getFullYear();
+      const m = now.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return Math.max(3, Math.min(16, age));
+    } catch (e) {
+      return 6;
+    }
+  }
+
+  // Determinación del grupo de edad (4-6, 7-9, 10-12)
+  getAgeCategory() {
+    const age = this.getChildAge();
+    if (age <= 6) return '4-6';
+    if (age <= 9) return '7-9';
+    return '10-12';
+  }
+
+  // Fecha local en formato YYYY-MM-DD
+  getTodayDateString() {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // Clave versionada de almacenamiento
+  getStorageKey() {
+    return `kiddo_missions_v${this.STORAGE_VERSION}_${this.getProfileId()}`;
+  }
+
+  // Inicialización y recuperación de datos
+  init() {
+    this.loadOrInitializeState();
+    this.setupRolloverListeners();
+  }
+
+  // Escuchar cuando la app vuelve a primer plano
+  setupRolloverListeners() {
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          this.checkDayRollover();
+        }
+      });
+      window.addEventListener('focus', () => {
+        this.checkDayRollover();
+      });
+    }
+  }
+
+  // Comprobar cambio de día calendario
+  checkDayRollover() {
+    const today = this.getTodayDateString();
+    if (this.state && this.state.currentDate !== today) {
+      this.rolloverToNewDay(today);
+    }
+  }
+
+  // Cargar o inicializar estado persistente
+  loadOrInitializeState() {
+    const today = this.getTodayDateString();
+    const key = this.getStorageKey();
+
+    let saved = null;
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) saved = JSON.parse(raw);
+    } catch (e) {
+      console.warn('[KiddoMissions] Error al leer localStorage:', e);
+    }
+
+    if (saved && saved.version === this.STORAGE_VERSION && saved.profileId === this.getProfileId()) {
+      // Si la fecha coincide, conservar estado
+      if (saved.currentDate === today) {
+        this.state = saved;
+        return;
+      } else {
+        // Nuevo día: conservar nivel y estrellas, generar misiones limpias
+        this.state = saved;
+        this.rolloverToNewDay(today);
+        return;
+      }
+    }
+
+    // Estado inicial desde cero para el perfil
+    this.state = {
+      version: this.STORAGE_VERSION,
+      profileId: this.getProfileId(),
+      currentDate: today,
+      level: 1,
+      stars: 0,
+      dailyRewardClaimed: false,
+      missions: this.generateDailyMissions(today, this.getAgeCategory(), []),
+      previousDayMissions: [],
+      lastActiveTimestamp: Date.now()
+    };
+    this.saveState();
+  }
+
+  // Transición a un nuevo día calendario (Reinicio obligatorio a cero)
+  rolloverToNewDay(newDateStr) {
+    const prevIds = (this.state && this.state.missions) ? this.state.missions.map(m => m.id) : [];
+    const preservedLevel = this.state?.level || 1;
+    const preservedStars = this.state?.stars || 0;
+
+    const newMissions = this.generateDailyMissions(newDateStr, this.getAgeCategory(), prevIds);
+
+    this.state = {
+      version: this.STORAGE_VERSION,
+      profileId: this.getProfileId(),
+      currentDate: newDateStr,
+      level: preservedLevel,
+      stars: preservedStars,
+      dailyRewardClaimed: false,
+      missions: newMissions,
+      previousDayMissions: prevIds,
+      lastActiveTimestamp: Date.now()
+    };
+
+    this.saveState();
+
+    // Si la pantalla de misiones está activa, refrescar interfaz
+    if (window.kiddoApp && window.kiddoApp.currentScreen === 'misiones') {
+      this.render('missions-content-container');
+    }
+  }
+
+  // Guardar estado en localStorage de forma segura
+  saveState() {
+    if (!this.state) return;
+    try {
+      this.state.lastActiveTimestamp = Date.now();
+      localStorage.setItem(this.getStorageKey(), JSON.stringify(this.state));
+    } catch (e) {
+      console.error('[KiddoMissions] Error al guardar en localStorage:', e);
+    }
+  }
+
+  // Sorteo aleatorio de misiones diarias filtrado por edad y variedad
+  generateDailyMissions(dateStr, ageCategory, previousMissions = []) {
+    const selected = [];
+
+    // 1. Filtrar misiones dentro de la app por grupo de edad
+    const inAppPool = KIDDO_MISSION_BANKS.in_app.filter(m => {
+      return m.ageGroups.includes(ageCategory);
+    });
+
+    // Intentar evitar las del día anterior si hay suficiente variedad
+    let availableInApp = inAppPool.filter(m => !previousMissions.includes(m.id));
+    if (availableInApp.length < this.CONFIG.inAppCount) {
+      availableInApp = [...inAppPool];
+    }
+
+    // Mezclar con algoritmo Fisher-Yates
+    const shuffledInApp = this.shuffle([...availableInApp]);
+
+    // Distribuir por categorías distintas si es posible (game, story, music)
+    const pickedInApp = [];
+    const usedCategories = new Set();
+
+    for (const m of shuffledInApp) {
+      if (!usedCategories.has(m.category) && pickedInApp.length < this.CONFIG.inAppCount) {
+        pickedInApp.push(m);
+        usedCategories.add(m.category);
+      }
+    }
+    // Rellenar si faltan
+    for (const m of shuffledInApp) {
+      if (pickedInApp.length >= this.CONFIG.inAppCount) break;
+      if (!pickedInApp.some(p => p.id === m.id)) {
+        pickedInApp.push(m);
+      }
+    }
+
+    // 2. Filtrar misiones fuera de la app (manuales)
+    const outAppPool = KIDDO_MISSION_BANKS.out_app.filter(m => {
+      return m.ageGroups.includes(ageCategory);
+    });
+
+    let availableOutApp = outAppPool.filter(m => !previousMissions.includes(m.id));
+    if (availableOutApp.length < this.CONFIG.outAppCount) {
+      availableOutApp = [...outAppPool];
+    }
+
+    const shuffledOutApp = this.shuffle([...availableOutApp]);
+    const pickedOutApp = [];
+    const usedOutCats = new Set();
+
+    for (const m of shuffledOutApp) {
+      if (!usedOutCats.has(m.category) && pickedOutApp.length < this.CONFIG.outAppCount) {
+        pickedOutApp.push(m);
+        usedOutCats.add(m.category);
+      }
+    }
+    for (const m of shuffledOutApp) {
+      if (pickedOutApp.length >= this.CONFIG.outAppCount) break;
+      if (!pickedOutApp.some(p => p.id === m.id)) {
+        pickedOutApp.push(m);
+      }
+    }
+
+    // 3. Crear instancias de misión con progreso limpio a 0
+    pickedInApp.forEach(tmpl => {
+      selected.push({
+        id: tmpl.id,
+        type: 'in_app',
+        category: tmpl.category,
+        title: tmpl.title,
+        description: tmpl.description,
+        icon: tmpl.icon,
+        target: tmpl.target || 1,
+        targetLabel: tmpl.targetLabel || '',
+        currentProgress: 0,
+        completed: false,
+        completedAt: null,
+        navigation: tmpl.navigation
+      });
+    });
+
+    pickedOutApp.forEach(tmpl => {
+      selected.push({
+        id: tmpl.id,
+        type: 'out_app',
+        category: tmpl.category,
+        title: tmpl.title,
+        description: tmpl.description,
+        icon: tmpl.icon,
+        confirmMsg: tmpl.confirmMsg,
+        target: 1,
+        targetLabel: '',
+        currentProgress: 0,
+        completed: false,
+        completedAt: null
+      });
+    });
+
+    return selected;
+  }
+
+  shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // =================================================================
+  // 4. RECEPCIÓN Y EVALUACIÓN DE EVENTOS REALES
+  // =================================================================
+
+  onEventReceived(eventName, payload) {
+    if (!this.state || !this.state.missions) return;
+
+    // Verificar si el día cambió en medio de una actividad
+    this.checkDayRollover();
+
+    let updated = false;
+
+    this.state.missions.forEach(mission => {
+      if (mission.type !== 'in_app' || mission.completed) return;
+
+      // Buscar plantilla en el banco
+      const tmpl = KIDDO_MISSION_BANKS.in_app.find(b => b.id === mission.id);
+      if (!tmpl || typeof tmpl.evaluator !== 'function') return;
+
+      const evalResult = tmpl.evaluator(payload, mission);
+
+      if (evalResult === true) {
+        // Cumplimiento total inmediato
+        mission.currentProgress = mission.target;
+        mission.completed = true;
+        mission.completedAt = Date.now();
+        updated = true;
+        this.onMissionCompleted(mission);
+      } else if (typeof evalResult === 'number' && evalResult > 0) {
+        // Progreso incremental
+        mission.currentProgress = Math.min(mission.target, (mission.currentProgress || 0) + evalResult);
+        if (mission.currentProgress >= mission.target) {
+          mission.completed = true;
+          mission.completedAt = Date.now();
+          this.onMissionCompleted(mission);
+        }
+        updated = true;
+      }
+    });
+
+    if (updated) {
+      this.saveState();
+      this.checkAndAwardDailyReward();
+      // Si el usuario está viendo misiones, actualizar vista
+      if (window.kiddoApp && window.kiddoApp.currentScreen === 'misiones') {
+        this.render('missions-content-container');
+      }
+    }
+  }
+
+  // Notificación de misión individual completada
+  onMissionCompleted(mission) {
+    if (window.kiddoAudio && typeof window.kiddoAudio.playSuccessChime === 'function') {
+      window.kiddoAudio.playSuccessChime();
+    }
+
+    if (window.kiddoApp && typeof window.kiddoApp.addRecentActivity === 'function') {
+      window.kiddoApp.addRecentActivity({
+        type: 'mission',
+        icon: mission.icon || '⭐',
+        title: `Misión: ${mission.title}`,
+        subtitle: '¡Misión completada con éxito!',
+        color: '#C6F6D5'
+      });
+    }
+
+    this.showToastNotification('¡Muy bien! Completaste una misión. ⭐');
+  }
+
+  // =================================================================
+  // 5. MISIONES MANUALES (FUERA DE LA APP)
+  // =================================================================
+
+  requestManualMissionCompletion(missionId) {
+    const mission = this.state.missions.find(m => m.id === missionId);
+    if (!mission || mission.completed) return;
+
+    this.pendingConfirmMissionId = missionId;
+    this.showConfirmModal(mission);
+  }
+
+  showConfirmModal(mission) {
+    const existing = document.getElementById('kiddo-mission-confirm-modal');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'kiddo-mission-confirm-modal';
+    modal.className = 'mission-confirm-overlay';
+    modal.innerHTML = `
+      <div class="mission-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+        <div class="confirm-modal-icon">${mission.icon}</div>
+        <h3 id="confirm-modal-title" class="confirm-modal-title">${mission.title}</h3>
+        <p class="confirm-modal-question">${mission.confirmMsg || '¿Completaste esta actividad con ayuda o supervisión?'}</p>
+        <p class="confirm-modal-hint">Recordá que podés pedir la supervisión de un adulto en casa.</p>
+        <div class="confirm-modal-actions">
+          <button class="confirm-btn-cancel" onclick="window.kiddoMissions.cancelManualConfirmation()">Aún no</button>
+          <button class="confirm-btn-accept" onclick="window.kiddoMissions.confirmManualCompletion()">¡Sí, la completé! ✓</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  }
+
+  cancelManualConfirmation() {
+    this.pendingConfirmMissionId = null;
+    const modal = document.getElementById('kiddo-mission-confirm-modal');
+    if (modal) modal.remove();
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  }
+
+  confirmManualCompletion() {
+    const missionId = this.pendingConfirmMissionId;
+    this.cancelManualConfirmation();
+
+    if (!missionId || !this.state) return;
+    const mission = this.state.missions.find(m => m.id === missionId);
+    if (!mission || mission.completed) return;
+
+    mission.completed = true;
+    mission.currentProgress = mission.target;
+    mission.completedAt = Date.now();
+
+    this.saveState();
+    this.onMissionCompleted(mission);
+    this.checkAndAwardDailyReward();
+    this.render('missions-content-container');
+  }
+
+  // =================================================================
+  // 6. NIVELES, ESTRELLAS Y RECOMPENSAS
+  // =================================================================
+
+  checkAndAwardDailyReward() {
+    if (!this.state || this.state.dailyRewardClaimed) return;
+
+    const total = this.state.missions.length;
+    const completedCount = this.state.missions.filter(m => m.completed).length;
+
+    // Solo se otorga si COMPLETÓ TODAS LAS MISIONES DEL DÍA
+    if (completedCount === total && total > 0) {
+      this.state.dailyRewardClaimed = true;
+      this.state.stars = (this.state.stars || 0) + 1;
+
+      let leveledUp = false;
+      const req = this.CONFIG.starsRequiredPerLevel;
+
+      if (this.state.stars >= req) {
+        this.state.level = (this.state.level || 1) + 1;
+        this.state.stars = this.state.stars - req;
+        leveledUp = true;
+      }
+
+      this.saveState();
+
+      if (leveledUp) {
+        this.showLevelUpModal(this.state.level);
+      } else {
+        this.showAllCompletedModal();
+      }
+    }
+  }
+
+  showAllCompletedModal() {
+    this.showCelebrationModal({
+      emoji: '⭐🎉',
+      title: '¡Felicitaciones!',
+      message: 'Completaste todas las misiones de hoy y ganaste una estrella.',
+      subtext: `Tenés ${this.state.stars} de ${this.CONFIG.starsRequiredPerLevel} estrellas para el Nivel ${(this.state.level || 1) + 1}.`
+    });
+  }
+
+  showLevelUpModal(newLevel) {
+    this.showCelebrationModal({
+      emoji: '🏆✨',
+      title: '¡Subiste de nivel!',
+      message: `¡Increíble trabajo! Ahora eres Nivel ${newLevel}.`,
+      subtext: 'Puky está súper contento con tu constancia y dedicación.'
+    });
+  }
+
+  showCelebrationModal({ emoji, title, message, subtext }) {
+    const existing = document.getElementById('kiddo-mission-celebration-modal');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'kiddo-mission-celebration-modal';
+    modal.className = 'mission-celebration-overlay';
+    modal.innerHTML = `
+      <div class="mission-celebration-dialog" role="dialog" aria-modal="true">
+        <div class="celebration-emoji">${emoji}</div>
+        <h2 class="celebration-title">${title}</h2>
+        <p class="celebration-msg">${message}</p>
+        <p class="celebration-sub">${subtext}</p>
+        <button class="celebration-btn" onclick="document.getElementById('kiddo-mission-celebration-modal').remove()">¡Genial! 🐨</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    if (window.kiddoAudio && typeof window.kiddoAudio.playSuccessChime === 'function') {
+      window.kiddoAudio.playSuccessChime();
+    }
+  }
+
+  showToastNotification(message) {
+    const existing = document.getElementById('kiddo-mission-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'kiddo-mission-toast';
+    toast.className = 'mission-toast-banner';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('fade-out');
+      setTimeout(() => toast.remove(), 400);
+    }, 3200);
+  }
+
+  // =================================================================
+  // 7. NAVEGACIÓN DIRECTA A LA ACTIVIDAD
+  // =================================================================
+
+  goToActivity(missionId) {
+    if (!this.state) return;
+    const mission = this.state.missions.find(m => m.id === missionId);
+    if (!mission || !mission.navigation) return;
+
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+
+    const nav = mission.navigation;
+    if (window.kiddoApp) {
+      window.kiddoApp.navigateTo(nav.screen);
+
+      if (nav.screen === 'juegos' && window.kiddoGames) {
+        setTimeout(() => {
+          if (nav.action === 'memory') {
+            window.kiddoGames._startMemory(nav.param || 3);
+          } else if (nav.action === 'sums') {
+            window.kiddoGames.openSums();
+          } else if (nav.action === 'subtraction') {
+            window.kiddoGames.openSubtraction();
+          } else if (nav.action === 'multiplication') {
+            window.kiddoGames.openMultiplication();
+          } else if (nav.action === 'division') {
+            window.kiddoGames.openDivision();
+          } else if (nav.action === 'clock') {
+            window.kiddoGames.openClock();
+          } else if (nav.action === 'syllables') {
+            window.kiddoGames.openSyllables();
+          } else if (nav.action === 'words') {
+            window.kiddoGames.openWordBuilder();
+          }
+        }, 150);
+      } else if (nav.screen === 'cuentos' && window.kiddoStories && nav.param) {
+        setTimeout(() => {
+          window.kiddoStories.openStory(nav.param);
+        }, 150);
+      } else if (nav.screen === 'musica') {
+        setTimeout(() => {
+          if (typeof window.kiddoApp.switchMusicCategory === 'function') {
+            window.kiddoApp.switchMusicCategory('crear');
+          }
+        }, 150);
+      }
+    }
+  }
+
+  // =================================================================
+  // 8. RENDERIZADO VISUAL DE LA SECCIÓN MISIONES (REDESIGN)
+  // =================================================================
+
+  render(containerId = 'missions-content-container') {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    this.checkDayRollover();
+    const state = this.state;
+    if (!state) return;
+
+    const missions = state.missions || [];
+    const inAppMissions = missions.filter(m => m.type === 'in_app');
+    const outAppMissions = missions.filter(m => m.type === 'out_app');
+
+    const totalCount = missions.length;
+    const completedCount = missions.filter(m => m.completed).length;
+    const inAppCompleted = inAppMissions.filter(m => m.completed).length;
+    const outAppCompleted = outAppMissions.filter(m => m.completed).length;
+
+    const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+
+    const level = state.level || 1;
+    const stars = state.stars || 0;
+    const reqStars = this.CONFIG.starsRequiredPerLevel;
+    const starsPercent = Math.min(100, Math.round((stars / reqStars) * 100));
+
+    // Formato de fecha según la referencia: "Sábado, 17 De Octubre"
+    const dateFormatted = this.formatDisplayDate(state.currentDate);
+
+    container.innerHTML = `
+      <div class="missions-redesign-container">
+        <!-- Encabezado Principal Oficial (Tarjeta Amarilla con Puky y Barras) -->
+        <div class="mr-hero-card">
+          <!-- Puky Koala a la izquierda -->
+          <div class="mr-puky-wrapper">
+            <img src="assets/missions-redesign/puky-misiones.png" alt="Puky el Koala" class="mr-puky-img">
+          </div>
+
+          <!-- Estrellas decorativas superiores -->
+          <div class="mr-stars-decoration" aria-hidden="true">
+            <img src="assets/missions-redesign/estrellas-misiones.png" alt="" class="mr-stars-img">
+          </div>
+
+          <!-- Contenido y Barras Dinámicas a la derecha -->
+          <div class="mr-hero-content">
+            <div class="mr-date-pill">
+              <span class="mr-date-calendar-icon">📅</span>
+              <span class="mr-date-text">${dateFormatted}</span>
+            </div>
+
+            <h2 class="mr-hero-title">Misiones de hoy</h2>
+            <p class="mr-hero-subtitle">¡Completá tus desafíos y ganá una estrella!</p>
+
+            <!-- Barra 1: Progreso Diario de Misiones -->
+            <div class="mr-progress-slot">
+              <div class="mr-slot-header">
+                <span class="mr-slot-title">Misiones completadas: <strong>${completedCount} de ${totalCount}</strong></span>
+                <span class="mr-percent-pill">${progressPercent}%</span>
+              </div>
+              <div class="mr-track">
+                <div class="mr-track-fill mr-fill-green" style="width: ${progressPercent}%;"></div>
+              </div>
+            </div>
+
+            <!-- Barra 2: Progreso de Nivel (Independiente) -->
+            <div class="mr-progress-slot">
+              <div class="mr-slot-header">
+                <span class="mr-level-badge">🏆 Nivel ${level}</span>
+                <span class="mr-stars-label">${stars} de ${reqStars} estrellas ⭐</span>
+              </div>
+              <div class="mr-track">
+                <div class="mr-track-fill mr-fill-gold" style="width: ${starsPercent}%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección 1: Misiones en Kiddo (Automáticas) -->
+        <div class="mr-category-section">
+          <div class="mr-section-header">
+            <div class="mr-section-title-wrap">
+              <span class="mr-cat-icon-badge">📱</span>
+              <h3 class="mr-section-title">Misiones en Kiddo</h3>
+              <span class="mr-section-sparkles">⭐✨</span>
+            </div>
+            <span class="mr-section-counter">${inAppCompleted}/${inAppMissions.length}</span>
+          </div>
+          <div class="mr-cards-grid">
+            ${inAppMissions.map(m => this.renderMissionCard(m)).join('')}
+          </div>
+        </div>
+
+        <!-- Sección 2: Misiones fuera de Kiddo (Manuales) -->
+        <div class="mr-category-section">
+          <div class="mr-section-header">
+            <div class="mr-section-title-wrap">
+              <span class="mr-cat-icon-badge mr-badge-orange">🌟</span>
+              <h3 class="mr-section-title">Misiones fuera de Kiddo</h3>
+              <span class="mr-section-sparkles">⭐✨</span>
+            </div>
+            <span class="mr-section-counter">${outAppCompleted}/${outAppMissions.length}</span>
+          </div>
+          <div class="mr-cards-grid">
+            ${outAppMissions.map(m => this.renderMissionCard(m)).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderMissionCard(mission) {
+    const isDone = mission.completed;
+    const isAuto = mission.type === 'in_app';
+
+    // Determinar estado para la píldora
+    let statusClass = 'status-pending';
+    let statusLabel = 'Pendiente';
+    if (isDone) {
+      statusClass = 'status-completed';
+      statusLabel = '¡Completada!';
+    } else if (mission.currentProgress > 0 && mission.target > 1) {
+      statusClass = 'status-in-progress';
+      statusLabel = 'En progreso';
+    }
+
+    // Texto de progreso parcial si aplica (ej: "0 de 3 palabras")
+    let partialProgressText = '';
+    if (mission.target > 1) {
+      if (mission.targetLabel === 'segundos') {
+        const mins = Math.floor((mission.currentProgress || 0) / 60);
+        const targetMins = Math.floor(mission.target / 60);
+        partialProgressText = `${mins} de ${targetMins} min de práctica activa`;
+      } else {
+        partialProgressText = `${mission.currentProgress || 0} de ${mission.target} ${mission.targetLabel}`;
+      }
+    }
+
+    // Obtener ilustración PNG
+    const illustPath = getMissionImage(mission.id, mission.category);
+    const illustHtml = illustPath
+      ? `<img src="${illustPath}" alt="${mission.title}" class="mr-mission-illus" loading="lazy">`
+      : `<span class="mr-mission-icon-emoji">${mission.icon}</span>`;
+
+    // Botones de acción
+    let actionBtnHtml = '';
+    if (isAuto) {
+      const btnLabels = {
+        game:  '🎮 Ir al juego',
+        story: '📖 Leer cuento',
+        music: '🎹 Ir al piano'
+      };
+      const label = btnLabels[mission.category] || '🎯 Ir a la actividad';
+      if (!isDone) {
+        actionBtnHtml = `
+          <button class="mr-action-btn-blue" onclick="window.kiddoMissions.goToActivity('${mission.id}')">
+            <span>${label}</span>
+            <span>➔</span>
+          </button>
+        `;
+      } else {
+        actionBtnHtml = `<div class="mr-done-badge"><span>¡Misión cumplida!</span><span>⭐</span></div>`;
+      }
+    } else {
+      if (!isDone) {
+        actionBtnHtml = `
+          <button class="mr-action-btn-orange" onclick="window.kiddoMissions.requestManualMissionCompletion('${mission.id}')">
+            <span>Marcar como realizada</span>
+            <span>✓</span>
+          </button>
+        `;
+      } else {
+        actionBtnHtml = `<div class="mr-done-badge"><span>¡Misión cumplida!</span><span>⭐</span></div>`;
+      }
+    }
+
+    return `
+      <div class="mr-mission-card ${isDone ? 'is-completed' : 'is-pending'}" id="mission-${mission.id}">
+
+        <!-- Fila de estado superior (derecha) -->
+        <div class="mr-card-status-row">
+          <span class="mr-status-pill ${statusClass}">${statusLabel}</span>
+        </div>
+
+        <!-- Cuerpo principal: grid ilustración izquierda + contenido derecha -->
+        <div class="mr-card-main">
+
+          <!-- Ilustración / imagen de la misión -->
+          <div class="mr-card-illustration">
+            ${illustHtml}
+          </div>
+
+          <!-- Contenido textual y botón -->
+          <div class="mr-card-content">
+            <h4 class="mr-mission-title ${isDone ? 'completed-title' : ''}">${mission.title}</h4>
+
+            <span class="mr-tag-pill ${isAuto ? 'tag-auto' : 'tag-manual'}">
+              ${isAuto ? 'Automática' : 'Manual'}
+            </span>
+
+            <p class="mr-mission-desc">${mission.description}</p>
+
+            ${partialProgressText ? `<span class="mr-partial-pill">📊 ${partialProgressText}</span>` : ''}
+
+            <div class="mr-card-action-wrap">
+              ${actionBtnHtml}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+
+  formatDisplayDate(dateStr) {
+    try {
+      const parts = dateStr.split('-');
+      if (parts.length === 3) {
+        const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        const weekday = d.toLocaleDateString('es-ES', { weekday: 'long' });
+        const month = d.toLocaleDateString('es-ES', { month: 'long' });
+        const day = d.getDate();
+        const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+        return `${cap(weekday)}, ${day} De ${cap(month)}`;
+      }
+    } catch (e) { }
+    return dateStr;
+  }
+}
+
+// Instancia global
 window.kiddoMissions = new KiddoMissionsManager();

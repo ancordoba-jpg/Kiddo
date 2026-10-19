@@ -144,8 +144,21 @@ class KiddoStoriesManager {
         this.renderCurrentPage();
       }
     } else {
-      // Final del cuento: sonido de logro y volver
+      // Final del cuento: sonido de logro y verificar cumplimiento real
       if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
+
+      if (window.KiddoMissionEvents && this.currentStory) {
+        const totalPages = this.currentStory.pages ? this.currentStory.pages.length : 1;
+        // Solo emitir si llegó realmente a la última página
+        if (this.currentPageIndex >= totalPages - 1) {
+          window.KiddoMissionEvents.emit('story_completed', {
+            storyId: this.currentStory.id,
+            title: this.currentStory.title,
+            pagesCount: totalPages
+          });
+        }
+      }
+
       this.closeReader();
     }
   }
