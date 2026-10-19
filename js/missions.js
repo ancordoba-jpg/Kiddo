@@ -895,124 +895,170 @@ const MISSION_IMAGE_MAP = {
   // === POR ID ESPECÍFICO (mayor prioridad) ===
 
   // Memoria
-  'in-mem-easy': 'assets/missions-redesign/logo.juegodememoria.png.png',
-  'in-mem-med':  'assets/missions-redesign/logo.juegodememoria.png.png',
-  'in-mem-hard': 'assets/missions-redesign/logo.juegodememoria.png.png',
+  'in-mem-easy': 'assets/missions-redesign/logo.juegodememoria.png',
+  'in-mem-med':  'assets/missions-redesign/logo.juegodememoria.png',
+  'in-mem-hard': 'assets/missions-redesign/logo.juegodememoria.png',
 
   // Sumas
-  'in-sums-easy':      'assets/missions-redesign/logo.sumar.png.png',
-  'in-sums-med':       'assets/missions-redesign/logo.sumar.png.png',
-  'in-math-challenge': 'assets/missions-redesign/logo.sumar.png.png',
+  'in-sums-easy':      'assets/missions-redesign/logo.sumar.png',
+  'in-sums-med':       'assets/missions-redesign/logo.sumar.png',
+  'in-math-challenge': 'assets/missions-redesign/logo.sumar.png',
 
   // Restas
-  'in-subs-easy': 'assets/missions-redesign/logo.restas.png.png',
-  'in-subs-med':  'assets/missions-redesign/logo.restas.png.png',
+  'in-subs-easy': 'assets/missions-redesign/logo.restas.png',
+  'in-subs-med':  'assets/missions-redesign/logo.restas.png',
 
   // Multiplicación
-  'in-mult-med':      'assets/missions-redesign/logo.multiplicar.png.png',
-  'in-mult-advanced': 'assets/missions-redesign/logo.multiplicar.png.png',
+  'in-mult-med':      'assets/missions-redesign/logo.multiplicar.png',
+  'in-mult-advanced': 'assets/missions-redesign/logo.multiplicar.png',
 
   // División
-  'in-div-challenge': 'assets/missions-redesign/logo.division.png.png',
+  'in-div-challenge': 'assets/missions-redesign/logo.division.png',
 
-  // Aprender la hora
-  'in-clock-med':      'assets/missions-redesign/logo.aprendeconvideos.png.png',
-  'in-clock-advanced': 'assets/missions-redesign/logo.aprendelahora.png.png',
+  // Aprender la hora (Reloj)
+  'in-clock-med':      'assets/missions-redesign/logo.aprendelahora.png',
+  'in-clock-advanced': 'assets/missions-redesign/logo.aprendelahora.png',
 
   // Sílabas
-  'in-syll-easy': 'assets/missions-redesign/logo.silabas.png.png',
+  'in-syll-easy': 'assets/missions-redesign/logo.silabas.png',
 
   // Palabras
-  'in-words-easy': 'assets/missions-redesign/logo.armarpalabras.png.png',
-  'in-words-med':  'assets/missions-redesign/logo.armarpalabras.png.png',
-  'in-words-hard': 'assets/missions-redesign/logo.armarpalabras.png.png',
+  'in-words-easy': 'assets/missions-redesign/logo.armarpalabras.png',
+  'in-words-med':  'assets/missions-redesign/logo.armarpalabras.png',
+  'in-words-hard': 'assets/missions-redesign/logo.armarpalabras.png',
 
   // Cuentos
-  'in-story-caperucita':  'assets/missions-redesign/logo.cuento.caperucita.png.png',
-  'in-story-cerditos':    'assets/missions-redesign/logo.cuento.trescerditos.png.png',
-  'in-story-patito':      'assets/missions-redesign/logo.cuento.papitofeo.png.png',
-  'in-story-cenicienta':  'assets/missions-redesign/logo.cuento.cenicienta.png.png',
-  'in-story-blancanieves':'assets/missions-redesign/logo.cuento.blancanieves.png.png',
+  'in-story-caperucita':   'assets/missions-redesign/logo.cuento.caperucita.png',
+  'in-story-cerditos':     'assets/missions-redesign/logo.cuento.trescerditos.png',
+  'in-story-patito':       'assets/missions-redesign/logo.cuento.papitofeo.png',
+  'in-story-cenicienta':   'assets/missions-redesign/logo.cuento.cenicienta.png',
+  'in-story-blancanieves': 'assets/missions-redesign/logo.cuento.blancanieves.png',
+  'in-story-pinocho':      'assets/missions-redesign/logo.cuento.pinocho.png',
+  'in-story-gatoconbotas': 'assets/missions-redesign/logo.cuento.gatoconbotas.png',
+  'in-story-hansel':       'assets/missions-redesign/logo.cuento.hanselygretel.png',
+  'in-story-ricitos':      'assets/missions-redesign/logo.cuento.ricitosdeoro.png',
+  'in-story-belladurmiente':'assets/missions-redesign/logo.cuento.belladurmiente.png',
 
   // Piano
-  'in-piano-1min': 'assets/missions-redesign/logo.tocarelpiano.png.png',
-  'in-piano-2min': 'assets/missions-redesign/logo.tocarelpiano.png.png',
-  'in-piano-3min': 'assets/missions-redesign/logo.tocarelpiano.png.png',
+  'in-piano-1min': 'assets/missions-redesign/logo.tocarelpiano.png',
+  'in-piano-2min': 'assets/missions-redesign/logo.tocarelpiano.png',
+  'in-piano-3min': 'assets/missions-redesign/logo.tocarelpiano.png',
 
   // === MISIONES MANUALES POR ID ===
 
   // Orden
-  'out-ord-juguetes': 'assets/missions-redesign/logo.juguetes.png.png',
-  'out-ord-cama':     'assets/missions-redesign/logo.cama.png.png',
-  'out-ord-libros':   'assets/missions-redesign/logo.armarpalabras.png.png',
-  'out-ord-utiles':   'assets/missions-redesign/logo.armarpalabras.png.png',
-  'out-ord-mochila':  'assets/missions-redesign/logo.armarpalabras.png.png',
-  'out-ord-ropa':     'assets/missions-redesign/logo.cama.png.png',
-  'out-ord-mesa':     'assets/missions-redesign/logo.fruta.png.png',
-  'out-ord-papeles':  'assets/missions-redesign/logo.juguetes.png.png',
-  'out-ord-espacio':  'assets/missions-redesign/logo.juguetes.png.png',
+  'out-ord-juguetes': 'assets/missions-redesign/logo.juguetes.png',
+  'out-ord-cama':     'assets/missions-redesign/logo.cama.png',
+  'out-ord-libros':   'assets/missions-redesign/logo.armarpalabras.png',
+  'out-ord-utiles':   'assets/missions-redesign/logo.armarpalabras.png',
+  'out-ord-mochila':  'assets/missions-redesign/logo.armarpalabras.png',
+  'out-ord-ropa':     'assets/missions-redesign/logo.cama.png',
+  'out-ord-mesa':     'assets/missions-redesign/logo.fruta.png',
+  'out-ord-papeles':  'assets/missions-redesign/logo.juguetes.png',
+  'out-ord-espacio':  'assets/missions-redesign/logo.juguetes.png',
 
   // Creatividad / Dibujar
-  'out-crea-animal':     'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-arcoiris':   'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-casa':       'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-familia':    'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-personaje':  'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-historia':   'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-origami':    'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-bloques':    'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-3colores':   'assets/missions-redesign/logo.dibujar.png.png',
-  'out-crea-feliz':      'assets/missions-redesign/logo.dibujar.png.png',
+  'out-crea-animal':     'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-arcoiris':   'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-casa':       'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-familia':    'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-personaje':  'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-historia':   'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-origami':    'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-bloques':    'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-3colores':   'assets/missions-redesign/logo.dibujar.png',
+  'out-crea-feliz':      'assets/missions-redesign/logo.dibujar.png',
 
   // Familia
-  'out-fam-abrazo':   'assets/missions-redesign/logo.abrazar.png.png',
-  'out-fam-amable':   'assets/missions-redesign/logo.agradecer.png.png',
-  'out-fam-ayuda':    'assets/missions-redesign/logo.agradecer.png.png',
-  'out-fam-juego':    'assets/missions-redesign/logo.abrazar.png.png',
-  'out-fam-gracias':  'assets/missions-redesign/logo.agradecer.png.png',
-  'out-fam-escuchar': 'assets/missions-redesign/logo.abrazar.png.png',
-  'out-fam-contar':   'assets/missions-redesign/logo.agradecer.png.png',
+  'out-fam-abrazo':   'assets/missions-redesign/logo.abrazar.png',
+  'out-fam-amable':   'assets/missions-redesign/logo.agradecer.png',
+  'out-fam-ayuda':    'assets/missions-redesign/logo.agradecer.png',
+  'out-fam-juego':    'assets/missions-redesign/logo.abrazar.png',
+  'out-fam-gracias':  'assets/missions-redesign/logo.agradecer.png',
+  'out-fam-escuchar': 'assets/missions-redesign/logo.abrazar.png',
+  'out-fam-contar':   'assets/missions-redesign/logo.agradecer.png',
 
   // Salud
-  'out-hab-fruta':     'assets/missions-redesign/logo.fruta.png.png',
-  'out-hab-agua':      'assets/missions-redesign/logo.fruta.png.png',
-  'out-hab-manos':     'assets/missions-redesign/logo.fruta.png.png',
-  'out-hab-dientes':   'assets/missions-redesign/logo.fruta.png.png',
-  'out-hab-bailar':    'assets/missions-redesign/logo.bailar.png.png',
-  'out-hab-estirar':   'assets/missions-redesign/logo.bailar.png.png',
-  'out-hab-aire':      'assets/missions-redesign/logo.bailar.png.png',
-  'out-hab-pantallas': 'assets/missions-redesign/logo.pantalla.png.png',
-  'out-hab-respirar':  'assets/missions-redesign/logo.meditacion.png.png',
+  'out-hab-fruta':     'assets/missions-redesign/logo.fruta.png',
+  'out-hab-agua':      'assets/missions-redesign/logo.fruta.png',
+  'out-hab-manos':     'assets/missions-redesign/logo.fruta.png',
+  'out-hab-dientes':   'assets/missions-redesign/logo.fruta.png',
+  'out-hab-bailar':    'assets/missions-redesign/logo.bailar.png',
+  'out-hab-estirar':   'assets/missions-redesign/logo.bailar.png',
+  'out-hab-aire':      'assets/missions-redesign/logo.bailar.png',
+  'out-hab-pantallas': 'assets/missions-redesign/logo.pantalla.png',
+  'out-hab-respirar':  'assets/missions-redesign/logo.meditacion.png',
 
   // Aprendizaje
-  'out-apr-tarea':    'assets/missions-redesign/logo.armarpalabras.png.png',
-  'out-apr-lectura':  'assets/missions-redesign/logo.cuento.caperucita.png.png',
-  'out-apr-escribir': 'assets/missions-redesign/logo.silabas.png.png',
-  'out-apr-contar':   'assets/missions-redesign/logo.sumar.png.png',
-  'out-apr-palabra':  'assets/missions-redesign/logo.armarpalabras.png.png',
-  'out-apr-figuras':  'assets/missions-redesign/logo.sumar.png.png',
-  'out-apr-planta':   'assets/missions-redesign/logo.fruta.png.png',
-  'out-apr-leeradul': 'assets/missions-redesign/logo.cuento.caperucita.png.png'
+  'out-apr-tarea':    'assets/missions-redesign/logo.armarpalabras.png',
+  'out-apr-lectura':  'assets/missions-redesign/logo.cuento.caperucita.png',
+  'out-apr-escribir': 'assets/missions-redesign/logo.silabas.png',
+  'out-apr-contar':   'assets/missions-redesign/logo.sumar.png',
+  'out-apr-palabra':  'assets/missions-redesign/logo.armarpalabras.png',
+  'out-apr-figuras':  'assets/missions-redesign/logo.sumar.png',
+  'out-apr-planta':   'assets/missions-redesign/logo.fruta.png',
+  'out-apr-leeradul': 'assets/missions-redesign/logo.cuento.caperucita.png'
 };
 
-// Función auxiliar para obtener la ilustración de una misión
-function getMissionImage(missionId, category) {
+// Función auxiliar para obtener la ilustración 3D de una misión
+function getMissionImage(missionId, category, mission = null) {
   // 1. Buscar por ID específico
-  if (MISSION_IMAGE_MAP[missionId]) {
+  if (missionId && MISSION_IMAGE_MAP[missionId]) {
     return MISSION_IMAGE_MAP[missionId];
   }
-  // 2. Fallback por categoría
+
+  // 2. Detección semántica por palabras clave en título, descripción o ID
+  const title = ((mission && mission.title) || '').toLowerCase();
+  const desc = ((mission && mission.description) || '').toLowerCase();
+  const fullText = `${title} ${desc} ${missionId || ''}`;
+
+  if (fullText.includes('memoria')) return 'assets/missions-redesign/logo.juegodememoria.png';
+  if (fullText.includes('sumar') || fullText.includes('suma')) return 'assets/missions-redesign/logo.sumar.png';
+  if (fullText.includes('restar') || fullText.includes('resta')) return 'assets/missions-redesign/logo.restas.png';
+  if (fullText.includes('multiplic')) return 'assets/missions-redesign/logo.multiplicar.png';
+  if (fullText.includes('divid') || fullText.includes('divisi')) return 'assets/missions-redesign/logo.division.png';
+  if (fullText.includes('reloj') || fullText.includes('hora')) return 'assets/missions-redesign/logo.aprendelahora.png';
+  if (fullText.includes('sílab') || fullText.includes('silab')) return 'assets/missions-redesign/logo.silabas.png';
+  if (fullText.includes('palabra') || fullText.includes('letras')) return 'assets/missions-redesign/logo.armarpalabras.png';
+  if (fullText.includes('piano') || fullText.includes('música') || fullText.includes('canción')) return 'assets/missions-redesign/logo.tocarelpiano.png';
+  if (fullText.includes('video') || fullText.includes('aprender con video')) return 'assets/missions-redesign/logo.aprendeconvideos.png';
+
+  // Cuentos específicos
+  if (fullText.includes('caperucita')) return 'assets/missions-redesign/logo.cuento.caperucita.png';
+  if (fullText.includes('cerdito')) return 'assets/missions-redesign/logo.cuento.trescerditos.png';
+  if (fullText.includes('patito')) return 'assets/missions-redesign/logo.cuento.papitofeo.png';
+  if (fullText.includes('cenicienta')) return 'assets/missions-redesign/logo.cuento.cenicienta.png';
+  if (fullText.includes('blancanieves')) return 'assets/missions-redesign/logo.cuento.blancanieves.png';
+  if (fullText.includes('pinocho')) return 'assets/missions-redesign/logo.cuento.pinocho.png';
+  if (fullText.includes('gato con botas') || fullText.includes('gatoconbotas')) return 'assets/missions-redesign/logo.cuento.gatoconbotas.png';
+  if (fullText.includes('hansel')) return 'assets/missions-redesign/logo.cuento.hanselygretel.png';
+  if (fullText.includes('ricitos')) return 'assets/missions-redesign/logo.cuento.ricitosdeoro.png';
+  if (fullText.includes('bella durmiente')) return 'assets/missions-redesign/logo.cuento.belladurmiente.png';
+  if (fullText.includes('cuento') || fullText.includes('leer')) return 'assets/missions-redesign/logo.cuento.caperucita.png';
+
+  // Misiones fuera de la app
+  if (fullText.includes('juguete') || fullText.includes('ordenar') || fullText.includes('espacio') || fullText.includes('papel')) return 'assets/missions-redesign/logo.juguetes.png';
+  if (fullText.includes('cama') || fullText.includes('ropa')) return 'assets/missions-redesign/logo.cama.png';
+  if (fullText.includes('dibuj') || fullText.includes('pint') || fullText.includes('color') || fullText.includes('origami') || fullText.includes('bloque') || fullText.includes('arte')) return 'assets/missions-redesign/logo.dibujar.png';
+  if (fullText.includes('abrazo') || fullText.includes('abrazar') || fullText.includes('cariño')) return 'assets/missions-redesign/logo.abrazar.png';
+  if (fullText.includes('gracias') || fullText.includes('agradec') || fullText.includes('amable') || fullText.includes('ayud') || fullText.includes('escuchar')) return 'assets/missions-redesign/logo.agradecer.png';
+  if (fullText.includes('fruta') || fullText.includes('agua') || fullText.includes('mano') || fullText.includes('diente') || fullText.includes('planta') || fullText.includes('comer')) return 'assets/missions-redesign/logo.fruta.png';
+  if (fullText.includes('baila') || fullText.includes('estir') || fullText.includes('aire') || fullText.includes('mov')) return 'assets/missions-redesign/logo.bailar.png';
+  if (fullText.includes('pantalla')) return 'assets/missions-redesign/logo.pantalla.png';
+  if (fullText.includes('respir') || fullText.includes('calma') || fullText.includes('medit')) return 'assets/missions-redesign/logo.meditacion.png';
+
+  // 3. Fallback por categoría
   const categoryFallbacks = {
-    'game':  'assets/missions-redesign/logo.juegodememoria.png.png',
-    'story': 'assets/missions-redesign/logo.cuento.caperucita.png.png',
-    'music': 'assets/missions-redesign/logo.tocarelpiano.png.png',
-    'orden': 'assets/missions-redesign/logo.juguetes.png.png',
-    'creatividad': 'assets/missions-redesign/logo.dibujar.png.png',
-    'familia': 'assets/missions-redesign/logo.abrazar.png.png',
-    'salud': 'assets/missions-redesign/logo.fruta.png.png',
-    'aprendizaje': 'assets/missions-redesign/logo.armarpalabras.png.png'
+    'game':        'assets/missions-redesign/logo.juegodememoria.png',
+    'story':       'assets/missions-redesign/logo.cuento.caperucita.png',
+    'music':       'assets/missions-redesign/logo.tocarelpiano.png',
+    'orden':       'assets/missions-redesign/logo.juguetes.png',
+    'creatividad': 'assets/missions-redesign/logo.dibujar.png',
+    'familia':     'assets/missions-redesign/logo.abrazar.png',
+    'salud':       'assets/missions-redesign/logo.fruta.png',
+    'aprendizaje': 'assets/missions-redesign/logo.armarpalabras.png'
   };
-  return categoryFallbacks[category] || null;
+  return categoryFallbacks[category] || 'assets/missions-redesign/logo.armarpalabras.png';
 }
 
 // ===================================================================
@@ -1716,17 +1762,17 @@ class KiddoMissionsManager {
       if (mission.targetLabel === 'segundos') {
         const mins = Math.floor((mission.currentProgress || 0) / 60);
         const targetMins = Math.floor(mission.target / 60);
-        partialProgressText = `${mins} de ${targetMins} min de práctica activa`;
+        partialProgressText = `${mins} de ${targetMins} min de práctica`;
       } else {
         partialProgressText = `${mission.currentProgress || 0} de ${mission.target} ${mission.targetLabel}`;
       }
     }
 
-    // Obtener ilustración PNG
-    const illustPath = getMissionImage(mission.id, mission.category);
+    // Obtener ilustración 3D PNG pasando el objeto completo para detección semántica inteligente
+    const illustPath = getMissionImage(mission.id, mission.category, mission);
     const illustHtml = illustPath
       ? `<img src="${illustPath}" alt="${mission.title}" class="mr-mission-illus" loading="lazy">`
-      : `<span class="mr-mission-icon-emoji">${mission.icon}</span>`;
+      : `<span class="mr-mission-icon-emoji">${mission.icon || '⭐'}</span>`;
 
     // Botones de acción
     let actionBtnHtml = '';
@@ -1739,7 +1785,7 @@ class KiddoMissionsManager {
       const label = btnLabels[mission.category] || '🎯 Ir a la actividad';
       if (!isDone) {
         actionBtnHtml = `
-          <button class="mr-action-btn-blue" onclick="window.kiddoMissions.goToActivity('${mission.id}')">
+          <button class="mr-action-btn-blue" type="button" onclick="window.kiddoMissions.goToActivity('${mission.id}')">
             <span>${label}</span>
             <span>➔</span>
           </button>
@@ -1750,7 +1796,7 @@ class KiddoMissionsManager {
     } else {
       if (!isDone) {
         actionBtnHtml = `
-          <button class="mr-action-btn-orange" onclick="window.kiddoMissions.requestManualMissionCompletion('${mission.id}')">
+          <button class="mr-action-btn-orange" type="button" onclick="window.kiddoMissions.requestManualMissionCompletion('${mission.id}')">
             <span>Marcar como realizada</span>
             <span>✓</span>
           </button>
@@ -1760,39 +1806,51 @@ class KiddoMissionsManager {
       }
     }
 
+    const tagLabel = isAuto ? 'Automática' : 'Fuera de la app';
+    const tagClass = isAuto ? 'tag-auto' : 'tag-manual';
+
     return `
       <div class="mr-mission-card ${isDone ? 'is-completed' : 'is-pending'}" id="mission-${mission.id}">
-
-        <!-- Fila de estado superior (derecha) -->
-        <div class="mr-card-status-row">
+        <!-- Badge de estado arriba a la derecha -->
+        <div class="mr-card-status-badge">
           <span class="mr-status-pill ${statusClass}">${statusLabel}</span>
         </div>
 
-        <!-- Cuerpo principal: grid ilustración izquierda + contenido derecha -->
-        <div class="mr-card-main">
+        <div class="mr-card-body">
+          <!-- Zona izquierda: Checkbox circular + Ilustración 3D -->
+          <div class="mr-card-media">
+            <button class="mr-mission-checkbox ${isDone ? 'is-checked' : ''}"
+                    type="button"
+                    ${!isAuto && !isDone ? `onclick="window.kiddoMissions.requestManualMissionCompletion('${mission.id}')"` : ''}
+                    aria-label="${isDone ? 'Misión completada' : 'Misión pendiente'}"
+                    ${isAuto || isDone ? 'tabindex="-1"' : ''}>
+              ${isDone ? '✓' : ''}
+            </button>
 
-          <!-- Ilustración / imagen de la misión -->
-          <div class="mr-card-illustration">
-            ${illustHtml}
+            <div class="mr-card-illustration">
+              ${illustHtml}
+            </div>
           </div>
 
-          <!-- Contenido textual y botón -->
+          <!-- Zona derecha: Contenido textual y botón -->
           <div class="mr-card-content">
-            <h4 class="mr-mission-title ${isDone ? 'completed-title' : ''}">${mission.title}</h4>
-
-            <span class="mr-tag-pill ${isAuto ? 'tag-auto' : 'tag-manual'}">
-              ${isAuto ? 'Automática' : 'Manual'}
-            </span>
+            <div class="mr-card-title-row">
+              <h4 class="mr-mission-title ${isDone ? 'completed-title' : ''}">${mission.title}</h4>
+              <span class="mr-tag-pill ${tagClass}">${tagLabel}</span>
+            </div>
 
             <p class="mr-mission-desc">${mission.description}</p>
 
-            ${partialProgressText ? `<span class="mr-partial-pill">📊 ${partialProgressText}</span>` : ''}
+            ${partialProgressText ? `
+              <div class="mr-partial-bar-wrap">
+                <span class="mr-partial-pill">📊 ${partialProgressText}</span>
+              </div>
+            ` : ''}
 
             <div class="mr-card-action-wrap">
               ${actionBtnHtml}
             </div>
           </div>
-
         </div>
       </div>
     `;
