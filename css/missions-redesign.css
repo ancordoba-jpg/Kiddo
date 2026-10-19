@@ -49,12 +49,12 @@
   border: 2.5px solid rgba(255, 255, 255, 0.95);
   box-shadow: 0 8px 24px rgba(245, 158, 11, 0.16);
   display: grid;
-  grid-template-columns: 33% 67%;
+  grid-template-columns: 36% 64%;
   align-items: stretch;
   overflow: hidden;
   margin-bottom: 14px;
   box-sizing: border-box;
-  min-height: 175px;
+  min-height: 182px;
 }
 
 /* Columna Izquierda: Puky el Koala */
@@ -62,20 +62,20 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 6px 0 0 6px;
+  padding: 4px 0 0 6px;
   z-index: 2;
   position: relative;
 }
 
 .mr-puky-img {
   width: 100%;
-  max-width: 125px;
+  max-width: 144px; /* Aumentado ~15% respecto al tamaño anterior (125px) */
   height: auto;
   display: block;
   object-fit: contain;
   object-position: bottom center;
   filter: drop-shadow(0 4px 10px rgba(150, 80, 10, 0.18));
-  transform: translateY(2px);
+  transform: translateY(3px); /* Bien apoyado visualmente sobre la vegetación inferior */
 }
 
 /* Estrellas decorativas (fijas y contenidas dentro del recuadro) */
@@ -572,22 +572,24 @@ button.mr-mission-checkbox:not(.is-checked):hover {
   margin-top: 2px;
 }
 
-.mr-action-btn-blue {
-  background: linear-gradient(180deg, #0EA5E9 0%, #0284C7 100%);
-  color: #fff;
+.mr-action-btn-blue,
+.mr-action-btn-orange {
   border: none;
   border-radius: 999px;
-  padding: 5px 12px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
+  padding: 5px 13px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.28);
+  justify-content: center;
+  gap: 6px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
+}
+
+.mr-action-btn-blue {
+  background: linear-gradient(180deg, #0EA5E9 0%, #0284C7 100%);
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.28);
 }
 
 .mr-action-btn-blue:hover {
@@ -602,19 +604,7 @@ button.mr-mission-checkbox:not(.is-checked):hover {
 .mr-action-btn-orange {
   background: linear-gradient(180deg, #FBBF24 0%, #D97706 100%);
   color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 5px 12px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
   box-shadow: 0 3px 8px rgba(217, 119, 6, 0.28);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  white-space: nowrap;
 }
 
 .mr-action-btn-orange:hover {
@@ -626,20 +616,64 @@ button.mr-mission-checkbox:not(.is-checked):hover {
   transform: translateY(0);
 }
 
+/* Elementos internos del botón para balance y centrado perfecto */
+.mr-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+}
+
+.mr-btn-text {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.mr-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  opacity: 0.9;
+  transition: transform 0.15s ease;
+}
+
+.mr-action-btn-blue:hover .mr-btn-arrow,
+.mr-action-btn-orange:hover .mr-btn-arrow {
+  transform: translateX(1.5px);
+}
+
 /* Badge de misión cumplida */
 .mr-done-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 5px;
   font-family: 'Fredoka', sans-serif;
   font-size: 10.5px;
   font-weight: 700;
   color: #15803D;
   background: #DCFCE7;
   border: 1px solid #86EFAC;
-  padding: 3px 9px;
+  padding: 4px 11px;
   border-radius: 999px;
   box-shadow: 0 1px 4px rgba(22, 101, 52, 0.08);
+}
+
+.mr-done-badge .mr-btn-icon {
+  font-size: 11px;
+  width: auto;
 }
 
 /* ===================================================================
@@ -650,12 +684,12 @@ button.mr-mission-checkbox:not(.is-checked):hover {
     padding: 8px 6px 105px !important;
   }
   .mr-hero-card {
-    grid-template-columns: 30% 70%;
-    min-height: 165px;
+    grid-template-columns: 34% 66%;
+    min-height: 172px;
     border-radius: 18px;
   }
   .mr-puky-img {
-    max-width: 105px;
+    max-width: 122px; /* Aumentado ~16% (era 105px) */
   }
   .mr-hero-content {
     padding: 8px 8px 8px 3px;
@@ -696,16 +730,28 @@ button.mr-mission-checkbox:not(.is-checked):hover {
   .mr-action-btn-orange {
     font-size: 10px;
     padding: 4px 10px;
+    gap: 4px;
+  }
+  .mr-btn-icon {
+    font-size: 11px;
+    width: 12px;
+  }
+  .mr-btn-text {
+    font-size: 10px;
+  }
+  .mr-btn-arrow {
+    font-size: 9px;
+    width: 12px;
   }
 }
 
 @media (min-width: 480px) {
   .mr-hero-card {
-    grid-template-columns: 32% 68%;
-    min-height: 190px;
+    grid-template-columns: 35% 65%;
+    min-height: 195px;
   }
   .mr-puky-img {
-    max-width: 135px;
+    max-width: 156px; /* Aumentado ~15% (era 135px) */
   }
   .mr-hero-title {
     font-size: 20px;

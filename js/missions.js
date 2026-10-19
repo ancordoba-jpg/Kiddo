@@ -1777,32 +1777,33 @@ class KiddoMissionsManager {
     // Botones de acción
     let actionBtnHtml = '';
     if (isAuto) {
-      const btnLabels = {
-        game:  '🎮 Ir al juego',
-        story: '📖 Leer cuento',
-        music: '🎹 Ir al piano'
+      const btnConfigs = {
+        game:  { icon: '🎮', text: 'Ir al juego' },
+        story: { icon: '📖', text: 'Leer cuento' },
+        music: { icon: '🎹', text: 'Ir al piano' }
       };
-      const label = btnLabels[mission.category] || '🎯 Ir a la actividad';
+      const cfg = btnConfigs[mission.category] || { icon: '🎯', text: 'Ir a la actividad' };
       if (!isDone) {
         actionBtnHtml = `
           <button class="mr-action-btn-blue" type="button" onclick="window.kiddoMissions.goToActivity('${mission.id}')">
-            <span>${label}</span>
-            <span>➔</span>
+            <span class="mr-btn-icon">${cfg.icon}</span>
+            <span class="mr-btn-text">${cfg.text}</span>
+            <span class="mr-btn-arrow">➔</span>
           </button>
         `;
       } else {
-        actionBtnHtml = `<div class="mr-done-badge"><span>¡Misión cumplida!</span><span>⭐</span></div>`;
+        actionBtnHtml = `<div class="mr-done-badge"><span class="mr-btn-icon">⭐</span><span class="mr-btn-text">¡Misión cumplida!</span></div>`;
       }
     } else {
       if (!isDone) {
         actionBtnHtml = `
           <button class="mr-action-btn-orange" type="button" onclick="window.kiddoMissions.requestManualMissionCompletion('${mission.id}')">
-            <span>Marcar como realizada</span>
-            <span>✓</span>
+            <span class="mr-btn-icon">✓</span>
+            <span class="mr-btn-text">Marcar como realizada</span>
           </button>
         `;
       } else {
-        actionBtnHtml = `<div class="mr-done-badge"><span>¡Misión cumplida!</span><span>⭐</span></div>`;
+        actionBtnHtml = `<div class="mr-done-badge"><span class="mr-btn-icon">⭐</span><span class="mr-btn-text">¡Misión cumplida!</span></div>`;
       }
     }
 
