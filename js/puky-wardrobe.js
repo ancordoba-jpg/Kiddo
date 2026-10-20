@@ -183,7 +183,7 @@
 
     // Botón de cerrar ✕
     html += '<button class="wd-bar-close-btn" ';
-    html += 'onclick="window.pukyWardrobe.close()" ';
+    html += 'onclick="(window.kiddoApp && window.kiddoApp.closePukyWardrobe) ? window.kiddoApp.closePukyWardrobe() : window.pukyWardrobe.close()" ';
     html += 'aria-label="Cerrar vestidor" title="Cerrar">✕</button>';
     html += '</div>';
 
@@ -219,6 +219,22 @@
   };
 
   WardrobeManager.prototype.init = function() { this.renderWardrobe(); };
+
+  WardrobeManager.prototype.close = function() {
+    if (window.kiddoApp && typeof window.kiddoApp.closePukyWardrobe === 'function') {
+      window.kiddoApp.closePukyWardrobe();
+      return;
+    }
+    var panel = document.getElementById('puky-wardrobe-inline');
+    var btn = document.getElementById('puky-btn-vestimenta');
+    var scene = document.getElementById('puky-scene-wrapper');
+    if (panel) {
+      panel.classList.remove('visible');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+    if (btn) btn.style.background = '#F0FDF4';
+    if (scene) scene.classList.remove('wardrobe-active');
+  };
 
   WardrobeManager.prototype.getSummary = function() {
     var self = this; var s = {};

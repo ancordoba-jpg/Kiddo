@@ -25,6 +25,29 @@ class KiddoApp {
       this.setupEventListeners();
       this.startScreenTimeTracker();
 
+      // Soporte para acceso directo por parámetro de URL (útil para pruebas en formato móvil)
+      const urlParams = new URLSearchParams(window.location.search);
+      const testScreen = urlParams.get('screen') || urlParams.get('test');
+      if (testScreen) {
+        this.isAuthenticated = true;
+        const loginScreen = document.getElementById('screen-login');
+        if (loginScreen) {
+          loginScreen.classList.remove('active');
+          loginScreen.classList.add('hidden');
+          loginScreen.style.display = 'none';
+        }
+        const mainApp = document.getElementById('main-app-container');
+        if (mainApp) {
+          mainApp.classList.remove('hidden');
+          mainApp.style.display = 'flex';
+        }
+        this.navigateTo(testScreen);
+        if (urlParams.get('wardrobe') === 'open') {
+          setTimeout(() => this.togglePukyWardrobe(), 300);
+        }
+        return;
+      }
+
       // Estado inicial: evaluar si está autenticado
       if (!this.isAuthenticated) {
         this.showLoginScreen();
@@ -178,6 +201,11 @@ class KiddoApp {
       window.kiddoStories.closeReader();
     }
 
+    // Si salimos de la sección Puky a otra sección, cerrar vestidor de forma consistente
+    if (screenName !== 'puky') {
+      this.closePukyWardrobe();
+    }
+
     // Ocultar todas las pantallas principales
     document.querySelectorAll('.kiddo-screen').forEach(screen => {
       screen.classList.remove('active');
@@ -198,6 +226,16 @@ class KiddoApp {
     if (targetScreen) {
       targetScreen.classList.add('active');
       targetScreen.style.display = 'block';
+    }
+
+    // Gestionar clase de viewport específica para Puky (fija entre header y nav)
+    const appViewport = document.getElementById('app-viewport');
+    if (appViewport) {
+      if (screenName === 'puky') {
+        appViewport.classList.add('viewport-puky');
+      } else {
+        appViewport.classList.remove('viewport-puky');
+      }
     }
 
     // Renderizado bajo demanda según sección
@@ -367,13 +405,14 @@ class KiddoApp {
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-end';
-    container.style.paddingBottom = '110px';
+    // El padding-bottom lo maneja CSS (clamp), no sobreescribir aquí
     container.style.boxSizing = 'border-box';
 
     puky.style.width = 'auto';
     puky.style.height = '100%';
     puky.style.maxHeight = '100%';
-    puky.style.maxWidth = '85%';
+    // Reducido armónicamente para que Puky luzca bien apoyado sobre la alfombra
+    puky.style.maxWidth = '60%';
     puky.style.objectFit = 'contain';
 
     container.appendChild(puky);
@@ -399,29 +438,50 @@ class KiddoApp {
   }
 
   // ── VESTIDOR DE PUKY (panel integrado en pantalla) ──────────────────
-  togglePukyWardrobe() {
+  openPukyWardrobe() {
     const panel = document.getElementById('puky-wardrobe-inline');
     const btn   = document.getElementById('puky-btn-vestimenta');
+    const scene = document.getElementById('puky-scene-wrapper');
     if (!panel) return;
 
-    const isVisible = panel.classList.contains('visible');
-    if (isVisible) {
+    if (window.pukyWardrobe) {
+      const layerContainer = document.getElementById('puky2d-wrapper') || document.getElementById('puky-3d-room-canvas');
+      if (layerContainer) window.pukyWardrobe.mountLayers(layerContainer.id);
+      window.pukyWardrobe.renderWardrobe();
+    }
+    panel.classList.add('visible');
+    panel.setAttribute('aria-hidden', 'false');
+    if (btn) btn.style.background = '#D1FAE5';
+    if (scene) scene.classList.add('wardrobe-active');
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  }
+
+  closePukyWardrobe() {
+    const panel = document.getElementById('puky-wardrobe-inline');
+    const btn   = document.getElementById('puky-btn-vestimenta');
+    const scene = document.getElementById('puky-scene-wrapper');
+    if (panel) {
       panel.classList.remove('visible');
       panel.setAttribute('aria-hidden', 'true');
-      if (btn) btn.style.background = '#F0FDF4';
-    } else {
-      // Inicializar capas y renderizar
-      if (window.pukyWardrobe) {
-        // Intentar con wrapper del personaje 2D o el canvas 3D como base
-        const layerContainer = document.getElementById('puky2d-wrapper') || document.getElementById('puky-3d-room-canvas');
-        if (layerContainer) window.pukyWardrobe.mountLayers(layerContainer.id);
-        window.pukyWardrobe.renderWardrobe();
-      }
-      panel.classList.add('visible');
-      panel.setAttribute('aria-hidden', 'false');
-      if (btn) btn.style.background = '#D1FAE5';
+    }
+    if (btn) {
+      btn.style.background = '#F0FDF4';
+    }
+    if (scene) {
+      scene.classList.remove('wardrobe-active');
     }
     if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  }
+
+  togglePukyWardrobe() {
+    const panel = document.getElementById('puky-wardrobe-inline');
+    if (!panel) return;
+    const isVisible = panel.classList.contains('visible');
+    if (isVisible) {
+      this.closePukyWardrobe();
+    } else {
+      this.openPukyWardrobe();
+    }
   }
 
   openPukyCustomization() {
