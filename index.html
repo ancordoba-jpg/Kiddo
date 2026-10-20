@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -61,6 +61,7 @@
   <link rel="stylesheet" href="css/games.css">
   <link rel="stylesheet" href="css/games-redesign.css">
 <link rel="stylesheet" href="css/missions-redesign.css">
+  <link rel="stylesheet" href="css/puky-dressing.css">
 </head>
 
 <body>
@@ -507,17 +508,26 @@
             <div id="puky-particles"
               style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3;"></div>
 
-            <!-- ZONA INFERIOR (Barra Flotante Integrada en el Vestidor - Fiel a Imagen 5) -->
-            <div class="puky-floating-bar"
-              style="position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); background: #FFFFFF; padding: 10px 18px; border-radius: 34px; box-shadow: 0 8px 24px rgba(61, 69, 92, 0.12); border: 2px solid rgba(255, 255, 255, 0.9); display: flex; align-items: center; gap: 14px; z-index: 10;">
-              <button onclick="window.kiddoApp.openPukyCustomization()"
-                style="background: #F0FDF4; border: 1.5px solid #BBF7D0; padding: 10px 20px; border-radius: 24px; font-family: var(--font-heading); font-size: 16px; color: #166534; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 800; transition: transform 0.15s ease;">
-                <span style="font-size: 20px;">👕</span> Vestimenta
+            <!-- ZONA INFERIOR (Barra de acciones + Panel de Vestidor integrado) -->
+            <!-- Barra de acciones -->
+            <div class="puky-floating-bar" id="puky-action-bar">
+              <button id="puky-btn-vestimenta" onclick="window.kiddoApp.togglePukyWardrobe()"
+                aria-label="Vestimenta de Puky">
+                <span style="font-size:20px">👕</span> Vestimenta
               </button>
-              <button onclick="window.kiddoApp.openPukyChat()"
-                style="background: #FAF5FF; border: 1.5px solid #E9D5FF; padding: 10px 20px; border-radius: 24px; font-family: var(--font-heading); font-size: 16px; color: #6B21A8; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 800; transition: transform 0.15s ease;">
-                <span style="font-size: 20px;">💬</span> Chat
+              <button class="btn-chat" onclick="window.pukyChat ? window.pukyChat.open() : window.kiddoApp.openPukyChat()"
+                aria-label="Chatear con Puky">
+                <span style="font-size:20px">💬</span> Chat
               </button>
+            </div>
+
+            <!-- Panel vestidor integrado (se desliza desde abajo) -->
+            <div class="puky-wardrobe-inline" id="puky-wardrobe-inline" aria-label="Vestidor de Puky" aria-hidden="true">
+              <div class="wd-panel-header">
+                <span class="wd-panel-title">👗 Vestidor de Puky</span>
+                <button class="wd-panel-close-btn" onclick="window.kiddoApp.togglePukyWardrobe()" aria-label="Cerrar vestidor">✕</button>
+              </div>
+              <div id="puky-wardrobe-panel"></div>
             </div>
           </div>
         </section>
@@ -717,24 +727,23 @@
           <button class="modal-close-btn" onclick="window.kiddoApp.closePukyChatModal()">✕</button>
         </div>
 
-        <div class="chat-messages-container" id="puky-chat-messages"></div>
+        <div class="chat-messages-container" id="puky-chat-messages" role="log" aria-live="polite" aria-label="Conversación con Puky"></div>
 
         <div class="chat-quick-prompts">
-          <button class="quick-prompt-chip" onclick="window.kiddoApp.sendChatMessage('¡Hola Puky!')">👋 ¡Hola
-            Puky!</button>
-          <button class="quick-prompt-chip" onclick="window.kiddoApp.sendChatMessage('¿Cómo estás?')">🐨 ¿Cómo
-            estás?</button>
-          <button class="quick-prompt-chip" onclick="window.kiddoApp.sendChatMessage('¡Quiero jugar!')">🎮 ¡Quiero
-            jugar!</button>
-          <button class="quick-prompt-chip" onclick="window.kiddoApp.sendChatMessage('¡Te quiero!')">💖 ¡Te
-            quiero!</button>
+          <button class="quick-prompt-chip" onclick="window.pukyChat ? window.pukyChat.send('¡Hola Puky!') : window.kiddoApp.sendChatMessage('¡Hola Puky!')">👋 ¡Hola Puky!</button>
+          <button class="quick-prompt-chip" onclick="window.pukyChat ? window.pukyChat.send('¿Cómo estás?') : window.kiddoApp.sendChatMessage('¿Cómo estás?')">🐨 ¿Cómo estás?</button>
+          <button class="quick-prompt-chip" onclick="window.pukyChat ? window.pukyChat.send('¡Quiero jugar!') : window.kiddoApp.sendChatMessage('¡Quiero jugar!')">🎮 ¡Quiero jugar!</button>
+          <button class="quick-prompt-chip" onclick="window.pukyChat ? window.pukyChat.send('Cuánto es 8 más 5') : window.kiddoApp.sendChatMessage('Cuánto es 8 más 5')">🧮 Matemáticas</button>
         </div>
+
+        <p class="chat-demo-badge">🔒 Modo local · Sin IA externa · Conversación no guardada</p>
 
         <div class="chat-input-row">
           <input type="text" id="puky-chat-input" class="kiddo-input" placeholder="Escribe un mensaje a Puky..."
-            onkeydown="if(event.key==='Enter') window.kiddoApp.sendChatMessage()">
-          <button class="kiddo-btn-primary" style="width: auto; padding: 12px 18px;"
-            onclick="window.kiddoApp.sendChatMessage()">
+            maxlength="200"
+            onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); window.pukyChat ? window.pukyChat.send() : window.kiddoApp.sendChatMessage(); }">
+          <button id="puky-send-btn" class="kiddo-btn-primary" style="width:auto;padding:10px 16px;"
+            onclick="window.pukyChat ? window.pukyChat.send() : window.kiddoApp.sendChatMessage()">
             <span>Enviar</span>
           </button>
         </div>
@@ -783,6 +792,8 @@
   <script src="js/missions.js"></script>
   <script src="js/parental.js"></script>
   <script src="js/games.js"></script>
+  <script src="js/puky-wardrobe.js"></script>
+  <script src="js/puky-chat.js"></script>
   <script src="js/app.js"></script>
 
   <!-- ================================================

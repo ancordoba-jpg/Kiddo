@@ -398,13 +398,39 @@ class KiddoApp {
 
   }
 
+  // ── VESTIDOR DE PUKY (panel integrado en pantalla) ──────────────────
+  togglePukyWardrobe() {
+    const panel = document.getElementById('puky-wardrobe-inline');
+    const btn   = document.getElementById('puky-btn-vestimenta');
+    if (!panel) return;
+
+    const isVisible = panel.classList.contains('visible');
+    if (isVisible) {
+      panel.classList.remove('visible');
+      panel.setAttribute('aria-hidden', 'true');
+      if (btn) btn.style.background = '#F0FDF4';
+    } else {
+      // Inicializar capas y renderizar
+      if (window.pukyWardrobe) {
+        // Intentar con wrapper del personaje 2D o el canvas 3D como base
+        const layerContainer = document.getElementById('puky2d-wrapper') || document.getElementById('puky-3d-room-canvas');
+        if (layerContainer) window.pukyWardrobe.mountLayers(layerContainer.id);
+        window.pukyWardrobe.renderWardrobe();
+      }
+      panel.classList.add('visible');
+      panel.setAttribute('aria-hidden', 'false');
+      if (btn) btn.style.background = '#D1FAE5';
+    }
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  }
 
   openPukyCustomization() {
-    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
-    const modal = document.getElementById('puky-custom-modal');
-    if (modal) {
-      this.renderPukyCustomizationContent();
-      modal.classList.add('active');
+    // Delegar al panel integrado si existe, sino fallback al modal
+    if (document.getElementById('puky-wardrobe-inline')) {
+      this.togglePukyWardrobe();
+    } else {
+      const modal = document.getElementById('puky-custom-modal');
+      if (modal) { this.renderPukyCustomizationContent(); modal.classList.add('active'); }
     }
   }
 
@@ -475,12 +501,15 @@ class KiddoApp {
   }
 
   openPukyChat() {
+    // Delegar al módulo pukyChat si está disponible
+    if (window.pukyChat) {
+      window.pukyChat.open();
+      return;
+    }
+    // Fallback legacy
     if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
     const modal = document.getElementById('puky-chat-modal');
-    if (modal) {
-      modal.classList.add('active');
-      this.initChatMessages();
-    }
+    if (modal) { modal.classList.add('active'); this.initChatMessages(); }
   }
 
   initChatMessages() {
