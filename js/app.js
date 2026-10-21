@@ -396,39 +396,60 @@ class KiddoApp {
 
     container.replaceChildren();
 
+    // Layout del canvas: flex centrado en la base
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'flex-end';
+    container.style.boxSizing = 'border-box';
+
+    // Wrapper relativo: mismo tamaño visual que Puky.
+    // Es el sistema de coordenadas compartido entre el personaje y sus prendas.
+    const wrap = document.createElement('div');
+    wrap.id = 'puky-outfit-wrap';
+    wrap.style.cssText = [
+      'position:relative',
+      'width:auto',
+      'height:100%',
+      'max-height:100%',
+      'max-width:60%',
+      'flex-shrink:0',
+      'display:flex',
+      'align-items:flex-end',
+      'justify-content:center'
+    ].join(';');
+
     const puky = document.createElement('img');
     puky.id = 'puky-room-2d';
     puky.src = 'assets/puky2d/frames/puky-idle.png.png';
     puky.alt = 'Puky, mascota oficial de Kiddo';
     puky.draggable = false;
+    puky.style.cssText = [
+      'display:block',
+      'width:auto',
+      'height:100%',
+      'max-height:100%',
+      'max-width:100%',
+      'object-fit:contain',
+      'position:relative',
+      'z-index:1'
+    ].join(';');
 
-    container.style.display = 'flex';
-    container.style.justifyContent = 'center';
-    container.style.alignItems = 'flex-end';
-    // El padding-bottom lo maneja CSS (clamp), no sobreescribir aquí
-    container.style.boxSizing = 'border-box';
+    wrap.appendChild(puky);
+    container.appendChild(wrap);
 
-    puky.style.width = 'auto';
-    puky.style.height = '100%';
-    puky.style.maxHeight = '100%';
-    // Reducido armónicamente para que Puky luzca bien apoyado sobre la alfombra
-    puky.style.maxWidth = '60%';
-    puky.style.objectFit = 'contain';
-
-    container.appendChild(puky);
-
+    // Montar capas de prendas dentro del wrapper (mismo bounding box que Puky)
+    if (window.pukyWardrobe) {
+      window.pukyWardrobe.mountLayers('puky-outfit-wrap');
+    }
 
     // Reaccionar cuando el usuario acaricia a Puky
     let pettingTimer = null;
-
     puky.style.cursor = 'pointer';
     puky.style.touchAction = 'manipulation';
 
     puky.addEventListener('click', () => {
       if (pettingTimer) clearTimeout(pettingTimer);
-
       puky.src = 'assets/puky2d/frames/puky-petting.png.png';
-
       pettingTimer = setTimeout(() => {
         puky.src = 'assets/puky2d/frames/puky-idle.png.png';
         pettingTimer = null;
@@ -445,7 +466,7 @@ class KiddoApp {
     if (!panel) return;
 
     if (window.pukyWardrobe) {
-      const layerContainer = document.getElementById('puky2d-wrapper') || document.getElementById('puky-3d-room-canvas');
+      const layerContainer = document.getElementById('puky-outfit-wrap') || document.getElementById('puky-3d-room-canvas');
       if (layerContainer) window.pukyWardrobe.mountLayers(layerContainer.id);
       window.pukyWardrobe.renderWardrobe();
     }
