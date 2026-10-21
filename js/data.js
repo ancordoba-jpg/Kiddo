@@ -211,79 +211,148 @@ const KIDDO_DATA = {
         id: 'rel-piano',
         title: 'Piano de las Nubes',
         instrument: 'Piano',
-        icon: '🎹',
-        duration: 'Sonido continuo',
-        color: '#BEE3F8',
+        iconImage: 'assets/musica/relajante/icono-piano.png',
+        color: '#EBF8FF',
+        borderColor: '#BAE6FD',
+        tagColor: '#0284C7',
+        tagBg: '#E0F2FE',
         description: 'Notas suaves y serenas que transmiten paz y tranquilidad.',
-        synthPreset: 'piano'
+        youtubeUrl: 'https://youtu.be/_kWkoRUrCWQ?si=3HTwbZ9a0ySCHB9M',
+        videoId: '_kWkoRUrCWQ',
+        audioMode: 'youtube'
       },
       {
         id: 'rel-violin',
         title: 'Violín de la Brisa',
         instrument: 'Violín',
-        icon: '🎻',
-        duration: 'Sonido continuo',
-        color: '#E9D8FD',
+        iconImage: 'assets/musica/relajante/icono-violin.png',
+        color: '#FAF5FF',
+        borderColor: '#E9D5FF',
+        tagColor: '#9333EA',
+        tagBg: '#F3E8FF',
         description: 'Melodías dulces y fluidas como el viento entre los árboles.',
-        synthPreset: 'violin'
+        youtubeUrl: 'https://youtu.be/B0HtiGUYbQw?si=oAQINAJVgF3CoR_S',
+        videoId: 'B0HtiGUYbQw',
+        audioMode: 'youtube'
       },
       {
         id: 'rel-rain',
         title: 'Lluvia en el Bosque',
         instrument: 'Lluvia',
-        icon: '🌧️',
-        duration: 'Sonido ambiental',
-        color: '#C6F6D5',
+        iconImage: 'assets/musica/relajante/icono-lluvia.png',
+        color: '#F0FDF4',
+        borderColor: '#BBF7D0',
+        tagColor: '#16A34A',
+        tagBg: '#DCFCE7',
         description: 'Gotas relajantes cayendo sobre hojas tiernas de eucalipto.',
-        synthPreset: 'rain'
+        youtubeUrl: 'https://www.youtube.com/live/8DbIaenwTvE?si=R0BgpZyOV_hS3WAL',
+        videoId: '8DbIaenwTvE',
+        audioMode: 'youtube'
       },
       {
         id: 'rel-harp',
         title: 'Arpa de las Estrellas',
         instrument: 'Arpa',
-        icon: '✨',
-        duration: 'Sonido continuo',
-        color: '#FEFCBF',
+        iconImage: 'assets/musica/relajante/icono-estrellas.png',
+        color: '#FEFCE8',
+        borderColor: '#FEF08A',
+        tagColor: '#CA8A04',
+        tagBg: '#FEF9C3',
         description: 'Arpegios mágicos que invitan a soñar y descansar.',
-        synthPreset: 'harp'
+        synthPreset: 'harp',
+        audioMode: 'synth'
       }
     ],
     children: [
       {
-        id: 'yt-song-1',
-        title: 'Canción Infantil Educativa - Ronda de los Colores',
-        channel: 'Música Infantil Feliz',
-        url: 'https://youtu.be/ExaWNagWYBI?si=XrFmLCIrN-MMTOEx',
-        icon: '🎵',
-        color: '#FFD1DC',
-        description: 'Canción especial para cantar, bailar y aprender los colores.'
+        id: 'manuelita',
+        title: 'Manuelita la tortuga',
+        artist: 'María Elena Walsh',
+        videoId: 'MWvldIeacPA',
+        thumbnail: 'https://img.youtube.com/vi/MWvldIeacPA/hqdefault.jpg',
+        description: 'Una canción clásica y tierna para cantar con alegría.',
+        accent: '#F9A8D4'
       },
       {
-        id: 'yt-song-2',
-        title: 'La Granja Divertida de Puky',
-        channel: 'Aprende Cantando',
-        url: 'https://www.youtube.com/watch?v=ExaWNagWYBI',
-        icon: '🐮',
-        color: '#FEFCBF',
-        description: 'Sonidos de animalitos y ritmos alegres para toda la familia.'
+        id: 'estrellita',
+        title: 'Estrellita, ¿dónde estás?',
+        artist: 'Super Simple Español',
+        videoId: 'qDUfm2_beKE',
+        thumbnail: 'https://img.youtube.com/vi/qDUfm2_beKE/hqdefault.jpg',
+        description: 'Una melodía suave y conocida para acompañar momentos tranquilos.',
+        accent: '#93C5FD'
       },
       {
-        id: 'yt-song-3',
-        title: 'Estrellita, ¿Dónde Estás?',
-        channel: 'Canciones de Cuna',
-        url: 'https://www.youtube.com/watch?v=ExaWNagWYBI',
-        icon: '⭐',
-        color: '#BEE3F8',
-        description: 'El clásico tema para cantar y relajarse antes de dormir.'
+        id: 'luna-cansada',
+        title: 'Luna cansada',
+        artist: 'Canticuéntico',
+        videoId: 'tudwNZGbWXY',
+        thumbnail: 'https://img.youtube.com/vi/tudwNZGbWXY/hqdefault.jpg',
+        description: 'Una canción cálida y serena para escuchar en familia.',
+        accent: '#C4B5FD'
       },
       {
-        id: 'yt-song-4',
-        title: 'El Baile de las Frutas Felices',
-        channel: 'Ritmos Saludables',
-        url: 'https://www.youtube.com/watch?v=ExaWNagWYBI',
-        icon: '🍉',
-        color: '#C6F6D5',
-        description: 'Movimiento, ritmo y mucha energía positiva.'
+        id: 'pollitos',
+        title: 'Los pollitos dicen',
+        artist: 'Super Simple Español',
+        videoId: 'ZZ5cgLyJtNU',
+        thumbnail: 'https://img.youtube.com/vi/ZZ5cgLyJtNU/hqdefault.jpg',
+        description: 'Una canción infantil muy dulce para cantar y aprender.',
+        accent: '#FDE68A'
+      },
+      {
+        id: 'jardinero',
+        title: 'El jardinero',
+        artist: 'María Elena Walsh',
+        videoId: 't0R5dvoTCDM',
+        thumbnail: 'https://img.youtube.com/vi/t0R5dvoTCDM/hqdefault.jpg',
+        description: 'Una propuesta musical clásica y divertida con ternura.',
+        accent: '#6EE7B7'
+      },
+      {
+        id: 'reina-batata',
+        title: 'La reina Batata',
+        artist: 'María Elena Walsh',
+        videoId: 'v2flTr8zY5c',
+        thumbnail: 'https://img.youtube.com/vi/v2flTr8zY5c/hqdefault.jpg',
+        description: 'Una canción alegre y creativa del mundo de María Elena Walsh.',
+        accent: '#FDBA74'
+      },
+      {
+        id: 'quiero-para-mi',
+        title: 'Quiero para mí',
+        artist: 'Canticuéntico',
+        videoId: '5bWM2gGB-Fs',
+        thumbnail: 'https://img.youtube.com/vi/5bWM2gGB-Fs/hqdefault.jpg',
+        description: 'Una canción sensible y bonita para disfrutar en calma.',
+        accent: '#A7F3D0'
+      },
+      {
+        id: 'arana-pequenita',
+        title: 'La araña pequeñita',
+        artist: 'Super Simple Español',
+        videoId: 'XvKotqrAPFA',
+        thumbnail: 'https://img.youtube.com/vi/XvKotqrAPFA/hqdefault.jpg',
+        description: 'Una canción infantil muy conocida para cantar y jugar.',
+        accent: '#DDD6FE'
+      },
+      {
+        id: 'banar-la-luna',
+        title: 'Bañar la luna',
+        artist: 'María Elena Walsh',
+        videoId: 'OMUh_vJXM44',
+        thumbnail: 'https://img.youtube.com/vi/OMUh_vJXM44/hqdefault.jpg',
+        description: 'Una melodía suave, poética y relajante.',
+        accent: '#BAE6FD'
+      },
+      {
+        id: 'giraluna-girasol',
+        title: 'Giraluna, girasol',
+        artist: 'Cantoalegre',
+        videoId: 'HYQLRSI0KT4',
+        thumbnail: 'https://img.youtube.com/vi/HYQLRSI0KT4/hqdefault.jpg',
+        description: 'Una canción amorosa y tranquila con un ritmo delicado.',
+        accent: '#FCA5A5'
       }
     ]
   },

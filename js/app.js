@@ -16,6 +16,7 @@ class KiddoApp {
     this.screenTimeTimer = null;
     this.screenTimeSeconds = 14 * 60; // 14 min iniciales como en la referencia
     this.activeMusicTab = 'crear';
+    this.activeRelaxingTrackId = null;
     this.currentVideoAge = this.getInitialAgeGroup();
     this.activeVideoPlayer = null;
   }
@@ -204,6 +205,11 @@ class KiddoApp {
     // Si salimos de la sección Puky a otra sección, cerrar vestidor de forma consistente
     if (screenName !== 'puky') {
       this.closePukyWardrobe();
+    }
+
+    // Si salimos de la sección Música a otra sección, pausar música relajante
+    if (screenName !== 'musica') {
+      this.stopAllRelaxingMusic();
     }
 
     // Ocultar todas las pantallas principales
@@ -669,6 +675,9 @@ class KiddoApp {
   }
 
   switchMusicCategory(tabKey) {
+    if (this.activeMusicTab === 'relajante' && tabKey !== 'relajante') {
+      this.stopAllRelaxingMusic();
+    }
     this.activeMusicTab = tabKey;
     document.querySelectorAll('.music-subtab-btn').forEach(btn => {
       if (btn.getAttribute('data-tab') === tabKey) {
@@ -683,27 +692,64 @@ class KiddoApp {
 
     if (tabKey === 'relajante') {
       contentBox.innerHTML = `
-        <div class="music-relaxing-grid">
-          ${KIDDO_DATA.music.relaxing.map(track => `
-            <div class="relax-track-card" onclick="window.kiddoApp.toggleRelaxingTrack('${track.id}')" id="track-${track.id}" style="border-top: 6px solid ${track.color};">
-              <div class="relax-track-icon-wrap" style="background-color: ${track.color};">
-                <span class="relax-icon">${track.icon}</span>
-              </div>
-              <div class="relax-track-info">
-                <h3>${track.title}</h3>
-                <span class="relax-instrument">${track.instrument}</span>
-                <p>${track.description}</p>
-              </div>
-              <div class="relax-play-indicator">
-                <span class="play-pulse-btn" id="btn-play-${track.id}">▶ Escuchar</span>
-              </div>
-            </div>
-          `).join('')}
+        <div class="music-relaxing-container">
+          <!-- Banner Hero Relajante -->
+          <div class="relax-hero-banner" role="img" aria-label="Puky descansando relajado">
+            <img src="assets/musica/relajante/fondo-relajante.png" alt="Puky descansando en una nube suave" class="relax-hero-img" />
+          </div>
+
+          <!-- Contenedor invisible para reproductor YouTube embebido (una sola pista activa) -->
+          <div id="relaxing-yt-player-container" aria-hidden="true" style="display:none;"></div>
+
+          <!-- Lista vertical de las 4 tarjetas relajantes con iconos 3D -->
+          <div class="music-relaxing-grid">
+            ${KIDDO_DATA.music.relaxing.map(track => {
+              const isPlaying = this.activeRelaxingTrackId === track.id;
+              return `
+                <div class="relax-track-card ${isPlaying ? 'is-playing' : ''}"
+                     id="track-${track.id}"
+                     style="background: ${track.color}; border: 2px solid ${track.borderColor};"
+                     onclick="window.kiddoApp.toggleRelaxingTrack('${track.id}')">
+                  
+                  <div class="relax-track-icon-wrap" style="border: 1.5px solid ${track.borderColor};">
+                    <img src="${track.iconImage}" alt="${track.title}" class="relax-track-icon-img" />
+                  </div>
+                  
+                  <div class="relax-track-info">
+                    <div class="relax-card-header-row">
+                      <span class="relax-instrument-tag" style="color: ${track.tagColor}; background: ${track.tagBg};">
+                        ${track.instrument}
+                      </span>
+                    </div>
+                    <h3 class="relax-track-title">${track.title}</h3>
+                    <p class="relax-track-desc">${track.description}</p>
+                  </div>
+
+                  <div class="relax-play-indicator">
+                    <button class="relax-listen-btn ${isPlaying ? 'is-playing' : ''}"
+                            id="btn-play-${track.id}"
+                            onclick="event.stopPropagation(); window.kiddoApp.toggleRelaxingTrack('${track.id}')"
+                            aria-label="${isPlaying ? 'Pausar' : 'Escuchar'} ${track.title}">
+                      <span class="btn-play-icon">${isPlaying ? '⏸' : '▶'}</span>
+                      <span class="btn-play-text">${isPlaying ? 'Pausar' : 'Escuchar'}</span>
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
         </div>
       `;
     } else if (tabKey === 'crear') {
       contentBox.innerHTML = `
         <div class="virtual-piano-experience" aria-label="Escenario musical de Puky">
+          <div class="piano-puky-banner" role="status" aria-live="polite">
+            <span class="piano-banner-avatar" aria-hidden="true">🐨</span>
+            <span class="piano-banner-text">¡Toca las teclas de colores para crear una linda canción conmigo! 🎵✨</span>
+          </div>
+
+          <div class="piano-notes-fx-layer" id="piano-notes-fx-layer" aria-hidden="true"></div>
+
           <span id="piano-puky-face" style="display:none;" aria-hidden="true"></span>
           <div class="piano-keyboard-wrapper">
             <div class="piano-keys-container" role="region" aria-label="Teclado del piano virtual">
@@ -744,22 +790,74 @@ class KiddoApp {
         </div>
       `;
     } else if (tabKey === 'infantil') {
+      const accentMap = {
+        'pink': '#F9A8D4', 'blue': '#93C5FD', 'purple': '#C4B5FD',
+        'yellow': '#FDE68A', 'green': '#6EE7B7', 'orange': '#FDBA74',
+        'mint': '#A7F3D0', 'lavender': '#DDD6FE', 'sky': '#BAE6FD', 'peach': '#FCA5A5'
+      };
       contentBox.innerHTML = `
-        <div class="children-music-grid">
-          ${KIDDO_DATA.music.children.map(song => `
-            <div class="youtube-song-card" onclick="window.kiddoApp.openYoutubeLink('${song.url}')" style="background: linear-gradient(135deg, ${song.color}, #FFFFFF);">
-              <div class="yt-song-badge">YouTube Kids</div>
-              <div class="yt-song-icon-wrap">${song.icon}</div>
-              <div class="yt-song-info">
-                <h3>${song.title}</h3>
-                <span class="yt-channel-name">Canal: ${song.channel}</span>
-                <p>${song.description}</p>
+        <div class="infantil-music-container">
+          <!-- Hero banner superior -->
+          <div class="infantil-hero-banner" role="img" aria-label="Puky con notas musicales">
+            <img src="assets/musica/infantil/fondo-infantil.png.png"
+                 onerror="this.src='assets/musica/infantil/fondo-infantil.png'"
+                 alt="Puky sosteniendo baquetas entre notas musicales"
+                 class="infantil-hero-img" />
+          </div>
+
+          <!-- Lista de canciones -->
+          <div class="infantil-songs-list">
+            ${KIDDO_DATA.music.children.map(song => `
+              <div class="infantil-song-card" id="infantil-card-${song.id}"
+                   onclick="window.kiddoApp.openInfantilVideo('${song.videoId}', '${song.title.replace(/'/g, "&#39;")}')"
+                   style="--card-accent: ${song.accent};">
+                <div class="infantil-thumbnail-wrap">
+                  <img
+                    src="${song.thumbnail}"
+                    alt="Miniatura de ${song.title}"
+                    class="infantil-thumbnail"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.style.background='${song.accent}';"
+                  />
+                  <div class="infantil-thumb-overlay">
+                    <span class="infantil-thumb-play-icon" aria-hidden="true">▶</span>
+                  </div>
+                </div>
+                <div class="infantil-song-info">
+                  <span class="infantil-yt-badge" aria-label="YouTube Kids">▶ YouTube</span>
+                  <h3 class="infantil-song-title">${song.title}</h3>
+                  <span class="infantil-song-artist">🎵 ${song.artist}</span>
+                  <p class="infantil-song-desc">${song.description}</p>
+                </div>
+                <button class="infantil-play-btn"
+                        onclick="event.stopPropagation(); window.kiddoApp.openInfantilVideo('${song.videoId}', '${song.title.replace(/'/g, "&#39;")}')"
+                        aria-label="Reproducir ${song.title}">
+                  <span class="infantil-play-btn-icon">▶</span>
+                </button>
               </div>
-              <div class="yt-song-action">
-                <span class="yt-play-link">Ver en YouTube 🎬</span>
-              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Modal interno reproductor -->
+        <div id="infantil-video-modal" class="infantil-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Reproductor de video">
+          <div class="infantil-modal-box">
+            <div class="infantil-modal-header">
+              <h2 class="infantil-modal-title" id="infantil-modal-title">Video</h2>
+              <button class="infantil-modal-close-btn" onclick="window.kiddoApp.closeInfantilModal()" aria-label="Cerrar video">✕</button>
             </div>
-          `).join('')}
+            <div class="infantil-iframe-wrap">
+              <iframe
+                id="infantil-yt-iframe"
+                src=""
+                title="Reproductor de video infantil"
+                frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                class="infantil-iframe"
+              ></iframe>
+            </div>
+          </div>
         </div>
       `;
     }
@@ -773,6 +871,7 @@ class KiddoApp {
     if (keyBtn) {
       keyBtn.classList.add('is-pressed');
       setTimeout(() => keyBtn.classList.remove('is-pressed'), 250);
+      this.spawnFloatingNote(noteKey, keyBtn);
     }
 
     const pukyFace = document.getElementById('piano-puky-face');
@@ -782,23 +881,154 @@ class KiddoApp {
     }
   }
 
+  spawnFloatingNote(noteKey, keyBtn) {
+    const fxLayer = document.getElementById('piano-notes-fx-layer');
+    if (!fxLayer || !keyBtn) return;
+
+    const symbols = ['♪', '♫', '♬', '♩', '✨'];
+    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+    const colorMap = {
+      'DO': '#EF4444',
+      'RE': '#F97316',
+      'MI': '#F59E0B',
+      'FA': '#10B981',
+      'SOL': '#0EA5E9',
+      'LA': '#6366F1',
+      'SI': '#A855F7',
+      'DO-HIGH': '#EC4899'
+    };
+    const color = colorMap[noteKey] || '#A855F7';
+
+    const stage = fxLayer.closest('.virtual-piano-experience');
+    if (!stage) return;
+
+    const stageRect = stage.getBoundingClientRect();
+    const keyRect = keyBtn.getBoundingClientRect();
+
+    // Posición en la parte superior central de la tecla presionada
+    const spawnX = (keyRect.left - stageRect.left) + (keyRect.width / 2) + (Math.random() * 16 - 8);
+    const spawnY = (keyRect.top - stageRect.top) - 10;
+
+    // Desplazamiento horizontal aleatorio sutil (-22px a +22px) y rotación
+    const driftX = Math.round(Math.random() * 44 - 22);
+    const rotate = Math.round(Math.random() * 28 - 14);
+
+    const noteEl = document.createElement('span');
+    noteEl.className = 'floating-music-note';
+    noteEl.textContent = symbol;
+    noteEl.style.left = `${spawnX}px`;
+    noteEl.style.top = `${spawnY}px`;
+    noteEl.style.color = color;
+    noteEl.style.textShadow = `0 2px 8px ${color}88, 0 1px 2px rgba(255,255,255,0.9)`;
+    noteEl.style.setProperty('--drift-x', `${driftX}px`);
+    noteEl.style.setProperty('--note-rotate', `${rotate}deg`);
+
+    fxLayer.appendChild(noteEl);
+
+    // Limpieza automática al finalizar la animación (o timeout de seguridad)
+    const cleanup = () => {
+      if (noteEl.parentNode) {
+        noteEl.parentNode.removeChild(noteEl);
+      }
+    };
+    noteEl.addEventListener('animationend', cleanup, { once: true });
+    setTimeout(cleanup, 1500);
+  }
+
   toggleRelaxingTrack(trackId) {
-    if (!window.kiddoAudio) return;
+    const track = KIDDO_DATA.music.relaxing.find(t => t.id === trackId);
+    if (!track) return;
 
-    if (window.kiddoAudio.activeAmbientSound === trackId) {
-      window.kiddoAudio.stopRelaxingTrack();
-      document.querySelectorAll('.relax-track-card').forEach(c => c.classList.remove('is-playing'));
-      document.querySelectorAll('.play-pulse-btn').forEach(b => b.textContent = '▶ Escuchar');
-    } else {
-      window.kiddoAudio.playRelaxingTrack(trackId);
-      document.querySelectorAll('.relax-track-card').forEach(c => c.classList.remove('is-playing'));
-      document.querySelectorAll('.play-pulse-btn').forEach(b => b.textContent = '▶ Escuchar');
-
-      const card = document.getElementById(`track-${trackId}`);
-      const btn = document.getElementById(`btn-play-${trackId}`);
-      if (card) card.classList.add('is-playing');
-      if (btn) btn.textContent = '⏸ Pausar';
+    // Si la misma pista ya está sonando, pausarla/detenerla
+    if (this.activeRelaxingTrackId === trackId) {
+      this.stopAllRelaxingMusic();
+      return;
     }
+
+    // Detener cualquier otra pista antes de iniciar la nueva
+    this.stopAllRelaxingMusic();
+
+    // Activar nueva pista
+    this.activeRelaxingTrackId = trackId;
+
+    if (track.audioMode === 'synth') {
+      // Arpa de las Estrellas (sintetizador nativo suave de audio.js)
+      if (window.kiddoAudio) {
+        window.kiddoAudio.playRelaxingTrack(trackId);
+      }
+    } else if (track.audioMode === 'youtube' && track.videoId) {
+      // Reproducción interna YouTube (Piano de las Nubes, Violín de la Brisa, Lluvia en el Bosque)
+      const ytBox = document.getElementById('relaxing-yt-player-container');
+      if (ytBox) {
+        ytBox.innerHTML = `
+          <iframe
+            id="relax-yt-iframe"
+            src="https://www.youtube-nocookie.com/embed/${track.videoId}?autoplay=1&enablejsapi=1&rel=0&playsinline=1"
+            title="${track.title}"
+            style="display:none; width:1px; height:1px; border:none;"
+            allow="autoplay; encrypted-media"
+            aria-hidden="true">
+          </iframe>
+        `;
+      }
+    }
+
+    // Actualizar estados visuales de tarjetas y botones
+    document.querySelectorAll('.relax-track-card').forEach(c => c.classList.remove('is-playing'));
+    document.querySelectorAll('.relax-listen-btn').forEach(b => {
+      b.classList.remove('is-playing');
+      b.innerHTML = '<span class="btn-play-icon">▶</span> <span class="btn-play-text">Escuchar</span>';
+    });
+
+    const card = document.getElementById(`track-${trackId}`);
+    const btn = document.getElementById(`btn-play-${trackId}`);
+    if (card) card.classList.add('is-playing');
+    if (btn) {
+      btn.classList.add('is-playing');
+      btn.innerHTML = '<span class="btn-play-icon">⏸</span> <span class="btn-play-text">Pausar</span>';
+    }
+  }
+
+  stopAllRelaxingMusic() {
+    this.activeRelaxingTrackId = null;
+    if (window.kiddoAudio) {
+      window.kiddoAudio.stopRelaxingTrack();
+    }
+    const ytBox = document.getElementById('relaxing-yt-player-container');
+    if (ytBox) {
+      ytBox.innerHTML = '';
+    }
+    document.querySelectorAll('.relax-track-card').forEach(c => c.classList.remove('is-playing'));
+    document.querySelectorAll('.relax-listen-btn').forEach(btn => {
+      btn.classList.remove('is-playing');
+      btn.innerHTML = '<span class="btn-play-icon">▶</span> <span class="btn-play-text">Escuchar</span>';
+    });
+  }
+
+  // 13b. SECCIÓN MÚSICA > INFANTIL — Reproductor interno modal
+  openInfantilVideo(videoId, title) {
+    if (!videoId) return;
+    const modal = document.getElementById('infantil-video-modal');
+    const iframe = document.getElementById('infantil-yt-iframe');
+    const titleEl = document.getElementById('infantil-modal-title');
+    if (!modal || !iframe) return;
+
+    if (titleEl) titleEl.textContent = title || 'Video';
+    const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    iframe.src = embedUrl;
+    modal.style.display = 'flex';
+
+    // Cerrar al hacer click fuera del box
+    modal.onclick = (e) => {
+      if (e.target === modal) this.closeInfantilModal();
+    };
+  }
+
+  closeInfantilModal() {
+    const modal = document.getElementById('infantil-video-modal');
+    const iframe = document.getElementById('infantil-yt-iframe');
+    if (iframe) iframe.src = '';
+    if (modal) modal.style.display = 'none';
   }
 
   // 14. SECCIÓN "VIDEOS" (Filtro por Edad, Carruseles y Reproducción Interna)
