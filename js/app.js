@@ -228,13 +228,18 @@ class KiddoApp {
       targetScreen.style.display = 'block';
     }
 
-    // Gestionar clase de viewport específica para Puky (fija entre header y nav)
+    // Gestionar clase de viewport específica para Puky y Música (fija entre header y nav)
     const appViewport = document.getElementById('app-viewport');
     if (appViewport) {
       if (screenName === 'puky') {
         appViewport.classList.add('viewport-puky');
       } else {
         appViewport.classList.remove('viewport-puky');
+      }
+      if (screenName === 'musica') {
+        appViewport.classList.add('viewport-musica');
+      } else {
+        appViewport.classList.remove('viewport-musica');
       }
     }
 
@@ -698,45 +703,39 @@ class KiddoApp {
       `;
     } else if (tabKey === 'crear') {
       contentBox.innerHTML = `
-        <div class="virtual-piano-experience">
-          <div class="piano-puky-companion">
-            <div class="piano-puky-avatar" id="piano-puky-face">🐨</div>
-            <div class="piano-speech-bubble">
-              ¡Toca las teclas de colores para crear una linda canción conmigo! 🎶✨
-            </div>
-          </div>
-
+        <div class="virtual-piano-experience" aria-label="Escenario musical de Puky">
+          <span id="piano-puky-face" style="display:none;" aria-hidden="true"></span>
           <div class="piano-keyboard-wrapper">
-            <div class="piano-keys-container">
-              <button class="piano-key key-c" onclick="window.kiddoApp.playKeyNote('DO', this)">
+            <div class="piano-keys-container" role="region" aria-label="Teclado del piano virtual">
+              <button class="piano-key key-c" onclick="window.kiddoApp.playKeyNote('DO', this)" aria-label="Nota DO">
                 <span class="key-note-name">DO</span>
                 <span class="key-color-dot" style="background: #F87171;"></span>
               </button>
-              <button class="piano-key key-d" onclick="window.kiddoApp.playKeyNote('RE', this)">
+              <button class="piano-key key-d" onclick="window.kiddoApp.playKeyNote('RE', this)" aria-label="Nota RE">
                 <span class="key-note-name">RE</span>
                 <span class="key-color-dot" style="background: #FB923C;"></span>
               </button>
-              <button class="piano-key key-e" onclick="window.kiddoApp.playKeyNote('MI', this)">
+              <button class="piano-key key-e" onclick="window.kiddoApp.playKeyNote('MI', this)" aria-label="Nota MI">
                 <span class="key-note-name">MI</span>
                 <span class="key-color-dot" style="background: #FACC15;"></span>
               </button>
-              <button class="piano-key key-f" onclick="window.kiddoApp.playKeyNote('FA', this)">
+              <button class="piano-key key-f" onclick="window.kiddoApp.playKeyNote('FA', this)" aria-label="Nota FA">
                 <span class="key-note-name">FA</span>
                 <span class="key-color-dot" style="background: #4ADE80;"></span>
               </button>
-              <button class="piano-key key-g" onclick="window.kiddoApp.playKeyNote('SOL', this)">
+              <button class="piano-key key-g" onclick="window.kiddoApp.playKeyNote('SOL', this)" aria-label="Nota SOL">
                 <span class="key-note-name">SOL</span>
                 <span class="key-color-dot" style="background: #38BDF8;"></span>
               </button>
-              <button class="piano-key key-a" onclick="window.kiddoApp.playKeyNote('LA', this)">
+              <button class="piano-key key-a" onclick="window.kiddoApp.playKeyNote('LA', this)" aria-label="Nota LA">
                 <span class="key-note-name">LA</span>
                 <span class="key-color-dot" style="background: #818CF8;"></span>
               </button>
-              <button class="piano-key key-b" onclick="window.kiddoApp.playKeyNote('SI', this)">
+              <button class="piano-key key-b" onclick="window.kiddoApp.playKeyNote('SI', this)" aria-label="Nota SI">
                 <span class="key-note-name">SI</span>
                 <span class="key-color-dot" style="background: #C084FC;"></span>
               </button>
-              <button class="piano-key key-c-high" onclick="window.kiddoApp.playKeyNote('DO-HIGH', this)">
+              <button class="piano-key key-c-high" onclick="window.kiddoApp.playKeyNote('DO-HIGH', this)" aria-label="Nota DO Agudo">
                 <span class="key-note-name">DO 🌟</span>
                 <span class="key-color-dot" style="background: #F472B6;"></span>
               </button>
