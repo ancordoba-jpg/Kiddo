@@ -886,290 +886,188 @@ const KIDDO_DATA = {
   videos: {
     categories: [
       { id: 'aprender', name: 'Aprender', icon: '📚' },
+      { id: 'entretenimiento', name: 'Entretenimiento', icon: '🍿' },
       { id: 'bailar', name: 'Bailar', icon: '🎵' },
-      { id: 'entretenimiento', name: 'Entretenimiento', icon: '🍿' }
+      { id: 'crear', name: 'Crear', icon: '🎨' }
     ],
     items: [
-      // 2 a 4 años 🐣
-      // Aprender
+      // 1. APRENDER (4 videos)
       {
-        id: 'v-2-4-ap-1',
-        title: 'Cinco Monitos',
-        channel: 'El Reino Infantil',
+        id: 'vid-ap-1',
+        title: 'El abecedario de la A a la Z',
+        channel: 'Smile and Learn - Español',
         category: 'aprender',
-        ageGroups: ['2-4'],
-        videoUrl: 'https://www.youtube.com/watch?v=ap0G1n0NIzM',
-        videoId: 'ap0G1n0NIzM',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/ap0G1n0NIzM',
-        thumbnail: 'https://i.ytimg.com/vi/ap0G1n0NIzM/hqdefault.jpg',
-        duration: '2:15',
-        description: 'Canción divertida de los cinco monitos saltando en la cama.'
-      },
-      // Bailar
-      {
-        id: 'v-2-4-ba-1',
-        title: 'Cabeza, hombros, rodillas y pies',
-        channel: 'El Reino Infantil',
-        category: 'bailar',
-        ageGroups: ['2-4'],
-        videoUrl: 'https://www.youtube.com/watch?v=3uM7YQW7j0M',
-        videoId: '3uM7YQW7j0M',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/3uM7YQW7j0M',
-        thumbnail: 'https://i.ytimg.com/vi/3uM7YQW7j0M/hqdefault.jpg',
-        duration: '2:20',
-        description: 'Baila y mueve todo el cuerpo reconociendo cada parte.'
+        videoId: 'AV8fPO0VN14',
+        videoUrl: 'https://www.youtube.com/watch?v=AV8fPO0VN14',
+        thumbnail: 'https://i.ytimg.com/vi/AV8fPO0VN14/hqdefault.jpg'
       },
       {
-        id: 'v-2-4-ba-2',
-        title: 'La Patita Lulú',
-        channel: 'El Reino Infantil',
-        category: 'bailar',
-        ageGroups: ['2-4'],
-        videoUrl: 'https://www.youtube.com/watch?v=53e9vYjG5r8',
-        videoId: '53e9vYjG5r8',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/53e9vYjG5r8',
-        thumbnail: 'https://i.ytimg.com/vi/53e9vYjG5r8/hqdefault.jpg',
-        duration: '2:40',
-        description: 'Baila meneando la patita con Lulú en un ritmo súper alegre.'
-      },
-      // Entretenimiento
-      {
-        id: 'v-2-4-en-1',
-        title: 'Los pollitos dicen',
-        channel: 'Toy Cantando',
-        category: 'entretenimiento',
-        ageGroups: ['2-4'],
-        videoUrl: 'https://www.youtube.com/watch?v=nlmNvyjwRhU',
-        videoId: 'nlmNvyjwRhU',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/nlmNvyjwRhU',
-        thumbnail: 'https://i.ytimg.com/vi/nlmNvyjwRhU/hqdefault.jpg',
-        duration: '2:30',
-        description: 'El clásico de los pollitos pío pío para cantar en familia.'
+        id: 'vid-ap-2',
+        title: 'Sílabas para niños con música',
+        channel: 'FIESTIKIDS',
+        category: 'aprender',
+        videoId: 'j1RIUuftxKo',
+        videoUrl: 'https://www.youtube.com/watch?v=j1RIUuftxKo',
+        thumbnail: 'https://i.ytimg.com/vi/j1RIUuftxKo/hqdefault.jpg'
       },
       {
-        id: 'v-2-4-en-2',
-        title: 'Estrellita ¿Dónde Estás?',
-        channel: 'El Reino Infantil',
-        category: 'entretenimiento',
-        ageGroups: ['2-4'],
-        videoUrl: 'https://www.youtube.com/watch?v=_DdCTAZu930',
-        videoId: '_DdCTAZu930',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/_DdCTAZu930',
-        thumbnail: 'https://i.ytimg.com/vi/_DdCTAZu930/hqdefault.jpg',
-        duration: '2:50',
-        description: 'Una hermosa canción de cuna con estrellas brillantes.'
+        id: 'vid-ap-3',
+        title: 'El sistema solar y los planetas',
+        channel: 'Happy Learning Español',
+        category: 'aprender',
+        videoId: 'ZykXgSqet6A',
+        videoUrl: 'https://www.youtube.com/watch?v=ZykXgSqet6A',
+        thumbnail: 'https://i.ytimg.com/vi/ZykXgSqet6A/hqdefault.jpg'
       },
       {
-        id: 'v-2-4-en-3',
-        title: 'Las Ruedas del Autobús',
-        channel: 'El Reino Infantil',
-        category: 'entretenimiento',
-        ageGroups: ['2-4'],
-        videoUrl: 'https://www.youtube.com/watch?v=G3VM3lE8gT0',
-        videoId: 'G3VM3lE8gT0',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/G3VM3lE8gT0',
-        thumbnail: 'https://i.ytimg.com/vi/G3VM3lE8gT0/hqdefault.jpg',
-        duration: '2:25',
-        description: 'Las ruedas del autobús que giran por toda la ciudad.'
+        id: 'vid-ap-4',
+        title: 'El ciclo del agua',
+        channel: 'Happy Learning Español',
+        category: 'aprender',
+        videoId: 'QDCohXW6blg',
+        videoUrl: 'https://www.youtube.com/watch?v=QDCohXW6blg',
+        thumbnail: 'https://i.ytimg.com/vi/QDCohXW6blg/hqdefault.jpg'
       },
 
-      // 5 a 7 años 🐰
-      // Aprender
+      // 2. ENTRETENIMIENTO (5 videos)
       {
-        id: 'v-5-7-ap-1',
-        title: 'Un elefante se balanceaba',
-        channel: 'El Reino Infantil',
-        category: 'aprender',
-        ageGroups: ['5-7'],
-        videoUrl: 'https://www.youtube.com/watch?v=ZkEuxLfwl4E',
-        videoId: 'ZkEuxLfwl4E',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/ZkEuxLfwl4E',
-        thumbnail: 'https://i.ytimg.com/vi/ZkEuxLfwl4E/hqdefault.jpg',
-        duration: '3:10',
-        description: 'Aprende los números cantando con los elefantes en la tela de araña.'
+        id: 'vid-en-1',
+        title: 'Luna cansada',
+        channel: 'Canticuénticos',
+        category: 'entretenimiento',
+        videoId: 'tudwNZGbWXY',
+        videoUrl: 'https://www.youtube.com/watch?v=tudwNZGbWXY',
+        thumbnail: 'https://i.ytimg.com/vi/tudwNZGbWXY/hqdefault.jpg'
       },
       {
-        id: 'v-5-7-ap-2',
-        title: 'Canción de los Colores',
-        channel: 'El Reino Infantil',
-        category: 'aprender',
-        ageGroups: ['5-7'],
-        videoUrl: 'https://www.youtube.com/watch?v=6256pG0YJpE',
-        videoId: '6256pG0YJpE',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/6256pG0YJpE',
-        thumbnail: 'https://i.ytimg.com/vi/6256pG0YJpE/hqdefault.jpg',
-        duration: '2:45',
-        description: 'Identifica y canta los hermosos colores del mundo.'
-      },
-      // Bailar
-      {
-        id: 'v-5-7-ba-1',
-        title: 'Soy una taza',
-        channel: 'CantaJuego',
-        category: 'bailar',
-        ageGroups: ['5-7'],
-        videoUrl: 'https://www.youtube.com/watch?v=fTzTFQbdYEQ',
-        videoId: 'fTzTFQbdYEQ',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/fTzTFQbdYEQ',
-        thumbnail: 'https://i.ytimg.com/vi/fTzTFQbdYEQ/hqdefault.jpg',
-        duration: '2:15',
-        description: 'Taza, tetera, cuchara y cucharón. Baile dinámico y divertido.'
+        id: 'vid-en-2',
+        title: 'A cocochito',
+        channel: 'Canticuénticos',
+        category: 'entretenimiento',
+        videoId: '4Lrc4MnBH78',
+        videoUrl: 'https://www.youtube.com/watch?v=4Lrc4MnBH78',
+        thumbnail: 'https://i.ytimg.com/vi/4Lrc4MnBH78/hqdefault.jpg'
       },
       {
-        id: 'v-5-7-ba-2',
+        id: 'vid-en-3',
+        title: 'Vamos a plantar',
+        channel: 'Canticuénticos',
+        category: 'entretenimiento',
+        videoId: 'Ko8wa5dHIjw',
+        videoUrl: 'https://www.youtube.com/watch?v=Ko8wa5dHIjw',
+        thumbnail: 'https://i.ytimg.com/vi/Ko8wa5dHIjw/hqdefault.jpg'
+      },
+      {
+        id: 'vid-en-4',
+        title: 'Zamba para aprender a caminar',
+        channel: 'Canticuénticos',
+        category: 'entretenimiento',
+        videoId: 'IwrtTJTKWpY',
+        videoUrl: 'https://www.youtube.com/watch?v=IwrtTJTKWpY',
+        thumbnail: 'https://i.ytimg.com/vi/IwrtTJTKWpY/hqdefault.jpg'
+      },
+      {
+        id: 'vid-en-5',
+        title: 'Hay secretos',
+        channel: 'Canticuénticos',
+        category: 'entretenimiento',
+        videoId: 'KD2zGDD1wNg',
+        videoUrl: 'https://www.youtube.com/watch?v=KD2zGDD1wNg',
+        thumbnail: 'https://i.ytimg.com/vi/KD2zGDD1wNg/hqdefault.jpg'
+      },
+
+      // 3. BAILAR (4 videos)
+      {
+        id: 'vid-ba-1',
         title: 'El monstruo de la laguna',
         channel: 'Canticuénticos',
         category: 'bailar',
-        ageGroups: ['5-7'],
-        videoUrl: 'https://www.youtube.com/watch?v=eFdUXU9ZGls',
-        videoId: 'eFdUXU9ZGls',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/eFdUXU9ZGls',
-        thumbnail: 'https://i.ytimg.com/vi/eFdUXU9ZGls/hqdefault.jpg',
-        duration: '3:05',
-        description: 'Cumbia alegre para bailar moviendo todo el cuerpo.'
-      },
-      // Entretenimiento
-      {
-        id: 'v-5-7-en-1',
-        title: 'Debajo de un botón',
-        channel: 'El Reino Infantil',
-        category: 'entretenimiento',
-        ageGroups: ['5-7'],
-        videoUrl: 'https://www.youtube.com/watch?v=7Y2WJ6pM8xE',
-        videoId: '7Y2WJ6pM8xE',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/7Y2WJ6pM8xE',
-        thumbnail: 'https://i.ytimg.com/vi/7Y2WJ6pM8xE/hqdefault.jpg',
-        duration: '2:30',
-        description: 'Debajo de un botón que encontró Martín, había un ratón.'
+        videoId: 'UQW1C8j0FZo',
+        videoUrl: 'https://www.youtube.com/watch?v=UQW1C8j0FZo',
+        thumbnail: 'https://i.ytimg.com/vi/UQW1C8j0FZo/hqdefault.jpg'
       },
       {
-        id: 'v-5-7-en-2',
-        title: 'La Vaca Lola y Yo',
-        channel: 'El Reino Infantil',
-        category: 'entretenimiento',
-        ageGroups: ['5-7'],
-        videoUrl: 'https://www.youtube.com/watch?v=ZWbumjPEOd0',
-        videoId: 'ZWbumjPEOd0',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/ZWbumjPEOd0',
-        thumbnail: 'https://i.ytimg.com/vi/ZWbumjPEOd0/hqdefault.jpg',
-        duration: '3:20',
-        description: 'Aventuras musicales con la querida Vaca Lola y amigos.'
+        id: 'vid-ba-2',
+        title: 'Bate con la cucharita',
+        channel: 'Canticuénticos',
+        category: 'bailar',
+        videoId: 'EoGdJbkWoDU',
+        videoUrl: 'https://www.youtube.com/watch?v=EoGdJbkWoDU',
+        thumbnail: 'https://i.ytimg.com/vi/EoGdJbkWoDU/hqdefault.jpg'
+      },
+      {
+        id: 'vid-ba-3',
+        title: 'El mamboretá',
+        channel: 'Canticuénticos',
+        category: 'bailar',
+        videoId: '-ilPkG2TKzI',
+        videoUrl: 'https://www.youtube.com/watch?v=-ilPkG2TKzI',
+        thumbnail: 'https://i.ytimg.com/vi/-ilPkG2TKzI/hqdefault.jpg'
+      },
+      {
+        id: 'vid-ba-4',
+        title: 'La rana Rosita',
+        channel: 'Canticuénticos',
+        category: 'bailar',
+        videoId: '5bWM2gGB-Fs',
+        videoUrl: 'https://www.youtube.com/watch?v=5bWM2gGB-Fs',
+        thumbnail: 'https://i.ytimg.com/vi/5bWM2gGB-Fs/hqdefault.jpg'
       },
 
-      // 8 a 10 años 🦊
-      // Aprender
+      // 4. CREAR (6 videos)
       {
-        id: 'v-8-10-ap-1',
-        title: 'El Sistema Solar',
-        channel: 'Happy Learning',
-        category: 'aprender',
-        ageGroups: ['8-10'],
-        videoUrl: 'https://www.youtube.com/watch?v=ZykXgSqet6A',
-        videoId: 'ZykXgSqet6A',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/ZykXgSqet6A',
-        thumbnail: 'https://i.ytimg.com/vi/ZykXgSqet6A/hqdefault.jpg',
-        duration: '4:15',
-        description: 'Exploración de los planetas, estrellas y maravillas espaciales.'
+        id: 'vid-cr-1',
+        title: 'Avión de papel',
+        channel: 'TheBroCrafts',
+        category: 'crear',
+        videoId: '44iMaTOd89A',
+        videoUrl: 'https://www.youtube.com/watch?v=44iMaTOd89A',
+        thumbnail: 'https://i.ytimg.com/vi/44iMaTOd89A/hqdefault.jpg'
       },
       {
-        id: 'v-8-10-ap-2',
-        title: 'El Ciclo del Agua',
-        channel: 'Happy Learning',
-        category: 'aprender',
-        ageGroups: ['8-10'],
-        videoUrl: 'https://www.youtube.com/watch?v=QDCohXW6blg',
-        videoId: 'QDCohXW6blg',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/QDCohXW6blg',
-        thumbnail: 'https://i.ytimg.com/vi/QDCohXW6blg/hqdefault.jpg',
-        duration: '3:50',
-        description: 'Aprende cómo el agua se evapora, condensa y nutre la vida.'
+        id: 'vid-cr-2',
+        title: 'Serpientes de papel',
+        channel: 'Luna art and craft',
+        category: 'crear',
+        videoId: 'yF2UU4iENoI',
+        videoUrl: 'https://www.youtube.com/watch?v=yF2UU4iENoI',
+        thumbnail: 'https://i.ytimg.com/vi/yF2UU4iENoI/hqdefault.jpg'
       },
       {
-        id: 'v-8-10-ap-3',
-        title: 'Sistema Solar',
-        channel: 'Pé de Sonho',
-        category: 'aprender',
-        ageGroups: ['8-10'],
-        videoUrl: 'https://www.youtube.com/watch?v=J7M9J7kQ4xQ',
-        videoId: 'J7M9J7kQ4xQ',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/J7M9J7kQ4xQ',
-        thumbnail: 'https://i.ytimg.com/vi/J7M9J7kQ4xQ/hqdefault.jpg',
-        duration: '3:30',
-        description: 'Poética canción y animación artística sobre los planetas.'
+        id: 'vid-cr-3',
+        title: 'Sapito de papel',
+        channel: 'Origami Kültür',
+        category: 'crear',
+        videoId: 'FiXzqN1qWkU',
+        videoUrl: 'https://www.youtube.com/watch?v=FiXzqN1qWkU',
+        thumbnail: 'https://i.ytimg.com/vi/FiXzqN1qWkU/hqdefault.jpg'
       },
       {
-        id: 'v-8-10-ap-4',
-        title: 'Tiburones en Acción',
-        channel: 'JunyTony',
-        category: 'aprender',
-        ageGroups: ['8-10'],
-        videoUrl: 'https://www.youtube.com/watch?v=2Q0Gf7L6V7A',
-        videoId: '2Q0Gf7L6V7A',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/2Q0Gf7L6V7A',
-        thumbnail: 'https://i.ytimg.com/vi/2Q0Gf7L6V7A/hqdefault.jpg',
-        duration: '3:40',
-        description: 'Descubre las especies y habilidades de los tiburones en el mar.'
+        id: 'vid-cr-4',
+        title: 'Barco de papel',
+        channel: 'Guiainfantil Brasil',
+        category: 'crear',
+        videoId: 'CPrdggN48-c',
+        videoUrl: 'https://www.youtube.com/watch?v=CPrdggN48-c',
+        thumbnail: 'https://i.ytimg.com/vi/CPrdggN48-c/hqdefault.jpg'
       },
       {
-        id: 'v-8-10-ap-5',
-        title: 'Cuatro Estaciones Hay',
-        channel: 'El Reino Infantil',
-        category: 'aprender',
-        ageGroups: ['8-10'],
-        videoUrl: 'https://www.youtube.com/watch?v=8j0Y9rJxL4E',
-        videoId: '8j0Y9rJxL4E',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/8j0Y9rJxL4E',
-        thumbnail: 'https://i.ytimg.com/vi/8j0Y9rJxL4E/hqdefault.jpg',
-        duration: '2:40',
-        description: 'Primavera, verano, otoño e invierno con ritmo y color.'
-      },
-      // Entretenimiento
-      {
-        id: 'v-8-10-en-1',
-        title: 'Canción de la Amistad',
-        channel: 'El Reino Infantil',
-        category: 'entretenimiento',
-        ageGroups: ['8-10'],
-        videoUrl: 'https://www.youtube.com/watch?v=8Qw5nQW8Z5Y',
-        videoId: '8Qw5nQW8Z5Y',
-        embedUrl: 'https://www.youtube-nocookie.com/embed/8Qw5nQW8Z5Y',
-        thumbnail: 'https://i.ytimg.com/vi/8Qw5nQW8Z5Y/hqdefault.jpg',
-        duration: '3:10',
-        description: 'Valores de amistad, respeto y cariño para compartir juntos.'
-      }
-    ],
-    recommendedChannels: [
-      {
-        id: 'ch-1',
-        name: 'El Reino Infantil',
-        subscribers: '62M suscritos',
-        icon: '👑',
-        color: '#FFD1DC',
-        url: 'https://www.youtube.com'
+        id: 'vid-cr-5',
+        title: 'Slime',
+        channel: 'Manualidades Play',
+        category: 'crear',
+        videoId: '_VZSxztmt54',
+        videoUrl: 'https://www.youtube.com/watch?v=_VZSxztmt54',
+        thumbnail: 'https://i.ytimg.com/vi/_VZSxztmt54/hqdefault.jpg'
       },
       {
-        id: 'ch-2',
-        name: 'Canticuénticos Música',
-        subscribers: '1.8M suscritos',
-        icon: '🎶',
-        color: '#BEE3F8',
-        url: 'https://www.youtube.com'
-      },
-      {
-        id: 'ch-3',
-        name: 'Plim Plim Oficial',
-        subscribers: '28M suscritos',
-        icon: '🎈',
-        color: '#FEFCBF',
-        url: 'https://www.youtube.com'
-      },
-      {
-        id: 'ch-4',
-        name: 'Smile and Learn Español',
-        subscribers: '3.4M suscritos',
-        icon: '🧠',
-        color: '#C6F6D5',
-        url: 'https://www.youtube.com'
+        id: 'vid-cr-6',
+        title: 'Flores',
+        channel: 'SNL CRAFTS',
+        category: 'crear',
+        videoId: '-wlE5IJmlZE',
+        videoUrl: 'https://www.youtube.com/watch?v=-wlE5IJmlZE',
+        thumbnail: 'https://i.ytimg.com/vi/-wlE5IJmlZE/hqdefault.jpg'
       }
     ]
   },

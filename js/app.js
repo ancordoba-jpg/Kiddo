@@ -17,7 +17,7 @@ class KiddoApp {
     this.screenTimeSeconds = 14 * 60; // 14 min iniciales como en la referencia
     this.activeMusicTab = 'crear';
     this.activeRelaxingTrackId = null;
-    this.currentVideoAge = this.getInitialAgeGroup();
+    this.activeVideoCategoryView = null;
     this.activeVideoPlayer = null;
   }
 
@@ -210,6 +210,11 @@ class KiddoApp {
     // Si salimos de la sección Música a otra sección, pausar música relajante
     if (screenName !== 'musica') {
       this.stopAllRelaxingMusic();
+    }
+
+    // Si salimos de la sección Videos a otra sección, cerrar modal de video
+    if (screenName !== 'videos') {
+      this.closeVideoModal();
     }
 
     // Ocultar todas las pantallas principales
@@ -1031,149 +1036,132 @@ class KiddoApp {
     if (modal) modal.style.display = 'none';
   }
 
-  // 14. SECCIÓN "VIDEOS" (Filtro por Edad, Carruseles y Reproducción Interna)
-  getInitialAgeGroup() {
-    try {
-      const birthStr = typeof KIDDO_DATA !== 'undefined' ? KIDDO_DATA?.user?.birthdate : null;
-      if (!birthStr) return 'all';
-
-      let birthDate;
-      if (birthStr.includes('/')) {
-        const parts = birthStr.split('/');
-        if (parts.length === 3) {
-          birthDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-        }
-      } else {
-        birthDate = new Date(birthStr);
-      }
-
-      if (isNaN(birthDate.getTime())) return 'all';
-
-      const now = new Date();
-      let age = now.getFullYear() - birthDate.getFullYear();
-      const m = now.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
-        age--;
-      }
-
-      if (age >= 2 && age <= 4) return '2-4';
-      if (age >= 5 && age <= 7) return '5-7';
-      if (age >= 8 && age <= 10) return '8-10';
-      return 'all';
-    } catch (e) {
-      return 'all';
-    }
-  }
-
-  setVideoAgeFilter(ageGroup) {
-    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
-    this.currentVideoAge = ageGroup;
-    this.renderVideosScreen();
-  }
-
+  // 14. SECCIÓN "VIDEOS" (Biblioteca Infantil: 4 Categorías, Carruseles y Reproducción Interna)
   renderVideosScreen() {
     const container = document.getElementById('videos-content-container');
     if (!container) return;
 
-    // Actualizar botones visuales de selector de edad
-    const ageChips = document.querySelectorAll('.video-age-chip');
-    ageChips.forEach(chip => {
-      const isSel = chip.getAttribute('data-age') === this.currentVideoAge;
-      chip.classList.toggle('active', isSel);
-      chip.setAttribute('aria-selected', isSel ? 'true' : 'false');
-    });
-
-    const allItems = KIDDO_DATA.videos.items || [];
-    const currentAge = this.currentVideoAge;
-
-    const filteredItems = (currentAge === 'all')
-      ? allItems
-      : allItems.filter(v => v.ageGroups && v.ageGroups.includes(currentAge));
-
-    const categories = KIDDO_DATA.videos.categories || [
+    const allItems = KIDDO_DATA.videos?.items || [];
+    const categories = KIDDO_DATA.videos?.categories || [
       { id: 'aprender', name: 'Aprender', icon: '📚' },
+      { id: 'entretenimiento', name: 'Entretenimiento', icon: '🍿' },
       { id: 'bailar', name: 'Bailar', icon: '🎵' },
-      { id: 'entretenimiento', name: 'Entretenimiento', icon: '🍿' }
+      { id: 'crear', name: 'Crear', icon: '🎨' }
     ];
 
-    container.innerHTML = `
-      ${categories.map(cat => {
-      const catVideos = filteredItems.filter(v => v.category === cat.id);
-      return `
-          <div class="video-category-section" id="video-section-${cat.id}">
-            <div class="video-cat-header">
-              <div class="video-cat-title-wrap">
-                <span class="video-cat-icon">${cat.icon}</span>
-                <h3>${cat.name}</h3>
-              </div>
-              <button class="video-see-all-btn" onclick="window.kiddoApp.openCategoryVideos('${cat.id}')" title="Ver todos de ${cat.name}">
-                <span>Ver todos</span>
-                <span class="see-all-arrow">&gt;</span>
-              </button>
-            </div>
+    // VISTA DETALLE: Si el usuario tocó "Ver todos" en una categoría
+    if (this.activeVideoCategoryView) {
+      const activeCat = categories.find(c => c.id === this.activeVideoCategoryView) || categories[0];
+      const catVideos = allItems.filter(v => v.category === activeCat.id);
 
-            ${catVideos.length > 0 ? `
-              <div class="video-cards-carousel" role="region" aria-label="Carrusel de videos ${cat.name}">
-                ${catVideos.map(v => `
-                  <article class="video-card-item" onclick="window.kiddoApp.playVideo('${v.id}')" tabindex="0" role="button" aria-label="Reproducir ${v.title}">
-                    <div class="video-thumb-frame">
-                      <img src="${v.thumbnail}" alt="${v.title}" class="video-thumb-img" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg';">
-                      ${v.duration ? `<span class="video-duration-tag">${v.duration}</span>` : ''}
-                      <div class="video-play-overlay" aria-hidden="true">
-                        <span class="video-play-triangle">▶</span>
-                      </div>
-                    </div>
-                    <div class="video-item-meta">
-                      <h4 class="video-card-title">${v.title}</h4>
-                      <div class="video-card-channel-row">
-                        <span class="video-channel-icon">📺</span>
-                        <p class="video-card-channel">${v.channel}</p>
-                      </div>
-                    </div>
-                  </article>
-                `).join('')}
-              </div>
-            ` : `
-              <div class="video-empty-category-card">
-                <div class="empty-cat-icon">🐨✨</div>
-                <div class="empty-cat-content">
-                  <h4>Próximamente tendremos más videos para esta edad</h4>
-                  <p>Puky está preparando nuevos contenidos educativos y divertidos.</p>
+      container.innerHTML = `
+        <div class="video-category-detail-view">
+          <div class="video-detail-header">
+            <button class="video-back-btn" onclick="window.kiddoApp.closeCategoryVideos()" aria-label="Volver a la biblioteca de videos">
+              <span class="video-back-arrow">←</span>
+              <span>Volver</span>
+            </button>
+            <div class="video-detail-title-wrap">
+              <span class="video-cat-icon">${activeCat.icon}</span>
+              <h2 class="video-detail-title">${activeCat.name}</h2>
+              <span class="video-count-pill">${catVideos.length} videos</span>
+            </div>
+          </div>
+
+          <div class="video-cards-grid" role="region" aria-label="Todos los videos de ${activeCat.name}">
+            ${catVideos.map(v => this.renderVideoCardHtml(v)).join('')}
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    // VISTA PRINCIPAL: Las 4 categorías con carruseles horizontales
+    container.innerHTML = `
+      <div class="video-library-view">
+        ${categories.map(cat => {
+          const catVideos = allItems.filter(v => v.category === cat.id);
+          return `
+            <div class="video-category-section" id="video-section-${cat.id}">
+              <div class="video-cat-header">
+                <div class="video-cat-title-wrap">
+                  <span class="video-cat-icon">${cat.icon}</span>
+                  <h3>${cat.name}</h3>
+                </div>
+                <div class="video-cat-actions">
+                  <button class="video-carousel-arrow prev" onclick="window.kiddoApp.scrollVideoCarousel('${cat.id}', -1)" aria-label="Desplazar a la izquierda en ${cat.name}" title="Anterior">‹</button>
+                  <button class="video-carousel-arrow next" onclick="window.kiddoApp.scrollVideoCarousel('${cat.id}', 1)" aria-label="Desplazar a la derecha en ${cat.name}" title="Siguiente">›</button>
+                  <button class="video-see-all-btn" onclick="window.kiddoApp.openCategoryVideos('${cat.id}')" title="Ver todos los videos de ${cat.name}">
+                    <span>Ver todos</span>
+                    <span class="see-all-arrow">&gt;</span>
+                  </button>
                 </div>
               </div>
-            `}
-          </div>
-        `;
-    }).join('')}
 
-      <!-- Sección Canales Infantiles Recomendados (Mantenida exactamente igual) -->
-      <div class="video-category-section channels-section">
-        <div class="video-cat-header">
-          <div class="video-cat-title-wrap">
-            <span class="video-cat-icon">⭐</span>
-            <h3>Canales Infantiles Recomendados</h3>
-          </div>
-        </div>
-        <div class="recommended-channels-grid">
-          ${KIDDO_DATA.videos.recommendedChannels.map(ch => `
-            <div class="channel-card-item" onclick="window.kiddoApp.openYoutubeLink('${ch.url}')">
-              <div class="channel-icon-circle" style="background-color: ${ch.color};">
-                <span>${ch.icon}</span>
+              <div class="video-cards-carousel" id="carousel-${cat.id}" role="region" aria-label="Carrusel de videos ${cat.name}">
+                ${catVideos.map(v => this.renderVideoCardHtml(v)).join('')}
               </div>
-              <div class="channel-meta">
-                <h4>${ch.name}</h4>
-                <span>${ch.subscribers}</span>
-              </div>
-              <span class="channel-open-arrow">➔</span>
             </div>
-          `).join('')}
-        </div>
+          `;
+        }).join('')}
       </div>
     `;
   }
 
+  renderVideoCardHtml(v) {
+    return `
+      <article class="video-card-item" onclick="window.kiddoApp.playVideo('${v.id}')" tabindex="0" role="button" aria-label="Reproducir ${v.title}">
+        <div class="video-thumb-frame">
+          <img src="${v.thumbnail}" alt="${v.title}" class="video-thumb-img" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg';">
+          ${v.duration ? `<span class="video-duration-tag">${v.duration}</span>` : ''}
+          <div class="video-play-overlay" aria-hidden="true">
+            <span class="video-play-triangle">▶</span>
+          </div>
+        </div>
+        <div class="video-item-meta">
+          <h4 class="video-card-title">${v.title}</h4>
+          ${v.channel ? `
+            <div class="video-card-channel-row">
+              <span class="video-channel-icon">📺</span>
+              <p class="video-card-channel">${v.channel}</p>
+            </div>
+          ` : ''}
+        </div>
+      </article>
+    `;
+  }
+
+  scrollVideoCarousel(catId, direction) {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    const carousel = document.getElementById(`carousel-${catId}`);
+    if (carousel) {
+      const scrollAmount = (carousel.clientWidth || 300) * 0.8 * direction;
+      carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  }
+
+  openCategoryVideos(categoryId) {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    this.activeVideoCategoryView = categoryId;
+    this.renderVideosScreen();
+    const videosScreen = document.getElementById('screen-videos');
+    if (videosScreen) {
+      videosScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  closeCategoryVideos() {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    this.activeVideoCategoryView = null;
+    this.renderVideosScreen();
+  }
+
+  setVideoAgeFilter(ageGroup) {
+    // Compatibilidad: la selección por edades ha sido eliminada por completo
+  }
+
   playVideo(videoId) {
-    const video = (KIDDO_DATA.videos.items || []).find(v => v.id === videoId || v.videoId === videoId);
+    const video = (KIDDO_DATA.videos?.items || []).find(v => v.id === videoId || v.videoId === videoId);
     if (!video) return;
 
     if (window.kiddoAudio) {
@@ -1189,24 +1177,52 @@ class KiddoApp {
     const embedContainer = document.getElementById('video-embed-container');
     const modal = document.getElementById('kiddo-video-modal');
 
+    const catLabels = {
+      aprender: '📚 Aprender',
+      entretenimiento: '🍿 Entretenimiento',
+      bailar: '🎵 Bailar',
+      crear: '🎨 Crear'
+    };
+
     if (catBadge) {
-      const catIcons = { aprender: '📚 Aprender', bailar: '🎵 Bailar', entretenimiento: '🍿 Entretenimiento' };
-      catBadge.textContent = catIcons[video.category] || '📺 Video';
+      catBadge.textContent = catLabels[video.category] || '📺 Video';
     }
     if (titleEl) titleEl.textContent = video.title;
-    if (channelEl) channelEl.textContent = video.channel;
+    if (channelEl) {
+      channelEl.textContent = video.channel || 'Kiddo';
+    }
 
     if (embedContainer) {
-      // Inyección dinámica sin pre-carga masiva de iframes
+      // Inyección dinámica con YouTube No-Cookie
       embedContainer.innerHTML = `
         <iframe
           id="kiddo-active-video-player"
-          src="https://www.youtube-nocookie.com/embed/${video.videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+          src="https://www.youtube-nocookie.com/embed/${video.videoId}?playsinline=1&rel=0&autoplay=1"
           title="${video.title}"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
         </iframe>
+      `;
+    }
+
+    // Cuadro de ayuda en caso de que YouTube bloquee reproducción embebida
+    let fallbackBox = document.getElementById('video-modal-fallback-box');
+    if (!fallbackBox) {
+      const footer = document.querySelector('.video-player-info-footer');
+      if (footer) {
+        fallbackBox = document.createElement('div');
+        fallbackBox.id = 'video-modal-fallback-box';
+        fallbackBox.className = 'video-fallback-box';
+        footer.appendChild(fallbackBox);
+      }
+    }
+    if (fallbackBox) {
+      fallbackBox.innerHTML = `
+        <span class="video-fallback-text">¿YouTube restringe este video en tu dispositivo?</span>
+        <a href="${video.videoUrl || `https://www.youtube.com/watch?v=${video.videoId}`}" target="_blank" rel="noopener noreferrer" class="video-fallback-btn">
+          <span>Abrir video original</span> ↗
+        </a>
       `;
     }
 
@@ -1220,7 +1236,7 @@ class KiddoApp {
       type: 'video',
       icon: '📺',
       title: video.title,
-      subtitle: `Visto en Videos (${video.channel})`,
+      subtitle: `Visto en Videos (${video.channel || 'Kiddo'})`,
       color: '#A9DEF9'
     });
   }
@@ -1237,17 +1253,6 @@ class KiddoApp {
     if (modal) {
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
-    }
-  }
-
-  openCategoryVideos(categoryId) {
-    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
-    if (this.currentVideoAge !== 'all') {
-      this.setVideoAgeFilter('all');
-    }
-    const sectionEl = document.getElementById(`video-section-${categoryId}`);
-    if (sectionEl) {
-      sectionEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 
