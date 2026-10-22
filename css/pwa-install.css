@@ -1,0 +1,356 @@
+/**
+ * KIDDO - Estilos para Botón de Instalación PWA y Modal de Instrucciones
+ * Diseño infantil, suave, accesible y adaptable a cualquier dispositivo.
+ */
+
+/* ============================================================
+   1. BOTÓN DE INSTALACIÓN EN PANTALLA DE LOGIN
+   ============================================================ */
+.kiddo-pwa-install-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 14px;
+  min-height: 36px;
+  background: linear-gradient(135deg, #E6F4FE 0%, #D6EDFE 100%);
+  color: #0284C7;
+  border: 1.5px solid #BAE6FD;
+  border-radius: 9999px;
+  font-family: var(--font-heading, 'Fredoka', 'Nunito', sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(186, 230, 253, 0.45);
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.18s ease,
+              background 0.18s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+.kiddo-pwa-install-btn:hover {
+  transform: translateY(-1.5px);
+  background: linear-gradient(135deg, #DEF1FE 0%, #CEE8FD 100%);
+  box-shadow: 0 6px 16px rgba(186, 230, 253, 0.65);
+  color: #0369A1;
+}
+
+.kiddo-pwa-install-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(186, 230, 253, 0.35);
+}
+
+.kiddo-pwa-install-btn .pwa-install-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+.kiddo-pwa-install-btn .pwa-install-text {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Evitar superposición entre el arcoíris y el botón de instalación */
+#screen-login .login-decorations-layer img.decor-rainbow {
+  position: absolute !important;
+  top: clamp(48px, 6.2vh, 60px) !important;
+  right: 0px !important;
+  width: clamp(95px, 22vw, 130px) !important;
+  max-width: 28% !important;
+  height: auto !important;
+  margin: 0 !important;
+  z-index: 2 !important;
+}
+
+/* ============================================================
+   2. BOTÓN DE INSTALACIÓN EN CABECERA PRINCIPAL (POST-LOGIN)
+   ============================================================ */
+.top-header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kiddo-pwa-header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 11px;
+  height: 32px;
+  background: linear-gradient(135deg, #E6F4FE 0%, #D8EEFE 100%);
+  color: #0284C7;
+  border: 1.5px solid #BAE6FD;
+  border-radius: 9999px;
+  font-family: var(--font-heading, 'Fredoka', 'Nunito', sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(186, 230, 253, 0.4);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.kiddo-pwa-header-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(186, 230, 253, 0.6);
+  color: #0369A1;
+}
+
+.kiddo-pwa-header-btn:active {
+  transform: scale(0.96);
+}
+
+.kiddo-pwa-header-btn .pwa-install-icon {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+/* ============================================================
+   3. ESTADO OCULTO CUANDO YA ESTÁ INSTALADA O EN STANDALONE
+   ============================================================ */
+.kiddo-pwa-hidden,
+.kiddo-pwa-install-btn.hidden,
+.kiddo-pwa-header-btn.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media all and (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
+  #kiddo-pwa-install-btn,
+  #kiddo-pwa-header-btn {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   4. MODAL DE INSTRUCCIONES (iOS / Safari / Navegadores de escritorio)
+   ============================================================ */
+.pwa-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.24s ease, visibility 0.24s ease;
+  box-sizing: border-box;
+}
+
+.pwa-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pwa-modal-card {
+  background: #FFFFFF;
+  border-radius: 28px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+  border: 2px solid #E0F2FE;
+  padding: 24px 22px 20px;
+  position: relative;
+  text-align: center;
+  transform: translateY(18px) scale(0.97);
+  transition: transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-height: 88vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.pwa-modal-backdrop.active .pwa-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.pwa-modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  border: none;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pwa-modal-close-btn:hover {
+  background: #E2E8F0;
+  transform: scale(1.06);
+  color: #334155;
+}
+
+.pwa-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+  margin-bottom: 12px;
+  box-shadow: 0 6px 16px rgba(186, 230, 253, 0.5);
+}
+
+.pwa-modal-badge svg {
+  width: 32px;
+  height: 32px;
+  stroke: #0284C7;
+  stroke-width: 2.2;
+}
+
+.pwa-modal-title {
+  font-family: var(--font-heading, 'Fredoka', 'Nunito', sans-serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+
+.pwa-modal-desc {
+  font-family: var(--font-body, 'Nunito', sans-serif);
+  font-size: 13.5px;
+  color: #64748B;
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+.pwa-modal-steps {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pwa-modal-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #F8FAFC;
+  padding: 10px 14px;
+  border-radius: 18px;
+  border: 1px solid #E2E8F0;
+}
+
+.pwa-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0284C7;
+  color: #FFFFFF;
+  font-family: var(--font-heading, 'Fredoka', sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pwa-step-body {
+  font-family: var(--font-body, 'Nunito', sans-serif);
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.pwa-step-body strong {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.pwa-step-inline-icon {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  padding: 1px 5px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0284C7;
+  margin: 0 2px;
+}
+
+.pwa-modal-btn-confirm {
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(180deg, #5AB7FB 0%, #3FA1F5 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-family: var(--font-heading, 'Fredoka', 'Nunito', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(63, 161, 245, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pwa-modal-btn-confirm:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(63, 161, 245, 0.45);
+}
+
+.pwa-modal-btn-confirm:active {
+  transform: scale(0.97);
+}
+
+/* ============================================================
+   5. RESPONSIVE Y COMPATIBILIDAD
+   ============================================================ */
+@media (max-width: 360px) {
+  .kiddo-pwa-install-btn {
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .kiddo-pwa-install-btn .pwa-install-text {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kiddo-pwa-install-btn,
+  .kiddo-pwa-header-btn,
+  .pwa-modal-backdrop,
+  .pwa-modal-card {
+    transition: none !important;
+    animation: none !important;
+  }
+}

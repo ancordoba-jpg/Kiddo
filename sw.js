@@ -3,9 +3,9 @@
 // Versión: 1.0.0
 // ============================================================
 
-const CACHE_NAME = 'kiddo-v1.0.0';
-const STATIC_CACHE = 'kiddo-static-v1';
-const DYNAMIC_CACHE = 'kiddo-dynamic-v1';
+const CACHE_NAME = 'kiddo-v1.0.1';
+const STATIC_CACHE = 'kiddo-static-v2';
+const DYNAMIC_CACHE = 'kiddo-dynamic-v2';
 
 // Archivos esenciales para el shell de la app (cache-first)
 const APP_SHELL = [
@@ -15,6 +15,7 @@ const APP_SHELL = [
   './css/style.css',
   './css/components.css',
   './css/screens.css',
+  './css/pwa-install.css',
   './css/parental.css',
   './css/games.css',
   './js/data.js',
@@ -25,6 +26,7 @@ const APP_SHELL = [
   './js/missions.js',
   './js/parental.js',
   './js/games.js',
+  './js/pwa-install.js',
   './js/app.js',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png',

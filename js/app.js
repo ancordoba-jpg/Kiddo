@@ -148,12 +148,12 @@ class KiddoApp {
     const birthdateInput = document.getElementById('reg-birthdate');
     const pinInput = document.getElementById('reg-pin');
 
-    const name = (nameInput && nameInput.value) ? nameInput.value.trim() : 'Mateo';
-    const birthdate = (birthdateInput && birthdateInput.value) ? birthdateInput.value : '2020-05-15';
-    const pin = (pinInput && pinInput.value) ? pinInput.value.trim() : '1234';
+    const name = (nameInput && nameInput.value) ? nameInput.value.trim() : '';
+    const birthdate = (birthdateInput && birthdateInput.value) ? birthdateInput.value : '';
+    const pin = (pinInput && pinInput.value) ? pinInput.value.trim() : '';
 
-    if (!name || !pin) {
-      alert('Por favor escribe tu nombre y una contraseña de 4 dígitos.');
+    if (!name || !birthdate || !pin) {
+      alert('Completa el nombre, la fecha de nacimiento y la contraseña para ingresar.');
       return;
     }
 
@@ -166,7 +166,10 @@ class KiddoApp {
     try {
       sessionStorage.setItem('kiddo_session_active', 'true');
     } catch (err) { }
-    this.currentVideoAge = this.getInitialAgeGroup();
+    this.currentVideoAge =
+      typeof this.getInitialAgeGroup === 'function'
+        ? this.getInitialAgeGroup()
+        : null;
 
     if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
 
@@ -1473,7 +1476,7 @@ class KiddoApp {
         KIDDO_DATA.user.todayScreenTimeMinutes = minutes;
 
         // Actualizar contador superior
-        const counterDisplays = document.querySelectorAll('.screen-time-val');
+        const counterDisplays = document.querySelectorAll('.screen-time-val:not(#kiddo-session-time)');
         counterDisplays.forEach(el => {
           el.textContent = `${minutes} min`;
         });

@@ -14,8 +14,8 @@
   <link rel="manifest" href="manifest.json">
 
   <!-- Tema de color (barra de navegación del navegador) -->
-  <meta name="theme-color" content="#FF6B9D">
-  <meta name="msapplication-TileColor" content="#FF6B9D">
+  <meta name="theme-color" content="#5AB7FB">
+  <meta name="msapplication-TileColor" content="#5AB7FB">
   <meta name="msapplication-TileImage" content="icons/icon-144x144.png">
 
   <!-- PWA modo standalone -->
@@ -60,8 +60,10 @@
   <link rel="stylesheet" href="css/parental.css">
   <link rel="stylesheet" href="css/games.css">
   <link rel="stylesheet" href="css/games-redesign.css">
-<link rel="stylesheet" href="css/missions-redesign.css">
+  <link rel="stylesheet" href="css/missions-redesign.css">
   <link rel="stylesheet" href="css/puky-dressing.css">
+  <link rel="stylesheet" href="css/puky-hearts.css">
+  <link rel="stylesheet" href="css/pwa-install.css">
 </head>
 
 <body>
@@ -90,6 +92,16 @@
          PANTALLA 1: REGISTRO / INICIO DE SESIÓN
          ======================================================= -->
     <section class="login-screen-wrapper active" id="screen-login" aria-label="Pantalla de Registro e Inicio">
+
+      <!-- Botón de instalación PWA en la parte superior derecha -->
+      <button id="kiddo-pwa-install-btn" class="kiddo-pwa-install-btn" type="button" aria-label="Instalar app">
+        <svg class="pwa-install-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        <span class="pwa-install-text">Instalar app</span>
+      </button>
 
       <!-- Capa de decoraciones 3D perimetrales idénticas a la referencia -->
       <div class="login-decorations-layer" aria-hidden="true">
@@ -126,7 +138,7 @@
                 </svg>
               </span>
               <input type="text" id="reg-name" class="kiddo-input" placeholder="Escribe su nombre..." required
-                value="Mateo">
+               >
             </div>
           </div>
 
@@ -143,8 +155,8 @@
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
               </span>
-              <input type="text" id="reg-birthdate" class="kiddo-input" placeholder="Selecciona la fecha..."
-                value="15/05/2020" required onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+              <input type="date" id="reg-birthdate" class="kiddo-input" placeholder="Selecciona la fecha..."
+                required >
             </div>
           </div>
 
@@ -160,7 +172,7 @@
                 </svg>
               </span>
               <input type="password" id="reg-pin" class="kiddo-input" placeholder="Crea una contraseña..." maxlength="8"
-                value="1234" required>
+                required>
             </div>
           </div>
 
@@ -211,19 +223,31 @@
           <span class="brand-title">Kiddo<span class="brand-dot">.</span></span>
         </div>
 
-        <!-- Cápsula redondeada con icono de cronómetro y texto 15 min -->
-        <div class="screen-time-counter" title="Tiempo de uso de hoy" aria-label="Tiempo de uso de pantalla">
-          <span class="screen-time-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="13" r="8" fill="#F472B6" stroke="#EC4899" stroke-width="1.8" />
-              <circle cx="12" cy="13" r="6" fill="#FFFFFF" />
-              <line x1="12" y1="9" x2="12" y2="13" stroke="#0284C7" stroke-width="2" stroke-linecap="round" />
-              <line x1="12" y1="13" x2="15" y2="15" stroke="#0284C7" stroke-width="2" stroke-linecap="round" />
-              <rect x="10.5" y="2" width="3" height="3" rx="1" fill="#94A3B8" />
-              <line x1="12" y1="5" x2="12" y2="6" stroke="#94A3B8" stroke-width="2" />
+        <div class="top-header-right-group">
+          <!-- Botón de instalación discreto en cabecera principal -->
+          <button id="kiddo-pwa-header-btn" class="kiddo-pwa-header-btn" type="button" aria-label="Instalar app" title="Instalar Kiddo en tu dispositivo">
+            <svg class="pwa-install-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-          </span>
-          <span class="screen-time-val">15 min</span>
+            <span class="pwa-header-text">Instalar</span>
+          </button>
+
+          <!-- Cápsula redondeada con icono de cronómetro y texto 15 min -->
+          <div class="screen-time-counter" title="Tiempo de uso de hoy" aria-label="Tiempo de uso de pantalla">
+            <span class="screen-time-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="13" r="8" fill="#F472B6" stroke="#EC4899" stroke-width="1.8" />
+                <circle cx="12" cy="13" r="6" fill="#FFFFFF" />
+                <line x1="12" y1="9" x2="12" y2="13" stroke="#0284C7" stroke-width="2" stroke-linecap="round" />
+                <line x1="12" y1="13" x2="15" y2="15" stroke="#0284C7" stroke-width="2" stroke-linecap="round" />
+                <rect x="10.5" y="2" width="3" height="3" rx="1" fill="#94A3B8" />
+                <line x1="12" y1="5" x2="12" y2="6" stroke="#94A3B8" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="screen-time-val" id="kiddo-session-time">00:00</span>
+          </div>
         </div>
       </header>
 
@@ -748,6 +772,8 @@
   <script src="js/puky-wardrobe.js"></script>
   <script src="js/puky-chat.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/puky-hearts.js"></script>
+  <script src="js/pwa-install.js"></script>
 
   <!-- ================================================
        PWA - Registro del Service Worker
@@ -775,29 +801,8 @@
           });
       });
     }
-
-    // Botón de instalación PWA (A2HS)
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      console.log('[Kiddo PWA] App instalable detectada');
-
-      // Exponer función global para instalar desde cualquier parte de la app
-      window.kiddoInstallPWA = async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log('[Kiddo PWA] Resultado instalación:', outcome);
-        deferredPrompt = null;
-      };
-    });
-
-    window.addEventListener('appinstalled', () => {
-      console.log('[Kiddo PWA] ¡Kiddo instalado como app! 🐨🎉');
-      deferredPrompt = null;
-    });
   </script>
+  <script src="js/session-timer.js"></script>
 </body>
 
 </html>

@@ -150,3 +150,29 @@
     gap: 16px !important;
   }
 }
+
+/* KIDDO - Tarjetas de Juegos más compactas */
+
+#screen-juegos #games-grid-container,
+#screen-juegos .games-selection-grid {
+    align-content: start !important;
+    align-items: start !important;
+    grid-auto-rows: max-content !important;
+    row-gap: 0px !important;
+    column-gap: 10px !important;
+}
+
+#screen-juegos #games-grid-container button,
+#screen-juegos .game-card-btn {
+    height: auto !important;
+    min-height: 0 !important;
+    align-self: start !important;
+}
+
+#screen-juegos #games-grid-container img,
+#screen-juegos .game-card-img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
