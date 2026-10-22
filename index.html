@@ -696,6 +696,41 @@
             <span class="video-protection-text">• Supervisado por Kiddo</span>
           </div>
         </div>
+    </div>
+
+    <!-- Modal 5: Panel Parental Flotante / Acceso desde Bloqueo -->
+    <div class="kiddo-modal-overlay" id="kiddo-parental-modal" aria-hidden="true" role="dialog"
+      aria-label="Panel de Control Parental">
+      <div class="kiddo-modal-sheet parental-modal-sheet" id="parental-modal-container">
+        <!-- Contenido inyectado dinámicamente -->
+      </div>
+    </div>
+
+    <!-- Pantalla de Bloqueo Amable con Puky (Límite Diario y Horario Permitido) -->
+    <div class="kiddo-lockout-overlay" id="kiddo-lockout-overlay" aria-hidden="true" style="display: none;">
+      <div class="kiddo-lockout-card">
+        <div class="lockout-decorations" aria-hidden="true">
+          <span class="lockout-star star-1">⭐</span>
+          <span class="lockout-star star-2">✨</span>
+          <span class="lockout-moon">🌙</span>
+          <span class="lockout-cloud">☁️</span>
+        </div>
+        <div class="lockout-puky-wrapper">
+          <img src="assets/koala_peeking.png" alt="Puky el Koala descansando" class="lockout-puky-img">
+        </div>
+        <h2 class="lockout-title">¡Muy bien por hoy! 🌙</h2>
+        <p class="lockout-message">Es momento de descansar. Mañana podremos seguir jugando y aprendiendo.</p>
+        
+        <div class="lockout-info-badge" id="lockout-return-badge">
+          <span class="lockout-info-icon">🕒</span>
+          <span class="lockout-detail-text" id="lockout-detail-text">Vuelve mañana para seguir jugando.</span>
+        </div>
+
+        <div class="lockout-parent-access">
+          <button class="lockout-parent-btn" onclick="window.kiddoParental.openParentalFromLockout()" aria-label="Acceso para adultos">
+            <span>🔒 Acceso para adultos</span>
+          </button>
+        </div>
       </div>
     </div>
 

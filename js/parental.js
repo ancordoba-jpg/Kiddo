@@ -1,15 +1,114 @@
 /**
- * Módulo de Control Parental / Modo Padres
- * Pantalla de Ajustes, Puerta de Seguridad por Contraseña, Métricas y Vinculación
+ * KIDDO — MÓDULO DE CONTROL PARENTAL Y AJUSTES
+ * Pantalla de Ajustes ilustrada (3 tarjetas), Puerta de Seguridad con SHA-256,
+ * Límite Diario de Tiempo, Horario Permitido, Bloqueo Automático y Reautenticación Obligatoria.
  */
 
 class KiddoParentalManager {
   constructor() {
     this.isUnlocked = false;
     this.enteredPin = '';
+    this.openFromLockout = false;
+    this.loadSettings();
   }
 
-  // Renderizar la pantalla de Ajustes
+  // Cargar configuración guardada en localStorage
+  loadSettings() {
+    try {
+      const saved = localStorage.getItem('kiddo_parental_settings');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (typeof parsed.dailyLimitMinutes === 'number') {
+          KIDDO_DATA.parentalSettings.dailyLimitMinutes = parsed.dailyLimitMinutes;
+        }
+        if (parsed.allowedTimeRange) {
+          KIDDO_DATA.parentalSettings.allowedTimeRange = {
+            start: parsed.allowedTimeRange.start || '08:00',
+            end: parsed.allowedTimeRange.end || '20:00',
+            enabled: parsed.allowedTimeRange.enabled === true  // solo true si fue guardado explícitamente
+          };
+        }
+        if (typeof parsed.enableMusic === 'boolean') KIDDO_DATA.parentalSettings.enableMusic = parsed.enableMusic;
+        if (typeof parsed.enableVideos === 'boolean') KIDDO_DATA.parentalSettings.enableVideos = parsed.enableVideos;
+        if (typeof parsed.enableGames === 'boolean') KIDDO_DATA.parentalSettings.enableGames = parsed.enableGames;
+        if (typeof parsed.enableStories === 'boolean') KIDDO_DATA.parentalSettings.enableStories = parsed.enableStories;
+      }
+      const savedAvatar = localStorage.getItem('kiddo_user_avatar');
+      if (savedAvatar) {
+        KIDDO_DATA.user.avatar = savedAvatar;
+      } else if (!KIDDO_DATA.user.avatar) {
+        KIDDO_DATA.user.avatar = 'nino';
+      }
+    } catch (e) {
+      console.warn('Error al cargar configuraciones parentales:', e);
+    }
+  }
+
+  // Guardar configuración en localStorage
+  saveSettings() {
+    try {
+      const payload = {
+        dailyLimitMinutes: KIDDO_DATA.parentalSettings.dailyLimitMinutes,
+        allowedTimeRange: KIDDO_DATA.parentalSettings.allowedTimeRange,
+        enableMusic: KIDDO_DATA.parentalSettings.enableMusic,
+        enableVideos: KIDDO_DATA.parentalSettings.enableVideos,
+        enableGames: KIDDO_DATA.parentalSettings.enableGames,
+        enableStories: KIDDO_DATA.parentalSettings.enableStories
+      };
+      localStorage.setItem('kiddo_parental_settings', JSON.stringify(payload));
+      if (KIDDO_DATA.user.avatar) {
+        localStorage.setItem('kiddo_user_avatar', KIDDO_DATA.user.avatar);
+      }
+    } catch (e) {
+      console.warn('Error al guardar configuraciones parentales:', e);
+    }
+  }
+
+  // Función criptográfica para hash SHA-256 con salt (Web Crypto API)
+  async hashPinWithSalt(pin, salt) {
+    const enc = new TextEncoder();
+    const data = enc.encode('kiddo_puky_' + salt + '_' + pin);
+    const hashBuf = await crypto.subtle.digest('SHA-256', data);
+    const hashArr = Array.from(new Uint8Array(hashBuf));
+    return hashArr.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  // Validar contraseña sin almacenar texto plano
+  async verifyPassword(inputPin) {
+    if (!inputPin) return false;
+    let storedHash = localStorage.getItem('kiddo_parent_pwd_hash');
+    let salt = localStorage.getItem('kiddo_parent_pwd_salt');
+
+    // Inicialización si aún no existe hash en localStorage
+    if (!storedHash || !salt) {
+      salt = 'salt_' + Math.random().toString(36).substring(2, 10);
+      const initialPin = KIDDO_DATA.user.parentPin || '1234';
+      storedHash = await this.hashPinWithSalt(initialPin, salt);
+      localStorage.setItem('kiddo_parent_pwd_hash', storedHash);
+      localStorage.setItem('kiddo_parent_pwd_salt', salt);
+      // Eliminar texto plano de memoria si existiera
+      delete KIDDO_DATA.user.parentPin;
+    }
+
+    const testHash = await this.hashPinWithSalt(inputPin, salt);
+    return testHash === storedHash;
+  }
+
+  // Actualizar contraseña con hash seguro
+  async updateParentPin(newPin) {
+    if (!newPin || newPin.length < 4) {
+      return { success: false, message: 'La contraseña debe tener al menos 4 caracteres.' };
+    }
+    const salt = 'salt_' + Math.random().toString(36).substring(2, 10);
+    const hash = await this.hashPinWithSalt(newPin, salt);
+    localStorage.setItem('kiddo_parent_pwd_hash', hash);
+    localStorage.setItem('kiddo_parent_pwd_salt', salt);
+    return { success: true, message: '¡Contraseña actualizada correctamente!' };
+  }
+
+  // ==========================================================
+  // RENDERIZADO DE LA PANTALLA PRINCIPAL DE AJUSTES
+  // ==========================================================
   renderSettingsScreen() {
     const container = document.getElementById('screen-ajustes');
     if (!container) return;
@@ -21,66 +120,131 @@ class KiddoParentalManager {
     }
   }
 
-  // Vista inicial de Ajustes con el botón claramente identificado para Control Parental
+  // Vista inicial de Ajustes: Banner superior + 3 tarjetas principales
   renderSettingsOverview(container) {
+    const user = KIDDO_DATA.user;
+    const avatarType = user.avatar === 'nina' ? 'nina' : 'nino';
+    const avatarSrc = `assets/ajustes/avatar-${avatarType}.png`;
+
     container.innerHTML = `
       <div class="settings-overview-view">
-        <div class="home-header-banner" style="background: linear-gradient(135deg, #A9DEF9 0%, #E4C1F9 100%); border-radius: 26px; padding: 20px 18px; border: 2px solid rgba(255, 255, 255, 0.85); box-shadow: 0 8px 24px rgba(169, 222, 249, 0.28);">
-          <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: #26354D; margin: 0 0 4px;">Ajustes y Configuración ⚙️</h2>
-          <p style="font-family: var(--font-body); font-size: 13px; color: #4A5568; font-weight: 600; margin: 0;">Opciones de la aplicación y modo exclusivo para adultos.</p>
+        <!-- Banner Superior Ilustrado -->
+        <div class="settings-banner-card">
+          <img src="assets/ajustes/banner-ajustes.png" 
+               alt="Ajustes y Configuración - Opciones de la aplicación y modo exclusivo para adultos" 
+               class="settings-banner-img"
+               onerror="this.src='assets/ajustes/banner-ajustes.png.png'">
         </div>
 
-        <!-- Tarjeta Destacada de Acceso al Control Parental -->
-        <div class="parent-control-access-card" onclick="window.kiddoParental.openPinPrompt()">
-          <div class="parent-access-badge">🔒 EXCLUSIVO ADULTOS</div>
-          <div class="parent-access-header">
-            <span class="parent-access-icon">🛡️</span>
-            <div>
-              <h3>Modo Padres / Control Parental</h3>
-              <p>Supervisa el tiempo de pantalla, actividades, límites y vincula tus dispositivos.</p>
+        <!-- TARJETA A: MODO PADRES / CONTROL PARENTAL -->
+        <div class="settings-card card-parental" onclick="window.kiddoParental.openPinPrompt()">
+          <div class="settings-card-left">
+            <div class="settings-card-badge">🔒 EXCLUSIVO ADULTOS</div>
+            <h3 class="settings-card-title">Modo Padres / Control Parental</h3>
+            <p class="settings-card-desc">Supervisá el tiempo de pantalla, las actividades y los límites de uso.</p>
+            <button class="settings-btn-parental" onclick="event.stopPropagation(); window.kiddoParental.openPinPrompt()">
+              <span class="btn-lock-icon">🔒</span>
+              <span>Acceder con contraseña</span>
+              <span class="btn-arrow">➔</span>
+            </button>
+          </div>
+          <div class="settings-card-visual">
+            <img src="assets/ajustes/escudo-parental.png" 
+                 alt="Escudo de Control Parental" 
+                 class="settings-card-img shield-img"
+                 onerror="this.src='assets/ajustes/escudo-parental.png.png'">
+          </div>
+        </div>
+
+        <!-- TARJETA B: INFORMACIÓN DE LA APLICACIÓN -->
+        <div class="settings-card card-app-info">
+          <div class="settings-card-left">
+            <h3 class="settings-card-title">Información de la Aplicación</h3>
+            <div class="settings-info-list">
+              <div class="info-row">
+                <span class="info-label">📱 Nombre:</span>
+                <span class="info-value">Kiddo</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">🐨 Personaje:</span>
+                <span class="info-value">Puky el Koala</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">🚀 Versión:</span>
+                <span class="info-value">1.0.0 (Kiddo Web PWA)</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">🎨 Estilo visual:</span>
+                <span class="info-value">Pastel Infantil Armonioso</span>
+              </div>
             </div>
           </div>
-          <button class="kiddo-btn-primary" style="margin-top: 14px; background: linear-gradient(180deg, #5AB7FB 0%, #3FA1F5 100%); box-shadow: 0 4px 0 #2B8BE0, 0 8px 18px rgba(63, 161, 245, 0.35);">
-            <span>Acceder con Contraseña</span>
-            <span style="font-size: 16px; margin-left: 4px;">➔</span>
-          </button>
-        </div>
-
-        <!-- Opciones Generales Básicas -->
-        <div class="parent-section-box">
-          <h3>Información de la Aplicación</h3>
-          <div style="font-size: 13.5px; color: #4A5568; line-height: 2;">
-            <p style="margin: 0;">🐨 <strong>Personaje:</strong> Puky el Koala</p>
-            <p style="margin: 0;">📱 <strong>Versión:</strong> 1.0.0 (Kiddo Mobile)</p>
-            <p style="margin: 0;">🎨 <strong>Tema visual:</strong> Pastel Infantil Armonioso</p>
+          <div class="settings-card-visual">
+            <img src="assets/ajustes/telefono-kiddo.png" 
+                 alt="Ilustración Teléfono Kiddo" 
+                 class="settings-card-img phone-img"
+                 onerror="this.src='assets/ajustes/telefono-kiddo.png.png'">
           </div>
         </div>
 
-        <!-- Opción de Cerrar Sesión -->
-        <div class="parent-section-box">
-          <h3>Sesión de Usuario</h3>
-          <p style="font-size: 13.5px; color: #71809A; margin-bottom: 12px;">Perfil activo: <strong style="color: #0284C7;">${KIDDO_DATA.user.name}</strong></p>
-          <button class="kiddo-btn-primary" style="background: #FFE4E6; border: 1.5px solid #FECDD3; color: #E11D48; box-shadow: 0 4px 0 #FDA4AF;" onclick="window.kiddoApp.logout()">
-            <span>🚪 Cerrar Sesión</span>
-          </button>
+        <!-- TARJETA C: SESIÓN DE USUARIO -->
+        <div class="settings-card card-user-session">
+          <div class="settings-card-left">
+            <h3 class="settings-card-title">Sesión de Usuario</h3>
+            <div class="session-user-meta">
+              <span class="session-label">Perfil activo:</span>
+              <strong class="session-user-name">${user.name || 'Mateo'}</strong>
+              <span class="session-user-badge">${avatarType === 'nina' ? '👧 Niña' : '👦 Niño'}</span>
+            </div>
+            <div class="session-actions-row">
+              <button class="settings-btn-logout" onclick="window.kiddoApp.logout()">
+                <span>🚪 Cerrar sesión</span>
+              </button>
+              <button class="settings-btn-avatar-switch" onclick="window.kiddoParental.toggleAvatarGender()" title="Cambiar avatar niño / niña">
+                <span>🔄 Cambiar avatar</span>
+              </button>
+            </div>
+          </div>
+          <div class="settings-card-visual">
+            <img src="${avatarSrc}" 
+                 alt="Avatar del perfil activo" 
+                 class="settings-card-img avatar-img"
+                 id="settings-avatar-img"
+                 onerror="this.src='assets/ajustes/avatar-${avatarType}.png.png'">
+          </div>
         </div>
       </div>
     `;
   }
 
-  // Abrir la pantalla de solicitud de PIN
-  openPinPrompt() {
-    const container = document.getElementById('screen-ajustes');
-    if (!container) return;
+  // Alternar avatar entre niño y niña con persistencia inmediata
+  toggleAvatarGender() {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    const current = KIDDO_DATA.user.avatar || 'nino';
+    KIDDO_DATA.user.avatar = (current === 'nino') ? 'nina' : 'nino';
+    this.saveSettings();
+    this.renderSettingsScreen();
+  }
 
+  // ==========================================================
+  // PUERTA DE ACCESO POR CONTRASEÑA / PIN
+  // ==========================================================
+  openPinPrompt(isModal = false) {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
     this.enteredPin = '';
-    container.innerHTML = `
+    this.openFromLockout = isModal;
+
+    const htmlContent = `
       <div class="parent-gate-card">
-        <button class="story-back-btn" style="margin-bottom: 12px; align-self: flex-start;" onclick="window.kiddoParental.renderSettingsOverview(document.getElementById('screen-ajustes'))">← Volver a Ajustes</button>
-        <div class="parent-gate-icon">🔒</div>
-        <h2>Control Parental</h2>
+        <button class="parent-gate-back-btn" onclick="window.kiddoParental.cancelPinPrompt()">
+          ← Volver
+        </button>
+        <div class="parent-gate-icon">
+          <img src="assets/ajustes/escudo-parental.png" alt="Seguridad Parental" class="gate-shield-img">
+        </div>
+        <h2>Modo Padres</h2>
         <p class="parent-gate-desc">
-          Introduce la contraseña establecida durante el registro para acceder a las funciones de supervisión y administración.
+          Introduce la contraseña del adulto para acceder a los controles y límites de uso.
         </p>
 
         <div class="pin-display-wrapper">
@@ -92,14 +256,14 @@ class KiddoParentalManager {
           </div>
         </div>
 
-        <!-- Teclado numérico seguro -->
+        <!-- Teclado numérico táctil seguro -->
         <div class="pin-keypad">
-          ${[1,2,3,4,5,6,7,8,9].map(n => `
+          ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `
             <button class="pin-key-btn" onclick="window.kiddoParental.enterDigit('${n}')">${n}</button>
           `).join('')}
           <button class="pin-key-btn key-clear" onclick="window.kiddoParental.clearPin()">Borrar</button>
           <button class="pin-key-btn" onclick="window.kiddoParental.enterDigit('0')">0</button>
-          <button class="pin-key-btn key-submit" onclick="window.kiddoParental.verifyPin()">Entrar</button>
+          <button class="pin-key-btn key-submit" onclick="window.kiddoParental.verifyPin()">Entrar ➔</button>
         </div>
 
         <div id="pin-error-msg" class="pin-error-banner" style="display: none;">
@@ -107,6 +271,34 @@ class KiddoParentalManager {
         </div>
       </div>
     `;
+
+    if (isModal) {
+      const modalContainer = document.getElementById('parental-modal-container');
+      const modal = document.getElementById('kiddo-parental-modal');
+      if (modalContainer && modal) {
+        modalContainer.innerHTML = htmlContent;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+    } else {
+      const container = document.getElementById('screen-ajustes');
+      if (container) container.innerHTML = htmlContent;
+    }
+  }
+
+  cancelPinPrompt() {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    this.enteredPin = '';
+    if (this.openFromLockout) {
+      const modal = document.getElementById('kiddo-parental-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    } else {
+      const container = document.getElementById('screen-ajustes');
+      if (container) this.renderSettingsOverview(container);
+    }
   }
 
   enterDigit(digit) {
@@ -115,7 +307,7 @@ class KiddoParentalManager {
       this.updatePinDots();
       if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
       if (this.enteredPin.length === 4) {
-        setTimeout(() => this.verifyPin(), 200);
+        setTimeout(() => this.verifyPin(), 220);
       }
     }
   }
@@ -140,304 +332,370 @@ class KiddoParentalManager {
     }
   }
 
-  verifyPin() {
-    const correctPin = KIDDO_DATA.user.parentPin || '1234';
-    if (this.enteredPin === correctPin) {
+  async verifyPin() {
+    const isValid = await this.verifyPassword(this.enteredPin);
+    if (isValid) {
       this.isUnlocked = true;
+      this.enteredPin = '';
       if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
-      this.renderSettingsScreen();
+
+      if (this.openFromLockout) {
+        // Renderizar dentro del modal sobre el bloqueo
+        const modalContainer = document.getElementById('parental-modal-container');
+        if (modalContainer) {
+          this.renderParentDashboard(modalContainer, true);
+        }
+      } else {
+        const container = document.getElementById('screen-ajustes');
+        if (container) this.renderParentDashboard(container, false);
+      }
     } else {
       const errMsg = document.getElementById('pin-error-msg');
-      if (errMsg) errMsg.style.display = 'block';
+      if (errMsg) {
+        errMsg.style.display = 'block';
+        errMsg.classList.add('shake-anim');
+        setTimeout(() => errMsg.classList.remove('shake-anim'), 500);
+      }
       this.enteredPin = '';
       this.updatePinDots();
     }
   }
 
+  // ==========================================================
+  // REAUTENTICACIÓN OBLIGATORIA / CIERRE DE SESIÓN PARENTAL
+  // ==========================================================
   lockParentalMode() {
     this.isUnlocked = false;
     this.enteredPin = '';
-    this.renderSettingsScreen();
+    this.openFromLockout = false;
+
+    // Cerrar modal parental si estuviera abierto
+    const modal = document.getElementById('kiddo-parental-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Si estamos en la pantalla de ajustes, volver al overview
+    if (window.kiddoApp && window.kiddoApp.currentScreen === 'ajustes') {
+      const container = document.getElementById('screen-ajustes');
+      if (container) this.renderSettingsOverview(container);
+    }
+
+    // Re-evaluar bloqueo global de Kiddo
+    if (window.kiddoApp && typeof window.kiddoApp.evaluateUsageRestrictions === 'function') {
+      window.kiddoApp.evaluateUsageRestrictions();
+    }
   }
 
-  // Panel Principal de Padres / Control Parental
-  renderParentDashboard(container) {
+  // Acceso para adultos disparado desde la pantalla de bloqueo
+  openParentalFromLockout() {
+    this.openPinPrompt(true);
+  }
+
+  // ==========================================================
+  // PANEL PRINCIPAL DE PADRES / CONTROL PARENTAL (DESBLOQUEADO)
+  // ==========================================================
+  renderParentDashboard(container, isModal = false) {
     const user = KIDDO_DATA.user;
-    const stats = KIDDO_DATA.parentalSettings.usageStats;
     const settings = KIDDO_DATA.parentalSettings;
+    const todayMins = Math.floor(KIDDO_DATA.user.todayScreenTimeMinutes || 0);
+    const limit = settings.dailyLimitMinutes || 0;
+    const remainingMins = limit > 0 ? Math.max(0, limit - todayMins) : 'Ilimitado';
+    const percentUsed = limit > 0 ? Math.min(100, Math.round((todayMins / limit) * 100)) : 0;
+
+    const schedule = settings.allowedTimeRange || { start: '08:00', end: '20:00', enabled: true };
+    const scheduleActiveText = schedule.enabled
+      ? `✅ Activo: ${schedule.start} a ${schedule.end}`
+      : '⏸️ Restricción horaria desactivada';
 
     container.innerHTML = `
-      <div class="parent-dashboard">
-        <!-- Barra de estado superior del adulto -->
+      <div class="parent-dashboard-wrapper">
+        <!-- Cabecera Superior del Panel Parental -->
         <div class="parent-dash-header">
-          <div class="parent-profile-info">
-            <span class="parent-badge">🛡️ PANEL DE PADRES</span>
+          <div class="parent-dash-title-wrap">
+            <span class="parent-badge">🛡️ PANEL DE CONTROL PARENTAL</span>
             <h2>Supervisión y Control</h2>
-            <p>Supervisando a: <strong>${user.name}</strong> (${user.birthdate})</p>
+            <p>Perfil de: <strong>${user.name}</strong> • ${user.avatar === 'nina' ? '👧 Niña' : '👦 Niño'}</p>
           </div>
-          <button class="parent-exit-btn" onclick="window.kiddoParental.lockParentalMode()">
+          <button class="parent-exit-btn" onclick="window.kiddoParental.lockParentalMode()" aria-label="Cerrar Panel Parental">
             <span>Cerrar Panel 🔒</span>
           </button>
         </div>
 
-        <!-- Pestañas internas del panel -->
-        <div class="parent-tabs-nav">
-          <button class="parent-tab-btn active" onclick="window.kiddoParental.switchParentTab(this, 'ptab-stats')">📊 Resumen de Uso</button>
-          <button class="parent-tab-btn" onclick="window.kiddoParental.switchParentTab(this, 'ptab-limits')">⏱️ Límites y Horarios</button>
-          <button class="parent-tab-btn" onclick="window.kiddoParental.switchParentTab(this, 'ptab-permissions')">🔒 Permisos y Contenido</button>
-          <button class="parent-tab-btn" onclick="window.kiddoParental.switchParentTab(this, 'ptab-sync')">📲 Vinculación de Dispositivos</button>
-        </div>
-
-        <!-- 1. PESTAÑA: RESUMEN Y ESTADÍSTICAS DE USO -->
-        <div id="ptab-stats" class="parent-tab-content active">
-          <div class="parent-metrics-grid">
-            <div class="metric-card">
-              <div class="metric-header">
-                <span class="metric-icon">⏱️</span>
-                <span class="metric-title">Tiempo de Hoy</span>
-              </div>
-              <div class="metric-value">${KIDDO_DATA.user.todayScreenTimeMinutes} <small>min</small></div>
-              <div class="metric-progress">
-                <div class="metric-bar" style="width: ${(KIDDO_DATA.user.todayScreenTimeMinutes / settings.dailyLimitMinutes) * 100}%;"></div>
-              </div>
-              <p class="metric-hint">Límite diario: ${settings.dailyLimitMinutes} min</p>
-            </div>
-
-            <div class="metric-card">
-              <div class="metric-header">
-                <span class="metric-icon">📅</span>
-                <span class="metric-title">Promedio Semanal</span>
-              </div>
-              <div class="metric-value">${stats.weeklyAverageMinutes} <small>min/día</small></div>
-              <p class="metric-hint">Uso equilibrado y saludable</p>
-            </div>
-
-            <div class="metric-card">
-              <div class="metric-header">
-                <span class="metric-icon">⭐</span>
-                <span class="metric-title">Misiones</span>
-              </div>
-              <div class="metric-value">${KIDDO_DATA.missions.filter(m => m.completed).length} / ${KIDDO_DATA.missions.length}</div>
-              <p class="metric-hint">Alto compromiso diario</p>
+        <!-- 1. SECCIÓN: TIEMPO DE PANTALLA -->
+        <div class="parent-panel-card">
+          <div class="parent-panel-card-header">
+            <span class="parent-card-icon">⏱️</span>
+            <div>
+              <h3>Tiempo de Pantalla</h3>
+              <p>Monitorea y configura el límite diario de uso en Kiddo.</p>
             </div>
           </div>
 
-          <!-- Funciones más utilizadas -->
-          <div class="parent-section-box">
-            <h3>📈 Funciones más utilizadas</h3>
-            <div class="features-bars-list">
-              ${stats.topFeatures.map(f => `
-                <div class="feature-bar-item">
-                  <div class="feature-bar-label">
-                    <span>${f.icon} ${f.name}</span>
-                    <strong>${f.percentage}%</strong>
-                  </div>
-                  <div class="feature-bar-track">
-                    <div class="feature-bar-fill" style="width: ${f.percentage}%; background-color: ${f.color};"></div>
-                  </div>
-                </div>
+          <!-- Métricas del día -->
+          <div class="screen-time-stats-row">
+            <div class="time-stat-pill">
+              <span class="stat-pill-label">Tiempo usado hoy:</span>
+              <strong class="stat-pill-val">${todayMins} min</strong>
+            </div>
+            <div class="time-stat-pill">
+              <span class="stat-pill-label">Tiempo restante:</span>
+              <strong class="stat-pill-val ${remainingMins === 0 ? 'text-danger' : 'text-success'}">
+                ${limit > 0 ? remainingMins + ' min' : 'Sin límite'}
+              </strong>
+            </div>
+            <div class="time-stat-pill">
+              <span class="stat-pill-label">Límite diario:</span>
+              <strong class="stat-pill-val">${limit > 0 ? limit + ' min' : 'Sin límite'}</strong>
+            </div>
+          </div>
+
+          <!-- Barra de progreso visual suave -->
+          <div class="time-progress-container">
+            <div class="time-progress-bar-bg">
+              <div class="time-progress-bar-fill ${percentUsed >= 90 ? 'progress-warning' : ''}" 
+                   style="width: ${limit > 0 ? percentUsed : 0}%;"></div>
+            </div>
+            <span class="time-progress-percent">${limit > 0 ? percentUsed + '% usado' : 'Ilimitado'}</span>
+          </div>
+
+          <!-- Selector de opciones de límite -->
+          <div class="limit-presets-area">
+            <span class="presets-title">Elige un límite diario predeterminado:</span>
+            <div class="limit-chips-grid">
+              ${[
+                { label: 'Sin límite', val: 0 },
+                { label: '15 min', val: 15 },
+                { label: '30 min', val: 30 },
+                { label: '45 min', val: 45 },
+                { label: '1 hora', val: 60 },
+                { label: '1 h 30 m', val: 90 },
+                { label: '2 horas', val: 120 }
+              ].map(opt => `
+                <button class="limit-chip-btn ${limit === opt.val ? 'active' : ''}" 
+                        onclick="window.kiddoParental.updateDailyLimit(${opt.val})">
+                  ${opt.label}
+                </button>
               `).join('')}
             </div>
-          </div>
 
-          <!-- Progreso Educativo -->
-          <div class="parent-section-box">
-            <h3>🎓 Progreso en Actividades Educativas</h3>
-            <div class="education-progress-grid">
-              ${stats.educationalProgress.map(p => `
-                <div class="edu-progress-item">
-                  <div class="edu-progress-info">
-                    <strong>${p.subject}</strong>
-                    <span>${p.details}</span>
-                  </div>
-                  <div class="edu-bar-track">
-                    <div class="edu-bar-fill" style="width: ${p.progress}%;"></div>
-                  </div>
-                  <span class="edu-score">${p.progress}%</span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. PESTAÑA: CONFIGURACIÓN DE LÍMITES Y HORARIOS -->
-        <div id="ptab-limits" class="parent-tab-content">
-          <div class="parent-section-box">
-            <h3>⏱️ Límite Diario de Pantalla</h3>
-            <p class="config-desc">Establece el tiempo máximo en minutos que el niño puede usar la aplicación por día.</p>
-            <div class="limit-slider-wrap">
-              <div class="slider-val-display"><strong id="limit-slider-val">${settings.dailyLimitMinutes}</strong> minutos por día</div>
-              <input type="range" min="15" max="120" step="5" value="${settings.dailyLimitMinutes}" id="daily-limit-input" oninput="window.kiddoParental.updateDailyLimit(this.value)" class="kiddo-range-slider">
-              <div class="slider-marks">
-                <span>15m</span>
-                <span>30m</span>
-                <span>45m</span>
-                <span>60m</span>
-                <span>90m</span>
-                <span>120m</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="parent-section-box">
-            <h3>🕒 Horarios Permitidos de Uso</h3>
-            <p class="config-desc">La app bloqueará automáticamente el acceso fuera de esta franja horaria.</p>
-            <div class="time-range-controls">
-              <div class="time-input-group">
-                <label>Hora de inicio:</label>
-                <input type="time" value="${settings.allowedTimeRange.start}" class="kiddo-time-input" onchange="window.kiddoParental.updateTimeRange('start', this.value)">
-              </div>
-              <div class="time-input-group">
-                <label>Hora de término:</label>
-                <input type="time" value="${settings.allowedTimeRange.end}" class="kiddo-time-input" onchange="window.kiddoParental.updateTimeRange('end', this.value)">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. PESTAÑA: PERMISOS Y CONTENIDOS -->
-        <div id="ptab-permissions" class="parent-tab-content">
-          <div class="parent-section-box">
-            <h3>🗂️ Secciones Permitidas</h3>
-            <p class="config-desc">Habilita o deshabilita secciones de la aplicación según la edad del niño.</p>
-            <div class="toggles-list">
-              <div class="toggle-item">
-                <div class="toggle-label">
-                  <strong>Juegos Educativos</strong>
-                  <small>Matemáticas, memoria y lectoescritura</small>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" ${settings.enableGames ? 'checked' : ''} onchange="window.kiddoParental.toggleSection('enableGames', this.checked)">
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-
-              <div class="toggle-item">
-                <div class="toggle-label">
-                  <strong>Cuentos Infantiles</strong>
-                  <small>Lectura ilustrada y narración por voz</small>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" ${settings.enableStories ? 'checked' : ''} onchange="window.kiddoParental.toggleSection('enableStories', this.checked)">
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-
-              <div class="toggle-item">
-                <div class="toggle-label">
-                  <strong>Música y Piano</strong>
-                  <small>Sonidos relajantes y piano virtual</small>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" ${settings.enableMusic ? 'checked' : ''} onchange="window.kiddoParental.toggleSection('enableMusic', this.checked)">
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-
-              <div class="toggle-item">
-                <div class="toggle-label">
-                  <strong>Videos Infantiles</strong>
-                  <small>Enlaces a videos supervisados de YouTube</small>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" ${settings.enableVideos ? 'checked' : ''} onchange="window.kiddoParental.toggleSection('enableVideos', this.checked)">
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="parent-section-box">
-            <h3>🔑 Cambiar Contraseña Parental</h3>
-            <div class="change-pin-row">
-              <input type="password" maxlength="4" placeholder="Nuevo PIN (4 dígitos)" id="new-parent-pin" class="kiddo-text-input">
-              <button class="kiddo-btn-action" onclick="window.kiddoParental.changePin()">Actualizar PIN</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. PESTAÑA: VINCULACIÓN ENTRE DISPOSITIVOS Y SINCRONIZACIÓN -->
-        <div id="ptab-sync" class="parent-tab-content">
-          <div class="parent-section-box">
-            <h3>📲 Vinculación de Dispositivos (Padre ↔ Niño)</h3>
-            <p class="config-desc">
-              Esta arquitectura permite sincronizar en tiempo real los límites, permisos y supervisión entre el dispositivo del niño y el de los padres.
-            </p>
-
-            <div class="device-pairing-card">
-              <div class="device-qr-mock">
-                <div class="qr-box">
-                  <div class="qr-pattern"></div>
-                  <span class="qr-sub">KIDDO-SYNC</span>
-                </div>
-              </div>
-              <div class="device-info-col">
-                <span class="sync-status-badge online">● Conectado y Sincronizado</span>
-                <div class="device-code-box">
-                  <label>Código de Vinculación:</label>
-                  <div class="sync-code-val">${user.deviceSyncCode}</div>
-                </div>
-                <p class="device-meta">
-                  Dispositivo de padres vinculado: <strong>${user.pairedParentDevice}</strong><br>
-                  Última sincronización: <strong>${user.lastSync}</strong>
-                </p>
-                <button class="sync-now-btn" onclick="window.kiddoParental.triggerSyncSimulation()">
-                  <span class="sync-icon">🔄</span>
-                  <span>Sincronizar Cambios Ahora</span>
+            <!-- Entrada personalizada -->
+            <div class="custom-limit-row">
+              <label for="custom-limit-input">Tiempo personalizado (en minutos):</label>
+              <div class="custom-limit-inputs">
+                <input type="number" id="custom-limit-input" min="5" max="360" step="5" 
+                       value="${limit > 0 ? limit : 45}" class="kiddo-num-input" placeholder="Minutos">
+                <button class="kiddo-btn-apply" onclick="window.kiddoParental.applyCustomLimit()">
+                  Aplicar
                 </button>
               </div>
             </div>
-
-            <div id="sync-toast-alert" class="sync-toast-banner" style="display: none;">
-              ✅ ¡Configuraciones sincronizadas automáticamente con el dispositivo del niño!
-            </div>
           </div>
         </div>
+
+        <!-- 2. SECCIÓN: HORARIO DE USO PERMITIDO -->
+        <div class="parent-panel-card">
+          <div class="parent-panel-card-header">
+            <span class="parent-card-icon">🕒</span>
+            <div>
+              <h3>Horario de uso permitido</h3>
+              <p>Kiddo solamente podrá utilizarse dentro de este rango horario.</p>
+            </div>
+          </div>
+
+          <div class="schedule-status-banner">
+            <span class="schedule-badge">${scheduleActiveText}</span>
+          </div>
+
+          <div class="schedule-controls-box">
+            <div class="schedule-toggle-row">
+              <label class="switch-toggle" for="schedule-enabled-check">
+                <input type="checkbox" id="schedule-enabled-check" ${schedule.enabled ? 'checked' : ''} 
+                       onchange="window.kiddoParental.toggleScheduleRestriction(this.checked)">
+                <span class="slider-round"></span>
+              </label>
+              <span class="toggle-text">Activar restricción por horario</span>
+            </div>
+
+            <div class="schedule-times-row ${schedule.enabled ? '' : 'disabled-area'}">
+              <div class="time-field-box">
+                <label>Hora de inicio:</label>
+                <input type="time" value="${schedule.start}" class="kiddo-time-picker" 
+                       ${schedule.enabled ? '' : 'disabled'}
+                       onchange="window.kiddoParental.updateTimeRange('start', this.value)">
+              </div>
+              <div class="time-field-box">
+                <label>Hora de finalización:</label>
+                <input type="time" value="${schedule.end}" class="kiddo-time-picker" 
+                       ${schedule.enabled ? '' : 'disabled'}
+                       onchange="window.kiddoParental.updateTimeRange('end', this.value)">
+              </div>
+            </div>
+            <p class="schedule-hint">💡 Admite franjas nocturnas o diurnas (incluso cruzando la medianoche).</p>
+          </div>
+        </div>
+
+        <!-- 3. SECCIÓN: PERMISOS DE SECCIONES Y CONTRASEÑA -->
+        <div class="parent-panel-card">
+          <div class="parent-panel-card-header">
+            <span class="parent-card-icon">🗂️</span>
+            <div>
+              <h3>Permisos y Seguridad</h3>
+              <p>Activa o desactiva actividades infantiles y actualiza tu contraseña.</p>
+            </div>
+          </div>
+
+          <div class="toggles-list">
+            <div class="toggle-item">
+              <div class="toggle-label">
+                <strong>🎮 Juegos Educativos</strong>
+                <small>Matemáticas, memoria y palabras</small>
+              </div>
+              <label class="switch-toggle">
+                <input type="checkbox" ${settings.enableGames ? 'checked' : ''} 
+                       onchange="window.kiddoParental.toggleSection('enableGames', this.checked)">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-label">
+                <strong>📖 Cuentos Infantiles</strong>
+                <small>Lectura ilustrada y narración por voz</small>
+              </div>
+              <label class="switch-toggle">
+                <input type="checkbox" ${settings.enableStories ? 'checked' : ''} 
+                       onchange="window.kiddoParental.toggleSection('enableStories', this.checked)">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-label">
+                <strong>🎵 Música y Piano</strong>
+                <small>Piano interactivo y sonidos relajantes</small>
+              </div>
+              <label class="switch-toggle">
+                <input type="checkbox" ${settings.enableMusic ? 'checked' : ''} 
+                       onchange="window.kiddoParental.toggleSection('enableMusic', this.checked)">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-label">
+                <strong>📺 Videos Infantiles</strong>
+                <small>Biblioteca de videos seguros</small>
+              </div>
+              <label class="switch-toggle">
+                <input type="checkbox" ${settings.enableVideos ? 'checked' : ''} 
+                       onchange="window.kiddoParental.toggleSection('enableVideos', this.checked)">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Cambio de Contraseña -->
+          <div class="change-password-box">
+            <h4>🔑 Cambiar Contraseña Parental</h4>
+            <div class="change-pin-row">
+              <input type="password" maxlength="8" placeholder="Nueva contraseña (4-8 dígitos)" 
+                     id="new-parent-pin-input" class="kiddo-pwd-input">
+              <button class="kiddo-btn-action" onclick="window.kiddoParental.handlePinChange()">
+                Actualizar
+              </button>
+            </div>
+            <div id="pin-change-feedback" class="pin-feedback-msg" style="display: none;"></div>
+          </div>
+        </div>
+
       </div>
     `;
   }
 
-  switchParentTab(button, tabId) {
-    document.querySelectorAll('.parent-tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.parent-tab-content').forEach(tab => tab.classList.remove('active'));
+  // Actualizar Límite Diario (Chips predeterminados)
+  updateDailyLimit(minutes) {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    KIDDO_DATA.parentalSettings.dailyLimitMinutes = parseInt(minutes, 10);
+    this.saveSettings();
 
-    button.classList.add('active');
-    const target = document.getElementById(tabId);
-    if (target) target.classList.add('active');
+    // Re-evaluar bloqueo global y re-renderizar
+    if (window.kiddoApp && typeof window.kiddoApp.evaluateUsageRestrictions === 'function') {
+      window.kiddoApp.evaluateUsageRestrictions();
+    }
+    const container = this.openFromLockout
+      ? document.getElementById('parental-modal-container')
+      : document.getElementById('screen-ajustes');
+    if (container) this.renderParentDashboard(container, this.openFromLockout);
   }
 
-  updateDailyLimit(val) {
-    KIDDO_DATA.parentalSettings.dailyLimitMinutes = parseInt(val);
-    const display = document.getElementById('limit-slider-val');
-    if (display) display.textContent = val;
-  }
-
-  updateTimeRange(type, val) {
-    KIDDO_DATA.parentalSettings.allowedTimeRange[type] = val;
-  }
-
-  toggleSection(key, isEnabled) {
-    KIDDO_DATA.parentalSettings[key] = isEnabled;
-  }
-
-  changePin() {
-    const input = document.getElementById('new-parent-pin');
-    if (input && input.value.length === 4) {
-      KIDDO_DATA.user.parentPin = input.value;
-      alert('¡Contraseña parental actualizada con éxito!');
-      input.value = '';
-    } else {
-      alert('La contraseña debe tener exactamente 4 dígitos.');
+  // Aplicar Límite Personalizado
+  applyCustomLimit() {
+    const input = document.getElementById('custom-limit-input');
+    if (input) {
+      const val = parseInt(input.value, 10);
+      if (!isNaN(val) && val >= 5) {
+        this.updateDailyLimit(val);
+      } else {
+        alert('Por favor ingresa un número de minutos válido (mínimo 5).');
+      }
     }
   }
 
-  triggerSyncSimulation() {
-    const toast = document.getElementById('sync-toast-alert');
-    if (toast) {
-      toast.style.display = 'block';
+  // Toggle de la restricción horaria
+  toggleScheduleRestriction(enabled) {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    KIDDO_DATA.parentalSettings.allowedTimeRange.enabled = enabled;
+    this.saveSettings();
+
+    if (window.kiddoApp && typeof window.kiddoApp.evaluateUsageRestrictions === 'function') {
+      window.kiddoApp.evaluateUsageRestrictions();
+    }
+    const container = this.openFromLockout
+      ? document.getElementById('parental-modal-container')
+      : document.getElementById('screen-ajustes');
+    if (container) this.renderParentDashboard(container, this.openFromLockout);
+  }
+
+  // Actualizar horario de inicio o término
+  updateTimeRange(type, value) {
+    if (!value) return;
+    KIDDO_DATA.parentalSettings.allowedTimeRange[type] = value;
+    this.saveSettings();
+
+    if (window.kiddoApp && typeof window.kiddoApp.evaluateUsageRestrictions === 'function') {
+      window.kiddoApp.evaluateUsageRestrictions();
+    }
+    const container = this.openFromLockout
+      ? document.getElementById('parental-modal-container')
+      : document.getElementById('screen-ajustes');
+    if (container) this.renderParentDashboard(container, this.openFromLockout);
+  }
+
+  // Alternar permisos de secciones
+  toggleSection(sectionKey, enabled) {
+    if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+    KIDDO_DATA.parentalSettings[sectionKey] = enabled;
+    this.saveSettings();
+  }
+
+  // Manejar cambio de PIN con hash seguro
+  async handlePinChange() {
+    const input = document.getElementById('new-parent-pin-input');
+    const feedback = document.getElementById('pin-change-feedback');
+    if (!input || !feedback) return;
+
+    const res = await this.updateParentPin(input.value.trim());
+    feedback.textContent = res.message;
+    feedback.style.display = 'block';
+    feedback.className = res.success ? 'pin-feedback-msg success' : 'pin-feedback-msg error';
+
+    if (res.success) {
+      input.value = '';
       if (window.kiddoAudio) window.kiddoAudio.playSuccessChime();
       setTimeout(() => {
-        toast.style.display = 'none';
+        feedback.style.display = 'none';
       }, 3500);
     }
   }

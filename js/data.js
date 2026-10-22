@@ -6,6 +6,7 @@ const KIDDO_DATA = {
   // Estado de usuario por defecto
   user: {
     name: 'Mateo',
+    avatar: 'nino', // 'nino' o 'nina'
     birthdate: '2020-05-15',
     parentPin: '1234',
     registered: false,
@@ -14,6 +15,21 @@ const KIDDO_DATA = {
     deviceSyncCode: 'KID-7842-X',
     pairedParentDevice: 'iPhone 15 Pro de Papá',
     lastSync: 'Hace 2 minutos'
+  },
+
+  // Configuración parental (por defecto: sin restricciones activas)
+  // El adulto puede modificarlas desde el Panel Parental en Ajustes.
+  parentalSettings: {
+    dailyLimitMinutes: 0,          // 0 = sin límite diario
+    allowedTimeRange: {
+      start: '08:00',
+      end: '20:00',
+      enabled: false               // desactivado por defecto; el adulto debe activarlo
+    },
+    enableMusic: true,
+    enableVideos: true,
+    enableGames: true,
+    enableStories: true
   },
 
   // Registro de actividades recientes para la pantalla de Inicio
@@ -1119,7 +1135,7 @@ const KIDDO_DATA = {
   // Configuraciones parentales y estadísticas
   parentalSettings: {
     dailyLimitMinutes: 45,
-    allowedTimeRange: { start: '08:00', end: '20:00' },
+    allowedTimeRange: { start: '08:00', end: '20:00', enabled: true },
     soundVolumeLimit: 80,
     enableMusic: true,
     enableVideos: true,

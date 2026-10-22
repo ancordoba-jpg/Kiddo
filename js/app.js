@@ -13,8 +13,11 @@ class KiddoApp {
       hasSession = false;
     }
     this.isAuthenticated = hasSession;
+    this.todayDateStr = this.getLocalDateString();
+    this.screenTimeSeconds = this.loadScreenTimeForToday();
+    this.isLockedOut = false;
+    this.lockoutReason = null;
     this.screenTimeTimer = null;
-    this.screenTimeSeconds = 14 * 60; // 14 min iniciales como en la referencia
     this.activeMusicTab = 'crear';
     this.activeRelaxingTrackId = null;
     this.activeVideoCategoryView = null;
@@ -215,6 +218,18 @@ class KiddoApp {
     // Si salimos de la sección Videos a otra sección, cerrar modal de video
     if (screenName !== 'videos') {
       this.closeVideoModal();
+    }
+
+    // Si salimos de la sección Ajustes a otra sección, revocar sesión parental inmediatamente
+    if (screenName !== 'ajustes' && window.kiddoParental) {
+      window.kiddoParental.lockParentalMode();
+    }
+
+    // Si Kiddo está bloqueado por tiempo o horario, impedir cambiar a actividades infantiles
+    if (this.isLockedOut && screenName !== 'ajustes') {
+      if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+      this.triggerLockout(this.lockoutReason || 'limit');
+      return;
     }
 
     // Ocultar todas las pantallas principales
@@ -1270,17 +1285,207 @@ class KiddoApp {
     }
   }
 
+  getLocalDateString() {
+    const d = new Date();
+    const yr = d.getFullYear();
+    const mo = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${yr}-${mo}-${day}`;
+  }
+
+  loadScreenTimeForToday() {
+    try {
+      const todayStr = this.getLocalDateString();
+      const key = `kiddo_time_used_${todayStr}`;
+      const saved = localStorage.getItem(key);
+      if (saved !== null) {
+        const sec = parseInt(saved, 10);
+        return isNaN(sec) || sec < 0 ? 0 : sec;
+      }
+    } catch (e) {}
+    return 0; // Sin datos guardados → 0 segundos (inicio de jornada limpia)
+  }
+
+  saveScreenTimeForToday() {
+    try {
+      const todayStr = this.getLocalDateString();
+      const key = `kiddo_time_used_${todayStr}`;
+      localStorage.setItem(key, this.screenTimeSeconds.toString());
+    } catch (e) {}
+  }
+
+  isWithinSchedule(startStr, endStr) {
+    if (!startStr || !endStr) return true;
+    const now = new Date();
+    const currentMin = now.getHours() * 60 + now.getMinutes();
+
+    const [sH, sM] = startStr.split(':').map(Number);
+    const [eH, eM] = endStr.split(':').map(Number);
+    const startMin = sH * 60 + (sM || 0);
+    const endMin = eH * 60 + (eM || 0);
+
+    if (startMin <= endMin) {
+      // Franja horaria diurna, ej: 08:00 a 20:00
+      return currentMin >= startMin && currentMin < endMin;
+    } else {
+      // Franja que cruza la medianoche, ej: 20:00 a 08:00
+      return currentMin >= startMin || currentMin < endMin;
+    }
+  }
+
+  evaluateUsageRestrictions() {
+    const settings = KIDDO_DATA?.parentalSettings;
+    if (!settings) return;
+
+    const todayMinutes = Math.floor(this.screenTimeSeconds / 60);
+    const limit = settings.dailyLimitMinutes || 0;
+    // Fallback seguro: horario desactivado por defecto si el adulto no lo configuró
+    const schedule = settings.allowedTimeRange || { start: '08:00', end: '20:00', enabled: false };
+
+    const isLimitExceeded = limit > 0 && todayMinutes >= limit;
+    const isScheduleViolation = schedule.enabled === true && !this.isWithinSchedule(schedule.start, schedule.end);
+
+    // Si el adulto está autenticado y configurando, no bloquearle su panel
+    if (window.kiddoParental && window.kiddoParental.isUnlocked) {
+      return;
+    }
+
+    if (isLimitExceeded) {
+      this.triggerLockout('limit');
+    } else if (isScheduleViolation) {
+      this.triggerLockout('schedule');
+    } else {
+      if (this.isLockedOut) {
+        this.liftLockout();
+      }
+    }
+  }
+
+  triggerLockout(reason) {
+    this.isLockedOut = true;
+    this.lockoutReason = reason;
+
+    // 1. Detener reproducción de videos
+    if (typeof this.closeVideoModal === 'function') {
+      this.closeVideoModal();
+    }
+
+    // 2. Detener música y audio
+    if (window.kiddoAudio && typeof window.kiddoAudio.pauseCurrentTrack === 'function') {
+      window.kiddoAudio.pauseCurrentTrack();
+    }
+
+    // 3. Detener narración de cuentos y Web Speech
+    if (window.kiddoStories && typeof window.kiddoStories.stopNarration === 'function') {
+      window.kiddoStories.stopNarration();
+    }
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+
+    // 4. Mostrar pantalla de bloqueo amable con Puky
+    const overlay = document.getElementById('kiddo-lockout-overlay');
+    const detailText = document.getElementById('lockout-detail-text');
+    const settings = KIDDO_DATA?.parentalSettings;
+    const schedule = settings?.allowedTimeRange || { start: '08:00', end: '20:00' };
+
+    if (detailText) {
+      if (reason === 'limit') {
+        detailText.textContent = `Tiempo diario completado (${settings?.dailyLimitMinutes || 0} min). Vuelve mañana para seguir jugando.`;
+      } else {
+        detailText.textContent = `Horario permitido: de ${schedule.start} a ${schedule.end}. Kiddo estará disponible a las ${schedule.start}.`;
+      }
+    }
+
+    if (overlay) {
+      overlay.style.display = 'flex';
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    // Bloquear visualmente navegación infantil
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+      if (btn.getAttribute('data-screen') !== 'ajustes') {
+        btn.classList.add('btn-locked');
+      }
+    });
+  }
+
+  liftLockout() {
+    this.isLockedOut = false;
+    this.lockoutReason = null;
+
+    const overlay = document.getElementById('kiddo-lockout-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+      btn.classList.remove('btn-locked');
+    });
+  }
+
   startScreenTimeTracker() {
     if (this.screenTimeTimer) clearInterval(this.screenTimeTimer);
-    this.screenTimeTimer = setInterval(() => {
-      this.screenTimeSeconds += 1;
-      const minutes = Math.floor(this.screenTimeSeconds / 60);
-      KIDDO_DATA.user.todayScreenTimeMinutes = minutes;
 
-      const counterDisplays = document.querySelectorAll('.screen-time-val');
-      counterDisplays.forEach(el => {
-        el.textContent = `${minutes} min`;
+    // Verificación inicial de restricciones
+    this.evaluateUsageRestrictions();
+
+    // Detección de visibilidad y foco
+    if (!this.visibilityBound) {
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          // Comprobar cambio de día al volver a la app
+          const currentDay = this.getLocalDateString();
+          if (currentDay !== this.todayDateStr) {
+            this.todayDateStr = currentDay;
+            this.screenTimeSeconds = 0;
+            this.saveScreenTimeForToday();
+          }
+          this.evaluateUsageRestrictions();
+        } else {
+          this.saveScreenTimeForToday();
+        }
       });
+
+      window.addEventListener('focus', () => {
+        this.evaluateUsageRestrictions();
+      });
+
+      this.visibilityBound = true;
+    }
+
+    // Conteo por segundo (solo cuando está en primer plano y sin bloqueo activo)
+    this.screenTimeTimer = setInterval(() => {
+      // 1. Detección de medianoche / nuevo día
+      const currentDay = this.getLocalDateString();
+      if (currentDay !== this.todayDateStr) {
+        this.todayDateStr = currentDay;
+        this.screenTimeSeconds = 0;
+        this.saveScreenTimeForToday();
+        this.evaluateUsageRestrictions();
+      }
+
+      // 2. Acumular tiempo activo real en primer plano
+      if (document.visibilityState === 'visible' && !this.isLockedOut) {
+        this.screenTimeSeconds += 1;
+        const minutes = Math.floor(this.screenTimeSeconds / 60);
+        KIDDO_DATA.user.todayScreenTimeMinutes = minutes;
+
+        // Actualizar contador superior
+        const counterDisplays = document.querySelectorAll('.screen-time-val');
+        counterDisplays.forEach(el => {
+          el.textContent = `${minutes} min`;
+        });
+
+        // Guardado periódico en localStorage
+        if (this.screenTimeSeconds % 5 === 0) {
+          this.saveScreenTimeForToday();
+        }
+
+        // Evaluar límites y horario
+        this.evaluateUsageRestrictions();
+      }
     }, 1000);
   }
 }
