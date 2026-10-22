@@ -358,6 +358,7 @@ const KIDDO_DATA = {
   },
 
   // 10 Cuentos Infantiles Clásicos con Páginas y Textos para lectura y narración sincronizada
+  // 10 Cuentos Infantiles Clasicos con 6 paginas completas cada uno
   stories: [
     {
       id: 'caperucita',
@@ -366,31 +367,43 @@ const KIDDO_DATA = {
       icon: '👧🧺',
       color: '#FFD1DC',
       gradient: 'linear-gradient(135deg, #FFD1DC, #FFE4E6)',
-      coverText: 'Una niña bondadosa con capa roja y su visita a la abuelita en el bosque.',
+      coverText: "Una niña con capa roja visita a su abuelita y aprende a tener cuidado en el bosque.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'caperucita-p1',
-          text: 'Había una vez una dulce niña que vivía cerca de un hermoso bosque verde. Siempre llevaba una linda caperucita de color rojo que le había regalado su abuelita, por eso todos la llamaban con cariño Caperucita Roja.',
-          sceneTitle: 'El hogar en el bosque'
+          text: "Había una vez una niña a la que todos llamaban Caperucita Roja porque siempre llevaba una capa de ese color. Un día, su mamá preparó una canasta con pan y frutas para su abuela, que estaba enferma. «Llevásela con cariño y seguí el sendero del bosque», le pidió. Caperucita prometió tener cuidado y salió contenta hacia la casa de su abuela.",
+          sceneTitle: "Una visita para la abuela"
         },
         {
           pageNumber: 2,
           imageType: 'caperucita-p2',
-          text: 'Un día soleado su mamá preparó una canastita con pastelitos y frutas frescas. Hija mía, lleva esta canasta a la casa de la abuelita porque está resfriada y camina siempre por el sendero seguro del bosque.',
-          sceneTitle: 'El encargo de mamá'
+          text: "Mientras caminaba, Caperucita vio flores junto al sendero. Entonces apareció un lobo y le preguntó adónde iba. Sin darse cuenta de que el animal quería engañarla, la niña le contó que visitaría a su abuela. El lobo le sugirió recoger un ramo de flores. Mientras Caperucita se detenía, él corrió por otro camino, mucho más corto.",
+          sceneTitle: "El encuentro en el bosque"
         },
         {
           pageNumber: 3,
           imageType: 'caperucita-p3',
-          text: 'Caperucita caminó feliz escuchando el cantar de los pajaritos y recolectando flores de mil colores. Puky el koala la saludó desde una rama sonriendo con alegría y deseándole un paseo lleno de paz y felicidad.',
-          sceneTitle: 'Encuentro en el camino'
+          text: "El lobo llegó primero a la casita y llamó a la puerta imitando la voz de Caperucita. Cuando la abuela abrió, se asustó mucho. El lobo la encerró en un armario y se puso su gorro y sus lentes. Después se acostó en la cama, se tapó hasta la nariz y esperó a que llegara la niña.",
+          sceneTitle: "Una visita inesperada"
         },
         {
           pageNumber: 4,
           imageType: 'caperucita-p4',
-          text: 'Al llegar a la casita, Caperucita y su abuelita disfrutaron juntas de los pastelitos y una rica merienda. Comprendieron que escuchar los sabios consejos de la familia hace que cada aventura termine con una gran sonrisa.',
-          sceneTitle: 'Un final feliz'
+          text: "Poco después, Caperucita entró con su canasta. La habitación estaba oscura y la abuela parecía distinta. «Abuelita, ¡qué orejas tan grandes tenés!», dijo. «Son para oírte mejor», contestó el lobo. «¡Y qué ojos tan grandes!» «Son para verte mejor». Cuando Caperucita preguntó por sus dientes, el lobo saltó de la cama y la niña pidió ayuda.",
+          sceneTitle: "¡Qué ojos tan grandes!"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'caperucita-p5',
+          text: "Un guardabosques que pasaba cerca escuchó el grito y entró rápidamente. El lobo, sorprendido, escapó por la ventana y corrió hacia lo profundo del bosque. El guardabosques abrió el armario y liberó a la abuela. Caperucita la abrazó con fuerza, feliz de verla sana y salva. Entre los tres cerraron bien puertas y ventanas.",
+          sceneTitle: "Llega la ayuda"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'caperucita-p6',
+          text: "Caperucita le contó a su abuela todo lo ocurrido. Comprendió que no debía compartir información con desconocidos ni apartarse del camino acordado sin avisar. Después prepararon té, repartieron el pan y las frutas de la canasta y disfrutaron de una hermosa merienda. Al regresar, Caperucita siguió el sendero y llegó a casa con una historia que nunca olvidaría.",
+          sceneTitle: "Una merienda especial"
         }
       ]
     },
@@ -401,31 +414,43 @@ const KIDDO_DATA = {
       icon: '🐷🏠',
       color: '#FEFCBF',
       gradient: 'linear-gradient(135deg, #FEFCBF, #FEF9C3)',
-      coverText: 'Tres hermanos que construyen sus casas de paja, madera y fuertes ladrillos.',
+      coverText: "Tres hermanos construyen casas de paja, madera y ladrillos para protegerse del lobo.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'cerditos-p1',
-          text: 'En un valle lleno de flores vivían tres hermanos cerditos muy alegres. Decidieron construir cada uno su propia casa para vivir tranquilos y protegerse del frío y de la lluvia.',
-          sceneTitle: 'Los tres hermanos'
+          text: "Tres cerditos hermanos decidieron construir sus propias casas. El primero quería terminar rápido para ir a jugar y levantó una casita de paja. El segundo eligió madera: tardó algo más, pero pronto estuvo listo. El tercero reunió ladrillos y preparó una mezcla resistente. Sus hermanos se rieron porque trabajaba despacio. «Prefiero hacerla fuerte y segura», respondió.",
+          sceneTitle: "Tres hermanos construyen"
         },
         {
           pageNumber: 2,
           imageType: 'cerditos-p2',
-          text: 'El más pequeño hizo su casa de paja para terminar rápido y ponerse a jugar. El hermano del medio construyó su casita de madera, que quedó lista en una sola tarde.',
-          sceneTitle: 'Construyendo con prisa'
+          text: "Una tarde apareció un lobo hambriento. Llegó a la casa de paja y llamó a la puerta. «Cerdito, dejame entrar», pidió. «¡No!», respondió el primero. Entonces el lobo sopló con tanta fuerza que la casa se desarmó y la paja voló por el aire. El cerdito corrió tan rápido como pudo hasta la casa de madera de su hermano.",
+          sceneTitle: "El lobo y la paja"
         },
         {
           pageNumber: 3,
           imageType: 'cerditos-p3',
-          text: 'El hermano mayor trabajó con dedicación, usando ladrillos fuertes y cemento firme. Sabía que el esfuerzo y la paciencia son la clave para construir cosas seguras y duraderas.',
-          sceneTitle: 'El valor del esfuerzo'
+          text: "Los dos hermanos cerraron la puerta, pero el lobo llegó enseguida. Volvió a soplar una y otra vez. La madera crujió hasta que la casita se vino abajo. Los cerditos salieron corriendo entre las tablas y fueron a refugiarse en la casa de ladrillos. El tercer hermano los recibió, cerró con llave y les dijo que se quedaran tranquilos.",
+          sceneTitle: "La casa de madera"
         },
         {
           pageNumber: 4,
           imageType: 'cerditos-p4',
-          text: 'Cuando sopló un viento muy fuerte por la montaña, la casa de ladrillo permaneció firme y acogedora. Los tres hermanos se reunieron felices a cantar y compartir un té calientito.',
-          sceneTitle: 'Hermanos unidos'
+          text: "El lobo llegó furioso y empezó a soplar. Sopló una vez, dos veces y muchas más, pero la casa de ladrillos no se movió. Empujó las paredes y golpeó la puerta: nada funcionó. Miró hacia arriba y descubrió la chimenea. Pensó que podría entrar por allí sin que los cerditos lo vieran.",
+          sceneTitle: "Una casa resistente"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'cerditos-p5',
+          text: "Los cerditos escucharon ruidos sobre el techo. El tercer hermano había dejado una gran olla con agua caliente en la chimenea y, al oír al lobo acercarse, les pidió que se apartaran. Al sentir el vapor, el lobo se asustó, retrocedió y salió por donde había venido. Después se alejó del lugar sin volver a molestarlos.",
+          sceneTitle: "Un plan que fracasa"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'cerditos-p6',
+          text: "Los tres hermanos celebraron que estaban a salvo. El primero y el segundo aprendieron que hacer algo con cuidado puede llevar tiempo, pero vale la pena. Juntos repararon el jardín, ordenaron la casa y prepararon una deliciosa cena. Desde entonces, cuando uno tenía una tarea difícil, los otros dos lo ayudaban. ¡Y siempre reservaban tiempo para jugar!",
+          sceneTitle: "Trabajar juntos"
         }
       ]
     },
@@ -436,25 +461,43 @@ const KIDDO_DATA = {
       icon: '🦆🦢',
       color: '#BEE3F8',
       gradient: 'linear-gradient(135deg, #BEE3F8, #E0F2FE)',
-      coverText: 'La emotiva historia de autodescubrimiento y belleza interior que se transforma en un cisne.',
+      coverText: "Un patito diferente descubre su verdadero lugar y aprende el valor del respeto.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'patito-p1',
-          text: 'En una laguna cristalina nacieron hermosos patitos amarillos. Entre ellos había uno un poco diferente, de plumaje gris y cuello largo que caminaba con curiosidad.',
-          sceneTitle: 'Un nuevo nacimiento'
+          text: "En una granja, una pata esperaba con paciencia a que nacieran sus patitos. Uno tras otro, los huevos se abrieron y aparecieron pequeños patos amarillos. Pero quedaba un huevo grande. Cuando por fin se rompió, salió un polluelo gris, alto y algo torpe. Era distinto de sus hermanos, pero su madre lo recibió con el mismo cariño.",
+          sceneTitle: "Un huevo diferente"
         },
         {
           pageNumber: 2,
           imageType: 'patito-p2',
-          text: 'El pequeño exploró el estanque buscando amigos amables. Puky el koala lo animó diciéndole: Eres único y especial, cada ser tiene su propio brillo en el corazón.',
-          sceneTitle: 'Palabras de aliento'
+          text: "Algunos animales de la granja se burlaban de su aspecto. El patito intentaba jugar con los demás, pero a menudo lo dejaban solo. Triste, comenzó a pensar que no encajaba allí. Un día decidió explorar otros lugares. Caminó entre los juncos, cruzó un prado y encontró un estanque donde pudo descansar y escuchar el sonido tranquilo del agua.",
+          sceneTitle: "Días difíciles"
         },
         {
           pageNumber: 3,
           imageType: 'patito-p3',
-          text: 'Pasó el invierno y al llegar la primavera el patito miró su reflejo en el agua azul. Ya no era un patito pequeño, sino un majestuoso y elegante cisne blanco.',
-          sceneTitle: 'La gran transformación'
+          text: "El patito vio volar a unas aves blancas de cuello largo. Nunca había visto criaturas tan elegantes y se quedó admirándolas. Pronto llegó el invierno. Hacía mucho frío y el estanque comenzó a congelarse. El patito buscó refugio entre las plantas secas hasta que una familia amable lo encontró y le ofreció un lugar cálido para recuperarse.",
+          sceneTitle: "El largo invierno"
+        },
+        {
+          pageNumber: 4,
+          imageType: 'patito-p4',
+          text: "Pasaron los meses. Con la primavera regresaron las flores y los días luminosos. El patito, ahora más grande, volvió al estanque. Sentía que algo había cambiado: su cuello era más largo, sus alas más fuertes y sus plumas se habían vuelto claras. Entonces vio, nadando frente a él, a aquellas hermosas aves blancas que tanto había admirado.",
+          sceneTitle: "La llegada de la primavera"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'patito-p5',
+          text: "El patito bajó la cabeza para beber agua y descubrió su reflejo. Ya no era el ave gris de la granja: ¡se había convertido en un cisne blanco! Los otros cisnes se acercaron con curiosidad y lo invitaron a nadar con ellos. Por primera vez sintió que encontraba compañeros que se parecían a él y lo recibían con alegría.",
+          sceneTitle: "Un reflejo sorprendente"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'patito-p6',
+          text: "El joven cisne extendió las alas y se deslizó sobre el agua brillante. Recordó aquellos días en que se había sentido solo y deseó que nadie tuviera que pasar por eso. Comprendió que ser diferente no era algo malo y que todos merecemos respeto. Rodeado de nuevos amigos, comenzó una etapa feliz, sin olvidar el valor de la bondad.",
+          sceneTitle: "Un lugar al que pertenecer"
         }
       ]
     },
@@ -465,25 +508,43 @@ const KIDDO_DATA = {
       icon: '👠✨',
       color: '#E9D8FD',
       gradient: 'linear-gradient(135deg, #E9D8FD, #F3E8FF)',
-      coverText: 'La bondad, la magia y un zapatito de cristal que cambian la vida de una joven gentil.',
+      coverText: "Una joven bondadosa asiste a un baile mágico y comienza una vida nueva.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'cenicienta-p1',
-          text: 'Cenicienta era una joven bondadosa y paciente que llenaba de cariño y cantos a los pajaritos y ratoncitos del palacio donde vivía.',
-          sceneTitle: 'El corazón bondadoso'
+          text: "Cenicienta vivía con su madrastra y sus dos hermanastras. Desde que su padre había muerto, le encargaban casi todas las tareas de la casa y rara vez la trataban con cariño. Aun así, ella encontraba alegría en las pequeñas cosas: cuidar las plantas, cantar y conversar con sus amigos los pájaros. Soñaba con una vida en la que pudiera ser escuchada y respetada.",
+          sceneTitle: "Una joven muy bondadosa"
         },
         {
           pageNumber: 2,
           imageType: 'cenicienta-p2',
-          text: 'Con ayuda de su Hada Madrina y un toque de varita mágica, una calabaza se convirtió en carruaje y Cenicienta lució un vestido resplandeciente.',
-          sceneTitle: 'Magia de medianoche'
+          text: "Un día llegó una invitación: el palacio celebraría un gran baile al que podían asistir las jóvenes del reino. Cenicienta deseaba ir, pero su madrastra no quiso ayudarla a prepararse. Cuando las otras salieron, ella se quedó sola y lloró. De pronto apareció una mujer amable y luminosa: su hada madrina, dispuesta a cumplir su deseo por una noche.",
+          sceneTitle: "Una invitación al palacio"
         },
         {
           pageNumber: 3,
           imageType: 'cenicienta-p3',
-          text: 'Al probarse el zapatito de cristal que encajó a la perfección, todos celebraron que la dulzura y el respeto siempre triunfan con felicidad.',
-          sceneTitle: 'Un sueño hecho realidad'
+          text: "Con su varita, el hada transformó una calabaza en un carruaje, unos ratoncitos en caballos y la ropa gastada de Cenicienta en un vestido precioso. En sus pies brillaban unas delicadas zapatillas de cristal. «Disfrutá del baile», le dijo, «pero regresá antes de las doce: a medianoche terminará la magia». Cenicienta agradeció el regalo y partió emocionada.",
+          sceneTitle: "Un vestido maravilloso"
+        },
+        {
+          pageNumber: 4,
+          imageType: 'cenicienta-p4',
+          text: "En el palacio, Cenicienta conoció al príncipe. Conversaron, se rieron y bailaron durante horas. Él admiró su alegría y su manera de pensar, sin saber quién era. De pronto, el reloj comenzó a dar las doce campanadas. Cenicienta recordó la advertencia y corrió hacia la salida. En la escalera perdió una zapatilla de cristal, pero no tuvo tiempo de recogerla.",
+          sceneTitle: "El baile y la medianoche"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'cenicienta-p5',
+          text: "El príncipe quiso volver a encontrar a la joven del baile. Por eso recorrió el reino con la zapatilla, buscando a quien le perteneciera. Muchas personas se la probaron, sin éxito. Cuando llegó a la casa de Cenicienta, las hermanastras intentaron calzarla primero. Cenicienta pidió su turno y la zapatilla le quedó perfecta. Entonces mostró la otra, que había guardado.",
+          sceneTitle: "La zapatilla perdida"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'cenicienta-p6',
+          text: "El príncipe reconoció a Cenicienta y ambos volvieron a encontrarse, felices. Con el tiempo decidieron compartir sus vidas, basadas en el respeto y el cariño. Cenicienta dejó atrás los días en que no escuchaban sus deseos y comenzó una etapa nueva. Nunca olvidó a quienes habían sido amables con ella y procuró ofrecer la misma bondad a los demás.",
+          sceneTitle: "Un nuevo comienzo"
         }
       ]
     },
@@ -494,54 +555,43 @@ const KIDDO_DATA = {
       icon: '🍎👑',
       color: '#C6F6D5',
       gradient: 'linear-gradient(135deg, #C6F6D5, #DCFCE7)',
-      coverText: 'Una princesa de gran corazón que encuentra amigos entrañables en una cabaña del bosque.',
+      coverText: "Una princesa amable encuentra la amistad y la ayuda de siete compañeros del bosque.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'blancanieves-p1',
-          text: 'Blancanieves tenía una sonrisa radiante y amaba la naturaleza. En lo profundo del bosque encontró una casita pequeña y muy acogedora.',
-          sceneTitle: 'La casita en el bosque'
+          text: "Blancanieves era una joven amable que vivía en un castillo. Su madrastra, la reina, tenía un espejo mágico al que preguntaba quién era la más hermosa. Durante mucho tiempo, el espejo respondía que era ella. Pero un día nombró a Blancanieves. La reina sintió tantos celos que ordenó a un cazador llevar a la muchacha lejos del castillo. Él, incapaz de hacerle daño, la dejó escapar.",
+          sceneTitle: "El espejo de la reina"
         },
         {
           pageNumber: 2,
           imageType: 'blancanieves-p2',
-          text: 'Allí vivían siete enanitos trabajadores y simpáticos que cantaban alegres al volver a casa. Blancanieves les enseñó a mantener todo ordenado y limpio.',
-          sceneTitle: 'Nuevos grandes amigos'
+          text: "Blancanieves caminó por el bosque hasta encontrar una pequeña casa. Dentro había siete sillitas, siete platos y siete camitas. Como estaba agotada, se quedó dormida. Al anochecer regresaron siete mineros que trabajaban en las montañas. Se sorprendieron al verla, escucharon su historia y le ofrecieron quedarse con ellos mientras buscaba un lugar seguro.",
+          sceneTitle: "Una casita en el bosque"
         },
         {
           pageNumber: 3,
           imageType: 'blancanieves-p3',
-          text: 'Juntos vivieron aventuras maravillosas protegidos por la bondad y la armonía de todos los animalitos del bosque.',
-          sceneTitle: 'Amistad para siempre'
-        }
-      ]
-    },
-    {
-      id: 'pinocho',
-      title: 'Pinocho',
-      author: 'Carlo Collodi',
-      icon: '🤥🪵',
-      color: '#FEEBC8',
-      gradient: 'linear-gradient(135deg, #FEEBC8, #FFEDD5)',
-      coverText: 'El muñeco de madera que aprende la importancia de decir la verdad y ser un buen hijo.',
-      pages: [
-        {
-          pageNumber: 1,
-          imageType: 'pinocho-p1',
-          text: 'El carpintero Gepetto talló con amor un muñeco de madera al que llamó Pinocho. El Hada Azul le dio vida con la promesa de portarse bien.',
-          sceneTitle: 'La creación de Gepetto'
+          text: "La reina descubrió, gracias a su espejo, que Blancanieves seguía viva. Se disfrazó de anciana y llegó a la casita con una cesta de manzanas. Blancanieves recordó que debía tener cuidado con los desconocidos, pero la mujer fingió ser amable y le ofreció una fruta. Después de morderla, Blancanieves cayó en un sueño profundo. La reina se alejó creyendo que nadie podría despertarla.",
+          sceneTitle: "La visita de la desconocida"
         },
         {
-          pageNumber: 2,
-          imageType: 'pinocho-p2',
-          text: 'Pinocho descubrió que cada vez que decía una mentirijilla, su nariz de madera crecía un poquito más. Aprendió que la sinceridad es el mejor camino.',
-          sceneTitle: 'La lección de la verdad'
+          pageNumber: 4,
+          imageType: 'blancanieves-p4',
+          text: "Cuando regresaron, los siete amigos se preocuparon muchísimo. Intentaron despertar a Blancanieves, pero ella no respondía. Se quedaron a su lado y la cuidaron con ternura. Pasaron los días. Como parecía dormir serenamente, prepararon un lugar hermoso lleno de flores donde pudieran acompañarla y esperar alguna señal de que despertaría.",
+          sceneTitle: "Los amigos la encuentran"
         },
         {
-          pageNumber: 3,
-          imageType: 'pinocho-p3',
-          text: 'Al salvar con valentía a su papá Gepetto, el Hada lo convirtió en un niño de verdad lleno de alegría y nobleza.',
-          sceneTitle: 'Un niño de verdad'
+          pageNumber: 5,
+          imageType: 'blancanieves-p5',
+          text: "Un día llegó un joven príncipe que conocía historias sobre la bondad de Blancanieves. Mientras los amigos la trasladaban con cuidado, un movimiento inesperado hizo que se desprendiera el trocito de manzana que tenía atascado en la garganta. Blancanieves abrió los ojos y respiró profundamente. Todos la rodearon, sorprendidos y felices de verla despierta.",
+          sceneTitle: "El despertar"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'blancanieves-p6',
+          text: "Blancanieves abrazó a sus siete amigos y les agradeció que nunca la abandonaran. Decidió empezar una vida lejos de la reina, rodeada de personas que la apreciaran por su bondad y valentía. Conoció mejor al príncipe y, con el tiempo, nació entre ellos un gran cariño. Los siete amigos siguieron visitándola. Blancanieves aprendió que la verdadera amistad cuida, acompaña y respeta.",
+          sceneTitle: "Una vida elegida"
         }
       ]
     },
@@ -552,83 +602,43 @@ const KIDDO_DATA = {
       icon: '🐱👢',
       color: '#FED7D7',
       gradient: 'linear-gradient(135deg, #FED7D7, #FEE2E2)',
-      coverText: 'Un felino ingenioso y valiente que ayuda a su bondadoso dueño con astucia y humor.',
+      coverText: "Un gato muy ingenioso ayuda a su dueño a encontrar nuevas oportunidades.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'gatobotas-p1',
-          text: 'Un joven recibió como herencia a un gato muy especial. El gato le dijo con seguridad: Consígueme unas botas y una bolsa, y verás grandes maravillas.',
-          sceneTitle: 'El regalo inesperado'
+          text: "Cuando un molinero murió, repartió sus bienes entre sus tres hijos. Al menor solo le dejó un gato. El joven estaba desanimado, pero el animal lo sorprendió hablando: «Si me conseguís unas botas y una bolsa, voy a ayudarte». Aunque no entendía cómo, el muchacho confió en él. El gato se calzó las botas, levantó la cabeza y salió decidido a buscar una oportunidad.",
+          sceneTitle: "Una herencia inesperada"
         },
         {
           pageNumber: 2,
           imageType: 'gatobotas-p2',
-          text: 'Con elegancia y simpatía, el gato con botas visitó el castillo del rey presentándole exquisitos regalos en nombre de su querido amigo.',
-          sceneTitle: 'Misiones del gato astuto'
+          text: "El gato llevó al rey algunos regalos del campo y dijo que venían de parte de su amo, al que presentó como el Marqués de Carabás. El rey quedó intrigado por aquel personaje desconocido. Cada vez que regresaba, el gato inventaba nuevos detalles. Mientras tanto, su amo se preguntaba qué plan tendría aquel compañero tan astuto.",
+          sceneTitle: "Un gato muy ingenioso"
         },
         {
           pageNumber: 3,
           imageType: 'gatobotas-p3',
-          text: 'Gracias a su ingenio y lealtad, consiguieron un hermoso castillo donde vivieron felices comiendo deliciosos banquetes.',
-          sceneTitle: 'La victoria del ingenio'
-        }
-      ]
-    },
-    {
-      id: 'hansel-gretel',
-      title: 'Hansel y Gretel',
-      author: 'Hermanos Grimm',
-      icon: '🍬🏠',
-      color: '#FEFCBF',
-      gradient: 'linear-gradient(135deg, #FEFCBF, #FEF9C3)',
-      coverText: 'Dos hermanitos que descubren una casita de dulces y regresan a casa trabajando en equipo.',
-      pages: [
-        {
-          pageNumber: 1,
-          imageType: 'hansel-p1',
-          text: 'Hansel y su hermana Gretel salieron a caminar por el bosque dejando un camino de piedritas brillantes que reflejaban la luz del sol.',
-          sceneTitle: 'El sendero iluminado'
+          text: "Un día, el gato supo que el rey pasearía con su hija cerca del río. Convenció a su amo de bañarse allí y escondió sus ropas. Cuando pasó el carruaje, pidió ayuda a gritos: «¡Han perdido la ropa del marqués!». El rey, recordando los regalos, mandó traer un hermoso traje. Así, el joven pudo presentarse y conversar con la princesa.",
+          sceneTitle: "Un encuentro junto al río"
         },
         {
-          pageNumber: 2,
-          imageType: 'hansel-p2',
-          text: 'Encontraron una casita mágica con tejado de chocolate, ventanas de caramelo y puertas de galleta crujiente.',
-          sceneTitle: 'La casita de dulces'
+          pageNumber: 4,
+          imageType: 'gatobotas-p4',
+          text: "El gato corrió por delante del carruaje y habló con los campesinos que trabajaban en los campos. Les pidió que dijeran que esas tierras pertenecían al Marqués de Carabás. Cuando el rey preguntaba de quién eran los cultivos, todos repetían aquel nombre. El joven, que viajaba junto a la princesa, no entendía cómo había conseguido su gato organizar semejante sorpresa.",
+          sceneTitle: "Los campos del camino"
         },
         {
-          pageNumber: 3,
-          imageType: 'hansel-p3',
-          text: 'Cuidándose el uno al otro y colaborando en equipo, regresaron a los brazos de sus papás con su amor más fuerte que nunca.',
-          sceneTitle: 'El regreso a casa'
-        }
-      ]
-    },
-    {
-      id: 'bella-durmiente',
-      title: 'La bella durmiente',
-      author: 'Charles Perrault',
-      icon: '🌹👑',
-      color: '#FFD1DC',
-      gradient: 'linear-gradient(135deg, #FFD1DC, #FFE4E6)',
-      coverText: 'Un reino encantado protegido por rosas y un despertar lleno de luz y esperanza.',
-      pages: [
-        {
-          pageNumber: 1,
-          imageType: 'belladurmiente-p1',
-          text: 'En un reino lleno de luz nació la princesa Aurora. Tres hadas bondadosas le regalaron la gracia, el don del canto y un corazón dulce.',
-          sceneTitle: 'El gran festejo real'
+          pageNumber: 5,
+          imageType: 'gatobotas-p5',
+          text: "El gato llegó a un castillo gobernado por un ogro que podía transformarse en distintos animales. El gato lo felicitó por su poder y le pidió una demostración. Primero, el ogro se volvió león. Después, para presumir aún más, se convirtió en un ratón. De un salto, el gato lo atrapó y el ogro huyó para no volver. El castillo quedó libre.",
+          sceneTitle: "El castillo del ogro"
         },
         {
-          pageNumber: 2,
-          imageType: 'belladurmiente-p2',
-          text: 'El castillo quedó en un sueño pacífico rodeado de rosales y pájaros guardianes que esperaban el momento oportuno para despertar.',
-          sceneTitle: 'El sueño pacífico'
-        },
-        {
-          pageNumber: 3,
-          imageType: 'belladurmiente-p3',
-          text: 'Un rayo de sol cálido y un afectuoso despertar llenaron de música y flores todos los jardines del palacio real.',
-          sceneTitle: 'El amanecer dorado'
+          pageNumber: 6,
+          imageType: 'gatobotas-p6',
+          text: "Cuando llegó el carruaje, el gato abrió las puertas del castillo y recibió a todos. El rey quedó impresionado. Con el tiempo, el joven y la princesa se hicieron amigos y se enamoraron. El gato fue celebrado por su ingenio, aunque su amo comprendió que, de allí en adelante, debían construir una vida con honestidad y esfuerzo, no solamente con los trucos de su compañero.",
+          sceneTitle: "El verdadero comienzo"
         }
       ]
     },
@@ -639,31 +649,188 @@ const KIDDO_DATA = {
       icon: '🥣🐻',
       color: '#FEFCBF',
       gradient: 'linear-gradient(135deg, #FEFCBF, #FEF9C3)',
-      coverText: 'Una niña curiosa que visita la casa de los tres ositos y aprende a respetar las cosas de los demás.',
+      coverText: "Una niña curiosa aprende a respetar la casa y las pertenencias de tres osos.",
       pages: [
         {
           pageNumber: 1,
           imageType: 'ricitos-p1',
-          text: 'Ricitos de Oro era una niña de cabello rizado y dorado. Paseando por el sendero descubrió la linda casa de Papá Oso, Mamá Osa y el Pequeño Osito.',
-          sceneTitle: 'Paseo en el bosque'
+          text: "En una casita del bosque vivían tres osos: uno grande, uno mediano y uno pequeño. Una mañana prepararon avena para desayunar, pero estaba demasiado caliente. Decidieron salir a caminar mientras se enfriaba. Poco después, una niña llamada Ricitos de Oro llegó a la puerta. Llamó varias veces y, como nadie respondió, entró sin permiso.",
+          sceneTitle: "Una casa en el bosque"
         },
         {
           pageNumber: 2,
           imageType: 'ricitos-p2',
-          text: 'Probó tres tazones de rica avena: uno muy caliente, uno muy frío y el del Pequeño Osito que estaba en su punto perfecto.',
-          sceneTitle: 'Los tres tazones'
+          text: "Sobre la mesa había tres platos. Ricitos probó el grande: «¡Está demasiado caliente!». Probó el mediano: «¡Está demasiado frío!». Después probó el pequeño: «¡Este está justo como me gusta!». Y se comió toda la avena del osito. Al terminar, sintió ganas de sentarse y descansar un momento.",
+          sceneTitle: "Tres platos de avena"
         },
         {
           pageNumber: 3,
           imageType: 'ricitos-p3',
-          text: 'Al despertar y ver a la familia de ositos, pidió disculpas amablemente por entrar sin avisar y prometió ser siempre muy respetuosa.',
-          sceneTitle: 'Una lección de respeto'
+          text: "La primera silla era enorme y demasiado dura. La segunda era más pequeña, pero muy blanda. La tercera parecía perfecta para ella. Ricitos se sentó, se acomodó y comenzó a balancearse. ¡Crac! La silla del osito se rompió. La niña se levantó sorprendida. En vez de salir a buscar al dueño, subió las escaleras para explorar la casa.",
+          sceneTitle: "Tres sillas diferentes"
+        },
+        {
+          pageNumber: 4,
+          imageType: 'ricitos-p4',
+          text: "Arriba encontró tres camas. La grande era muy firme y la mediana, demasiado mullida. La pequeña era cómoda y calentita. Ricitos se acurrucó y se quedó dormida. Mientras tanto, los tres osos regresaron de su paseo. Apenas entraron, descubrieron que alguien había probado la comida y desordenado la sala.",
+          sceneTitle: "Tres camas"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'ricitos-p5',
+          text: "«¡Alguien comió mi avena!», exclamó el osito. Luego vio su silla rota y se entristeció. Los tres subieron al dormitorio y encontraron a Ricitos dormida. Cuando la niña despertó, se asustó al verlos. Pero los osos no querían hacerle daño: solo deseaban entender por qué había entrado en su casa sin permiso.",
+          sceneTitle: "Los osos regresan"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'ricitos-p6',
+          text: "Ricitos de Oro reconoció lo que había hecho. «Perdón por entrar, comer su desayuno y romper la silla», dijo avergonzada. Prometió pedir permiso antes de tocar las cosas de otras personas. Los osos aceptaron sus disculpas y la acompañaron hasta el sendero. Al llegar a casa, Ricitos contó lo ocurrido y nunca olvidó aquella importante lección sobre el respeto.",
+          sceneTitle: "Aprender a respetar"
+        }
+      ]
+    },
+    {
+      id: 'hansel-gretel',
+      title: 'Hansel y Gretel',
+      author: 'Hermanos Grimm',
+      icon: '🍬🏠',
+      color: '#FEFCBF',
+      gradient: 'linear-gradient(135deg, #FEFCBF, #FEF9C3)',
+      coverText: "Dos hermanos encuentran una casa de dulces y consiguen regresar juntos a su hogar.",
+      pages: [
+        {
+          pageNumber: 1,
+          imageType: 'hansel-p1',
+          text: "Hansel y Gretel vivían con su padre y su madrastra en una pequeña casa cerca del bosque. La familia atravesaba tiempos difíciles y a veces había muy poco para comer. Una mañana, los adultos llevaron a los hermanos a buscar leña, pero los dejaron solos entre los árboles. Asustados, los niños se tomaron de la mano y trataron de encontrar el camino de regreso.",
+          sceneTitle: "Una familia con dificultades"
+        },
+        {
+          pageNumber: 2,
+          imageType: 'hansel-p2',
+          text: "Hansel había llevado un pedacito de pan y dejó pequeñas migas para recordar por dónde pasaban. Sin embargo, los pájaros se las comieron. Cuando los hermanos quisieron volver, ya no pudieron seguir el rastro. Caminaron durante horas, se animaron mutuamente y buscaron refugio antes de que llegara la noche.",
+          sceneTitle: "Un rastro de migas"
+        },
+        {
+          pageNumber: 3,
+          imageType: 'hansel-p3',
+          text: "Al día siguiente encontraron algo increíble: una casa hecha de dulces, galletas y azúcar. Como tenían hambre, probaron un trocito. Entonces salió una anciana y los invitó a entrar. Les ofreció comida y camas cómodas, pero su aparente amabilidad escondía malas intenciones: quería mantener a los niños encerrados para quedarse con ellos.",
+          sceneTitle: "La casa de golosinas"
+        },
+        {
+          pageNumber: 4,
+          imageType: 'hansel-p4',
+          text: "La mujer encerró a Hansel en una habitación y obligó a Gretel a ayudarla en la cocina. Cada día preguntaba si Hansel había engordado y él le mostraba un huesito, que ella confundía con su dedo porque veía muy mal. Gretel, mientras tanto, observaba las llaves y buscaba un momento para liberar a su hermano.",
+          sceneTitle: "Un plan para escapar"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'hansel-p5',
+          text: "Un día, cuando la anciana se distrajo junto al horno, Gretel logró apartarse, tomó las llaves y abrió la puerta de Hansel. Los dos escaparon rápidamente de la casa de dulces. Corrieron entre los árboles hasta llegar a un río. Con ayuda de un pato que los llevó de una orilla a otra, pudieron continuar el camino sin regresar junto a la anciana.",
+          sceneTitle: "Los hermanos se ayudan"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'hansel-p6',
+          text: "Después de caminar mucho, reconocieron un sendero conocido y encontraron su hogar. Su padre, arrepentido por haberlos dejado solos, los abrazó emocionado y prometió cuidarlos mejor. La madrastra ya no vivía allí. Con esfuerzo y ayuda de sus vecinos, la familia encontró una forma de salir adelante. Hansel y Gretel recordaron siempre que juntos habían sido más valientes.",
+          sceneTitle: "El regreso a casa"
+        }
+      ]
+    },
+    {
+      id: 'pinocho',
+      title: 'Pinocho',
+      author: 'Carlo Collodi',
+      icon: '🤥🪵',
+      color: '#FEEBC8',
+      gradient: 'linear-gradient(135deg, #FEEBC8, #FFEDD5)',
+      coverText: "Un muñeco de madera aprende sobre la verdad, la responsabilidad y el cariño.",
+      pages: [
+        {
+          pageNumber: 1,
+          imageType: 'pinocho-p1',
+          text: "Un carpintero llamado Geppetto construyó un muñeco de madera y lo llamó Pinocho. Deseaba tanto tener un hijo que se sorprendió cuando, gracias a un poco de magia, el muñeco comenzó a moverse y hablar. Geppetto lo abrazó con alegría. Pinocho quería descubrir el mundo, pero todavía tenía mucho que aprender sobre las decisiones, la verdad y el cuidado de quienes lo querían.",
+          sceneTitle: "Un muñeco especial"
+        },
+        {
+          pageNumber: 2,
+          imageType: 'pinocho-p2',
+          text: "Geppetto consiguió un libro para que Pinocho pudiera ir a la escuela. Sin embargo, camino a clase, el muñeco escuchó música y se acercó a un teatro de marionetas. Fascinado por las luces, olvidó la escuela. Allí conoció a personas que intentaron aprovecharse de su ingenuidad. Pinocho logró salir, pero comprendió que las decisiones impulsivas podían meterlo en problemas.",
+          sceneTitle: "El primer camino equivocado"
+        },
+        {
+          pageNumber: 3,
+          imageType: 'pinocho-p3',
+          text: "Cuando un hada bondadosa le preguntó qué había pasado, Pinocho sintió vergüenza y mintió. Entonces su nariz comenzó a crecer. Cada mentira la hacía un poquito más larga. Asustado, confesó la verdad y pidió perdón. El hada lo ayudó y le explicó que decir la verdad es importante, especialmente cuando uno se equivoca. Pinocho prometió esforzarse por actuar mejor.",
+          sceneTitle: "Una mentira que crece"
+        },
+        {
+          pageNumber: 4,
+          imageType: 'pinocho-p4',
+          text: "Aun así, Pinocho volvió a distraerse. Un muchacho lo invitó a un lugar donde nadie estudiaba y todos jugaban sin descanso. Al principio parecía divertido, pero pronto descubrió que allí los niños eran transformados en burritos. Pinocho también comenzó a cambiar y se asustó. Con valentía logró escapar y buscó el camino de vuelta, dispuesto a encontrar a Geppetto.",
+          sceneTitle: "El país de los juegos"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'pinocho-p5',
+          text: "Pinocho se enteró de que Geppetto había salido a buscarlo por el mar y no había regresado. Sin dudarlo, fue tras él. En medio de una tormenta, un enorme animal marino los engulló por separado. Dentro de su vientre oscuro, Pinocho encontró a Geppetto. Juntos idearon una forma de salir y, aprovechando un gran estornudo del animal, alcanzaron el mar abierto.",
+          sceneTitle: "En busca de Geppetto"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'pinocho-p6',
+          text: "Pinocho ayudó a Geppetto a llegar sano y salvo a la playa. De regreso en casa lo cuidó, retomó sus estudios y comenzó a tomar decisiones más responsables. El hada vio cuánto había crecido por dentro y le concedió su mayor deseo: convertirse en un niño de verdad. Pinocho abrazó a Geppetto y comprendió que la valentía también significa reconocer errores y cuidar a los demás.",
+          sceneTitle: "Un corazón valiente"
+        }
+      ]
+    },
+    {
+      id: 'bella-durmiente',
+      title: 'La bella durmiente',
+      author: 'Charles Perrault',
+      icon: '🌹👑',
+      color: '#FFD1DC',
+      gradient: 'linear-gradient(135deg, #FFD1DC, #FFE4E6)',
+      coverText: "Una princesa y todo su castillo despiertan de un largo sueño encantado.",
+      pages: [
+        {
+          pageNumber: 1,
+          imageType: 'belladurmiente-p1',
+          text: "Hace mucho tiempo, un rey y una reina tuvieron una hija a la que llamaron Aurora. Para celebrar su nacimiento organizaron una gran fiesta e invitaron a las hadas del reino. Cada una le ofreció un regalo: alegría, bondad, imaginación y sabiduría. Pero apareció un hada que no había sido invitada y, muy ofendida, lanzó un hechizo sobre la pequeña.",
+          sceneTitle: "Una princesa y una celebración"
+        },
+        {
+          pageNumber: 2,
+          imageType: 'belladurmiente-p2',
+          text: "El hada dijo que, al cumplir cierta edad, Aurora se pincharía un dedo con el huso de una rueca y caería dormida. Una de las hadas buenas todavía no había entregado su regalo y suavizó el hechizo: la princesa no moriría, sino que dormiría profundamente hasta que llegara el momento de despertar. El rey ordenó retirar las ruecas del palacio para proteger a su hija.",
+          sceneTitle: "El hechizo"
+        },
+        {
+          pageNumber: 3,
+          imageType: 'belladurmiente-p3',
+          text: "Aurora creció rodeada de libros, jardines y personas que la querían. Años después, en un rincón del castillo, descubrió a una anciana hilando junto a una rueca. Curiosa, se acercó para ver cómo funcionaba. Antes de que nadie pudiera detenerla, se pinchó un dedo y cayó dormida. El hechizo se cumplió y el hada buena extendió el sueño a todo el castillo.",
+          sceneTitle: "El día inesperado"
+        },
+        {
+          pageNumber: 4,
+          imageType: 'belladurmiente-p4',
+          text: "Los cocineros dejaron de cocinar, los músicos soltaron sus instrumentos y hasta los animales descansaron. Alrededor del castillo comenzó a crecer un espeso jardín de rosales, como si la naturaleza quisiera cuidarlo mientras esperaba. Pasaron muchos años. En los pueblos cercanos, las familias contaban la historia de la princesa dormida y del palacio escondido entre las flores.",
+          sceneTitle: "El castillo silencioso"
+        },
+        {
+          pageNumber: 5,
+          imageType: 'belladurmiente-p5',
+          text: "Un príncipe escuchó aquella leyenda y decidió conocer el misterioso castillo. Cuando llegó, los rosales se abrieron formando un sendero: el tiempo del hechizo estaba llegando a su fin. Caminó por los salones silenciosos hasta encontrar a Aurora dormida. Entonces las campanas comenzaron a sonar y, con el amanecer, la magia finalmente se deshizo.",
+          sceneTitle: "Un visitante curioso"
+        },
+        {
+          pageNumber: 6,
+          imageType: 'belladurmiente-p6',
+          text: "Aurora abrió los ojos y vio la luz entrando por las ventanas. Poco a poco despertaron el rey, la reina y todos los habitantes del castillo. Hubo abrazos, canciones y una gran fiesta para celebrar el regreso de la vida. Aurora conoció al príncipe, conversaron y se hicieron amigos. El reino recuperó su alegría y, desde entonces, celebró cada día como un regalo.",
+          sceneTitle: "Un nuevo amanecer"
         }
       ]
     }
   ],
-
-  // Videos organizados por categorías, edades y canales recomendados
   videos: {
     categories: [
       { id: 'aprender', name: 'Aprender', icon: '📚' },

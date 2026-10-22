@@ -220,26 +220,14 @@ class KiddoStoriesManager {
       let currentWordIndex = 0;
 
       // Evento boundary nativo si el navegador lo soporta
-      utterance.onboundary = (event) => {
+            utterance.onboundary = (event) => {
         if (event.name === 'word') {
           const charIndex = event.charIndex;
-          // Calcular índice aproximado de la palabra
           const spokenSubstr = textToSpeak.substring(0, charIndex);
           const wordIdx = spokenSubstr.trim().split(/\s+/).length - 1;
           this.highlightWord(Math.max(0, wordIdx));
         }
       };
-
-      // Fallback de sincronización fluida si onboundary no emite todos los eventos
-      const approxDurationMs = (words.length * 60000) / (utterance.rate * 140);
-      const intervalMs = approxDurationMs / words.length;
-
-      this.highlightInterval = setInterval(() => {
-        if (currentWordIndex < words.length) {
-          this.highlightWord(currentWordIndex);
-          currentWordIndex++;
-        }
-      }, intervalMs);
 
       utterance.onend = () => {
         this.stopNarration();
