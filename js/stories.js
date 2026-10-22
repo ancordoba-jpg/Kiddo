@@ -11,30 +11,139 @@ class KiddoStoriesManager {
     this.highlightInterval = null;
   }
 
-  // Renderizar la lista de cuentos en la pantalla de Cuentos
+  // Renderizar la lista de cuentos en la pantalla de Cuentos (Biblioteca Infantil ilustrada)
   renderCatalog(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    container.innerHTML = KIDDO_DATA.stories.map(story => `
-      <div class="story-card" data-story-id="${story.id}" onclick="window.kiddoStories.openStory('${story.id}')" style="background: ${story.gradient};">
-        <div class="story-card-icon-wrap">
-          <span class="story-card-icon">${story.icon}</span>
+    const storyThemes = {
+      'caperucita': {
+        coverImage: 'assets/cuentos/portadas/caperucita.png',
+        authorColor: '#E11D48',
+        btnColor: '#E11D48',
+        cardBg: 'linear-gradient(135deg, #FFF0F3 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #FFE4E8',
+        decor: '⭐ ⭐',
+        desc: 'Una niña bondadosa con capa roja y su visita a la abuelita en el bosque.'
+      },
+      'tres-cerditos': {
+        coverImage: 'assets/cuentos/portadas/tres-cerditos.png',
+        authorColor: '#D97706',
+        btnColor: '#D97706',
+        cardBg: 'linear-gradient(135deg, #FEFCE8 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #FEF08A',
+        decor: '⭐ ⭐',
+        desc: 'Tres hermanos que construyen sus casas de paja, madera y fuertes ladrillos.'
+      },
+      'patito-feo': {
+        coverImage: 'assets/cuentos/portadas/patito-feo.png',
+        authorColor: '#0284C7',
+        btnColor: '#0284C7',
+        cardBg: 'linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #BAE6FD',
+        decor: '⭐ ☁️',
+        desc: 'La emotiva historia de autodescubrimiento y belleza interior que se transforma en un cisne.'
+      },
+      'cenicienta': {
+        coverImage: 'assets/cuentos/portadas/cenicienta.png',
+        authorColor: '#9333EA',
+        btnColor: '#9333EA',
+        cardBg: 'linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #E9D8FD',
+        decor: '🎃',
+        desc: 'Una joven amable que, con la ayuda de la magia, vive una noche especial.'
+      },
+      'blancanieves': {
+        coverImage: 'assets/cuentos/portadas/blancanieves.png',
+        authorColor: '#16A34A',
+        btnColor: '#16A34A',
+        cardBg: 'linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #BBF7D0',
+        decor: '⭐ 🍎',
+        desc: 'Una princesa bondadosa que encuentra nuevos amigos en el bosque.'
+      },
+      'pinocho': {
+        coverImage: 'assets/cuentos/portadas/pinocho.png',
+        authorColor: '#EA580C',
+        btnColor: '#EA580C',
+        cardBg: 'linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #FED7AA',
+        decor: '✨ ⭐',
+        desc: 'Un muñeco de madera que sueña con ser un niño de verdad y aprende sobre la honestidad.'
+      },
+      'gato-botas': {
+        coverImage: 'assets/cuentos/portadas/gato-botas.png',
+        authorColor: '#4F46E5',
+        btnColor: '#4F46E5',
+        cardBg: 'linear-gradient(135deg, #EEF2FF 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #C7D2FE',
+        decor: '⭐ 👑',
+        desc: 'Un gato muy ingenioso ayuda a su dueño a encontrar nuevas oportunidades.'
+      },
+      'ricitos-oro': {
+        coverImage: 'assets/cuentos/portadas/ricitos-oro.png',
+        authorColor: '#D97706',
+        btnColor: '#D97706',
+        cardBg: 'linear-gradient(135deg, #FEFCE8 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #FEF08A',
+        decor: '⭐ 🥣',
+        desc: 'Una niña curiosa aprende a respetar la casa y las pertenencias de tres osos.'
+      },
+      'hansel-gretel': {
+        coverImage: 'assets/cuentos/portadas/hansel-gretel.png',
+        authorColor: '#DB2777',
+        btnColor: '#DB2777',
+        cardBg: 'linear-gradient(135deg, #FDF2F8 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #FBCFE8',
+        decor: '⭐ 🍬',
+        desc: 'Dos hermanos encuentran una casita de dulces y consiguen regresar juntos a su hogar.'
+      },
+      'bella-durmiente': {
+        coverImage: 'assets/cuentos/portadas/bella-durmiente.png',
+        authorColor: '#A855F7',
+        btnColor: '#A855F7',
+        cardBg: 'linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%)',
+        cardBorder: '1.5px solid #E9D8FD',
+        decor: '⭐ 🌹',
+        desc: 'Una princesa y todo su castillo despiertan de un largo sueño encantado.'
+      }
+    };
+
+    container.innerHTML = KIDDO_DATA.stories.map(story => {
+      const theme = storyThemes[story.id] || {};
+      const coverImg = story.coverImage || theme.coverImage || `assets/cuentos/portadas/${story.id}.png`;
+      const authorColor = story.authorColor || theme.authorColor || story.color || '#EC4899';
+      const btnColor = story.btnColor || theme.btnColor || authorColor;
+      const cardBg = story.cardBg || theme.cardBg || story.gradient || '#FFFFFF';
+      const cardBorder = story.cardBorder || theme.cardBorder || '1.5px solid rgba(0, 0, 0, 0.05)';
+      const decor = story.decor || theme.decor || '⭐ ⭐';
+      const desc = theme.desc || story.coverText || '';
+      const totalPages = story.pages ? story.pages.length : 6;
+
+      return `
+      <div class="story-card" data-story-id="${story.id}" onclick="window.kiddoStories.openStory('${story.id}')" style="background: ${cardBg}; border: ${cardBorder};">
+        <div class="story-card-cover-wrap">
+          <img src="${coverImg}" alt="${story.title}" class="story-card-cover-img" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">
+          <span class="story-card-fallback-icon" style="display:none;">${story.icon || '📖'}</span>
         </div>
         <div class="story-card-info">
           <h3 class="story-card-title">${story.title}</h3>
-          <p class="story-card-author">${story.author}</p>
-          <p class="story-card-desc">${story.coverText}</p>
-          <div class="story-card-footer">
-            <span class="story-card-pages">📖 ${story.pages.length} páginas</span>
-            <button class="story-read-btn">
-              <span>Leer Cuento</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+          <p class="story-card-author" style="color: ${authorColor};">${story.author}</p>
+          <p class="story-card-desc">${desc}</p>
+          <div class="story-card-pages-row">
+            <span class="story-card-pages">📖 ${totalPages} páginas</span>
           </div>
         </div>
+        <div class="story-card-right-action">
+          <div class="story-card-decor">${decor}</div>
+          <button class="story-read-btn" style="color: ${btnColor}; border-color: ${btnColor};" aria-label="Leer cuento ${story.title}">
+            <span>Leer Cuento</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   // Abrir un cuento específico en el lector interactivo
@@ -97,9 +206,21 @@ class KiddoStoriesManager {
     document.getElementById('story-reader-title').textContent = this.currentStory.title;
     document.getElementById('story-reader-page-indicator').textContent = `Página ${this.currentPageIndex + 1} de ${totalPages}`;
 
-    // Renderizar ilustración 2D temática
+    // Renderizar ilustración de la escena (imagen ilustrada o SVG de respaldo)
     const illustrationContainer = document.getElementById('story-reader-illustration');
-    illustrationContainer.innerHTML = this.getSceneIllustrationSvg(page.imageType, page.sceneTitle);
+    if (page.imageSrc) {
+      illustrationContainer.innerHTML = `
+        <img class="story-reader-illustration-img" 
+             src="${page.imageSrc}" 
+             alt="${page.sceneTitle || this.currentStory.title}" 
+             onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+        <div class="story-reader-svg-fallback" style="display:none; width:100%; height:100%;">
+          ${this.getSceneIllustrationSvg(page.imageType, page.sceneTitle)}
+        </div>
+      `;
+    } else {
+      illustrationContainer.innerHTML = this.getSceneIllustrationSvg(page.imageType, page.sceneTitle);
+    }
 
     // Renderizar texto dividido en palabras para sincronización de narración
     const textContainer = document.getElementById('story-reader-text');
