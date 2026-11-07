@@ -1,0 +1,507 @@
+/* KIDDO - JUEGOS EXCLUSIVO COMPUTADORAS */
+
+@media (min-width: 1024px) {
+
+  #screen-juegos {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 10px 14px 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* BANNER COMPLETO SIN RECORTES */
+
+  #screen-juegos .games-banner-card {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 210px !important;
+    min-height: 210px !important;
+    max-height: 210px !important;
+    margin: 0 0 18px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #F9EAFB !important;
+    border-radius: 26px !important;
+  }
+
+  #screen-juegos .games-banner-img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  /* JUEGOS: CUATRO COLUMNAS */
+
+  #screen-juegos #games-grid-container,
+  #screen-juegos .games-selection-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-items: stretch !important;
+    align-items: stretch !important;
+  }
+
+  /* OCHO BOTONES UNIFORMES */
+
+  #screen-juegos #games-grid-container > .game-card-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    aspect-ratio: 2 / 1 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+  }
+
+  #screen-juegos #games-grid-container > .game-card-btn > .game-card-img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* NOTEBOOKS */
+
+@media (min-width: 1024px) and (max-width: 1365px) {
+
+  #screen-juegos .games-banner-card {
+    height: 185px !important;
+    min-height: 185px !important;
+    max-height: 185px !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+/* BANNER JUEGOS DESKTOP NUEVO - INICIO */
+
+@media (min-width: 1024px) {
+
+    #screen-juegos .games-banner-card {
+        width: 100% !important;
+        max-width: none !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        aspect-ratio: 8 / 1 !important;
+
+        margin-bottom: 16px !important;
+        padding: 0 !important;
+
+        border-radius: 26px !important;
+        overflow: hidden !important;
+
+        background: transparent !important;
+    }
+
+    #screen-juegos .games-banner-img {
+        content: url("../assets/games-redesign/banner-juegos-desktop.png");
+
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
+    }
+}
+
+/* BANNER JUEGOS DESKTOP NUEVO - FIN */
+
+/* KIDDO AJUSTE FINAL JUEGOS - INICIO */
+
+@media (min-width: 1024px) {
+
+  /* APROVECHAR LA ALTURA DE LA PANTALLA */
+  #screen-juegos {
+    min-height: calc(100dvh - 76px) !important;
+    max-width: none !important;
+    padding: 10px 14px 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* BANNER PANORAMICO DE ANCHO COMPLETO */
+  #screen-juegos .games-banner-card {
+    width: 100% !important;
+    max-width: none !important;
+    height: 200px !important;
+    min-height: 200px !important;
+    max-height: 200px !important;
+    aspect-ratio: auto !important;
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #screen-juegos .games-banner-img {
+    content: url("../assets/games-redesign/banner-juegos-desktop.png");
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    object-fit: fill !important;
+    object-position: center !important;
+  }
+
+  /* DISTRIBUIR LAS DOS FILAS EN EL ESPACIO DISPONIBLE */
+  #screen-juegos #games-grid-container,
+  #screen-juegos .games-selection-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, auto) !important;
+    grid-auto-flow: row !important;
+
+    column-gap: 8px !important;
+    row-gap: 8px !important;
+
+    min-height: max(340px, calc(100dvh - 76px - 200px - 48px)) !important;
+    align-content: space-between !important;
+    justify-items: stretch !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* BOTONES DE TAMAÑO UNIFORME */
+  #screen-juegos #games-grid-container > .game-card-btn {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    aspect-ratio: 2 / 1 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #screen-juegos #games-grid-container > .game-card-btn > .game-card-img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+}
+
+/* KIDDO AJUSTE FINAL JUEGOS - FIN */
+
+/* KIDDO JUEGOS PROPORCIONES MEJORADAS INICIO */
+
+@media (min-width: 1024px) {
+
+    /* CONTENEDOR */
+    #screen-juegos {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 10px 12px 18px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* BANNER UN POCO MAS ALTO */
+    #screen-juegos .games-banner-card {
+        width: 100% !important;
+        max-width: none !important;
+        height: clamp(220px, 27vh, 255px) !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        aspect-ratio: auto !important;
+        margin: 0 0 20px !important;
+        overflow: hidden !important;
+    }
+
+    #screen-juegos .games-banner-img {
+        content: url("../assets/games-redesign/banner-juegos-desktop.png");
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+        object-fit: fill !important;
+    }
+
+    /* GRILLA COMPACTA: 4 COLUMNAS X 2 FILAS */
+    #screen-juegos #games-grid-container,
+    #screen-juegos .games-selection-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, auto) !important;
+        grid-auto-flow: row !important;
+
+        gap: 20px 10px !important;
+
+        min-height: 0 !important;
+        height: auto !important;
+
+        align-content: start !important;
+        align-items: stretch !important;
+        justify-items: stretch !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* BOTONES UNIFORMES Y MAS GRANDES */
+    #screen-juegos #games-grid-container > .game-card-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        width: 120% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        height: clamp(185px, 24vh, 230px) !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        aspect-ratio: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* LAS IMAGENES CONSERVAN SUS PROPORCIONES */
+    #screen-juegos #games-grid-container > .game-card-btn > .game-card-img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
+        object-fit: contain !important;
+        object-position: center !important;
+        margin: 0 !important;
+    }
+}
+
+/* KIDDO JUEGOS PROPORCIONES MEJORADAS FIN */
+
+/* KIDDO JUEGOS DISENO REFERENCIA INICIO */
+
+@media (min-width: 1024px) {
+
+    /* SECCION JUEGOS */
+
+    #screen-juegos {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 12px 20px 16px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* BANNER GRANDE COMO EN LA PRIMERA IMAGEN */
+
+    #screen-juegos .games-banner-card {
+        width: 100% !important;
+        max-width: none !important;
+
+        height: clamp(310px, 43vh, 410px) !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        aspect-ratio: auto !important;
+
+        margin: 0 0 22px !important;
+        padding: 0 !important;
+
+        overflow: hidden !important;
+        border-radius: 45px !important;
+    }
+
+    #screen-juegos .games-banner-img {
+        content: url("../assets/games-redesign/banner-juegos-desktop.png");
+
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+
+        object-fit: fill !important;
+        object-position: center !important;
+    }
+
+    /* CUATRO COLUMNAS Y DOS FILAS COMPACTAS */
+
+    #screen-juegos #games-grid-container,
+    #screen-juegos .games-selection-grid {
+        display: grid !important;
+
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, auto) !important;
+        grid-auto-flow: row !important;
+
+        column-gap: 18px !important;
+        row-gap: 18px !important;
+
+        gap: 18px !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        align-content: start !important;
+        align-items: start !important;
+        justify-items: stretch !important;
+        box-sizing: border-box !important;
+    }
+
+    /* OCHO BOTONES DEL MISMO TAMANO */
+
+    #screen-juegos #games-grid-container > .game-card-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        height: clamp(140px, 17vh, 165px) !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        aspect-ratio: auto !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        border: none !important;
+        background: transparent !important;
+        box-sizing: border-box !important;
+    }
+
+    /* IMAGENES UNIFORMES SIN DEFORMAR */
+
+    #screen-juegos #games-grid-container > .game-card-btn > .game-card-img {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
+    }
+}
+
+/* KIDDO JUEGOS DISENO REFERENCIA FIN */
+
+/* KIDDO BOTONES GRANDES - INICIO */
+
+@media (min-width: 1024px) {
+
+    /* APROVECHAR TODO EL ANCHO */
+    #screen-juegos {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* CUATRO COLUMNAS Y DOS FILAS JUNTAS */
+    #screen-juegos #games-grid-container,
+    #screen-juegos .games-selection-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, auto) !important;
+        grid-auto-flow: row !important;
+
+        column-gap: 8px !important;
+        row-gap: 10px !important;
+        gap: 10px 8px !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        align-content: start !important;
+        justify-items: stretch !important;
+        align-items: start !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* BOTONES MAS GRANDES */
+    #screen-juegos #games-grid-container > .game-card-btn {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        aspect-ratio: auto !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        border: 0 !important;
+        background: transparent !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    /* IMAGENES OCUPANDO EL ANCHO COMPLETO */
+    #screen-juegos #games-grid-container > .game-card-btn > .game-card-img {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        aspect-ratio: auto !important;
+        object-fit: contain !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+/* KIDDO BOTONES GRANDES - FIN */

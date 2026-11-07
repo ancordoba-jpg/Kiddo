@@ -1,0 +1,32 @@
+/* KIDDO - ESTADO VACIO DE ACTIVIDADES RECIENTES */
+
+.kiddo-actividades-vacias {
+  width: 100%;
+  padding: 22px 16px;
+  border-radius: 20px;
+  background: #F8F5FF;
+  border: 1px solid #EAE2F6;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.kiddo-vacio-icono {
+  font-size: 29px;
+  margin-bottom: 6px;
+}
+
+.kiddo-vacio-titulo {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #55417C;
+  margin: 0 0 6px;
+}
+
+.kiddo-vacio-mensaje {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  color: #817692;
+  line-height: 1.5;
+  margin: 0;
+}

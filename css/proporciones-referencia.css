@@ -1,0 +1,192 @@
+/* KIDDO - FONDOS Y PROPORCIONES EXCLUSIVOS DE COMPUTADORA */
+/* Ajuste: banner un poco mas amplio y Puky un poco mas grande */
+
+@media (min-width: 1024px) {
+
+    /* BANNER SUPERIOR */
+    #screen-inicio .home-welcome-card {
+        height: 132px;
+        min-height: 132px;
+        max-height: 132px;
+
+        background-image: url("../assets/home-redesign/banner-bienvenida-desktop.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        border-radius: 26px;
+        overflow: hidden;
+    }
+
+    /* PAISAJE DE PUKY */
+    #screen-inicio .puky-hero-card {
+        height: 370px;
+        min-height: 370px;
+        max-height: 370px;
+
+        background-image: url("../assets/home-redesign/paisaje-puky-desktop.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    /* PUKY */
+    #screen-inicio .hero-puky-wrapper {
+        bottom: 10px;
+    }
+
+    #screen-inicio .hero-puky-img {
+        width: clamp(165px, 12.5vw, 220px);
+        max-height: 290px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* GLOBOS */
+    #screen-inicio .hero-bubble-left,
+    #screen-inicio .hero-bubble-right {
+        width: clamp(110px, 10vw, 160px);
+    }
+
+    /* CINCO ACCESOS PRINCIPALES */
+    #screen-inicio .categories-row-section {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 170px));
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        padding: 10px 0 6px;
+        box-sizing: border-box;
+    }
+
+    #screen-inicio .categories-row-section > * {
+        width: 100%;
+        max-width: 170px;
+        min-width: 0;
+        margin: 0 auto;
+    }
+
+    #screen-inicio .category-btn,
+    #screen-inicio .category-png-img {
+        width: 100%;
+        max-width: 170px;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+/* NOTEBOOKS Y ESCRITORIOS MAS ESTRECHOS */
+@media (min-width: 1024px) and (max-width: 1365px) {
+
+    #screen-inicio .home-welcome-card {
+        height: 120px;
+        min-height: 120px;
+        max-height: 120px;
+    }
+
+    #screen-inicio .puky-hero-card {
+        height: 342px;
+        min-height: 342px;
+        max-height: 342px;
+    }
+
+    #screen-inicio .hero-puky-img {
+        width: clamp(155px, 12vw, 205px);
+        max-height: 270px;
+    }
+
+    #screen-inicio .categories-row-section {
+        grid-template-columns: repeat(5, minmax(0, 150px));
+        gap: 12px;
+    }
+
+    #screen-inicio .categories-row-section > *,
+    #screen-inicio .category-btn,
+    #screen-inicio .category-png-img {
+        max-width: 150px;
+    }
+}
+
+/* KIDDO AJUSTE FINO DESKTOP - INICIO */
+
+@media (min-width: 1024px) {
+
+    /* TEXTO DEL BANNER SUPERIOR */
+
+    #screen-inicio .welcome-title {
+        font-size: clamp(28px, 2.2vw, 36px);
+        line-height: 1.15;
+    }
+
+    #screen-inicio .welcome-subtitle {
+        font-size: clamp(16px, 1.25vw, 20px);
+        line-height: 1.35;
+    }
+
+    /* PUKY MAS GRANDE */
+
+    #screen-inicio .hero-puky-wrapper {
+        bottom: 8px;
+    }
+
+    #screen-inicio .hero-puky-img {
+        width: clamp(210px, 15vw, 265px);
+        max-height: 330px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* GLOBOS MAS CERCA DE PUKY */
+
+    #screen-inicio .hero-bubble-left {
+        left: clamp(22px, calc(50% - 350px), 650px);
+        top: 25%;
+        width: clamp(140px, 11vw, 175px);
+    }
+
+    #screen-inicio .hero-bubble-right {
+        right: clamp(22px, calc(50% - 350px), 650px);
+        top: 25%;
+        width: clamp(140px, 11vw, 175px);
+    }
+
+}
+
+/* KIDDO AJUSTE FINO DESKTOP - FIN */
+
+/* KIDDO TAMANO PUKY Y GLOBOS - INICIO */
+
+@media (min-width: 1024px) {
+
+    /* PUKY UN POCO MAS GRANDE */
+    #screen-inicio .hero-puky-img {
+        width: clamp(250px, 18vw, 310px);
+        max-height: 350px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    #screen-inicio .hero-puky-wrapper {
+        bottom: 8px;
+    }
+
+    /* GLOBOS UN POCO MAS GRANDES */
+    #screen-inicio .hero-bubble-left {
+        left: clamp(16px, calc(50% - 385px), 650px);
+        top: 20%;
+        width: clamp(160px, 13vw, 200px);
+    }
+
+    #screen-inicio .hero-bubble-right {
+        right: clamp(16px, calc(50% - 385px), 650px);
+        top: 20%;
+        width: clamp(160px, 13vw, 200px);
+    }
+
+}
+
+/* KIDDO TAMANO PUKY Y GLOBOS - FIN */
