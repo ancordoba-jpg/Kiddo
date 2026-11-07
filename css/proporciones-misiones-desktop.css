@@ -1,0 +1,601 @@
+/* KIDDO - MISIONES PARA COMPUTADORAS */
+/* No modifica la version de celulares ni tablets */
+
+@media (min-width: 1024px) {
+
+  /* PANTALLA DE MISIONES */
+  #screen-misiones {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    padding: 12px 24px 35px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+  #screen-misiones #missions-content-container {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+
+  #screen-misiones .missions-redesign-container {
+    width: 100% !important;
+    max-width: 1040px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* BANNER MISIONES DE HOY */
+  #screen-misiones .mr-hero-card {
+    width: 100% !important;
+    min-height: 215px !important;
+    height: auto !important;
+    border-radius: 30px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* PUKY DEL BANNER */
+  #screen-misiones .mr-puky-img {
+    width: 100% !important;
+    max-width: 210px !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* TEXTO Y PROGRESO DEL BANNER */
+  #screen-misiones .mr-hero-content {
+    min-width: 0 !important;
+  }
+
+  #screen-misiones .mr-progress-slot {
+    border-radius: 15px !important;
+    padding: 7px 12px !important;
+  }
+
+  #screen-misiones .mr-track {
+    height: 10px !important;
+  }
+
+  /* SECCIONES DE MISIONES */
+  #screen-misiones .mr-category-section {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+
+  #screen-misiones .mr-section-header {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #screen-misiones .mr-section-title {
+    font-size: 21px !important;
+  }
+
+  #screen-misiones .mr-section-counter {
+    font-size: 15px !important;
+  }
+
+  /* TARJETAS EN UNA COLUMNA ANCHA */
+  #screen-misiones .mr-cards-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: none !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* TARJETAS MAS GRANDES */
+  #screen-misiones .mr-mission-card {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 84px !important;
+    border-radius: 22px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* CONTENIDO INTERIOR */
+  #screen-misiones .mr-card-body {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ILUSTRACIONES */
+  #screen-misiones .mr-card-illustration {
+    width: 82px !important;
+    height: 72px !important;
+    flex-shrink: 0 !important;
+  }
+
+  #screen-misiones .mr-mission-illus {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 82px !important;
+    max-height: 72px !important;
+    object-fit: contain !important;
+  }
+
+  /* TITULOS Y DESCRIPCIONES */
+  #screen-misiones .mr-mission-title {
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+  }
+
+  #screen-misiones .mr-mission-desc {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+  }
+
+  /* BOTONES DE MISIONES */
+  #screen-misiones .mr-action-btn-blue,
+  #screen-misiones .mr-action-btn-orange {
+    font-size: 13px !important;
+    padding: 7px 17px !important;
+    min-height: 30px !important;
+    border-radius: 999px !important;
+  }
+
+  /* CASILLAS DE MISIONES */
+  #screen-misiones .mr-mission-checkbox {
+    width: 30px !important;
+    height: 30px !important;
+    flex-shrink: 0 !important;
+  }
+
+}
+
+/* COMPUTADORAS MAS ESTRECHAS */
+
+@media (min-width: 1024px) and (max-width: 1365px) {
+
+  #screen-misiones {
+    padding: 12px 20px 30px !important;
+  }
+
+  #screen-misiones .missions-redesign-container {
+    max-width: 920px !important;
+  }
+
+  #screen-misiones .mr-puky-img {
+    max-width: 180px !important;
+  }
+
+  #screen-misiones .mr-mission-card {
+    min-height: 78px !important;
+  }
+}
+
+/* KIDDO FONDOS MISIONES DESKTOP - INICIO */
+
+@media (min-width: 1024px) {
+
+    /* FONDO AMARILLO DEL BANNER */
+
+    #screen-misiones .mr-hero-card {
+        background-image: url("../assets/missions-redesign/fondo-progreso-desktop.png") !important;
+        background-repeat: no-repeat !important;
+        background-size: 100% 100% !important;
+        background-position: center !important;
+    }
+
+    /* FONDO BLANCO DE CADA MISION */
+
+    #screen-misiones .mr-mission-card {
+        background-image: url("../assets/missions-redesign/fondo-mision-desktop.png") !important;
+        background-repeat: no-repeat !important;
+        background-size: 100% 100% !important;
+        background-position: center !important;
+    }
+}
+
+/* KIDDO FONDOS MISIONES DESKTOP - FIN */
+
+/* KIDDO CORRECCION FONDOS MISIONES INICIO */
+
+@media (min-width: 1024px) {
+
+    /* BANNER DE PROGRESO */
+
+    #screen-misiones .mr-hero-card {
+        background-image: url("../assets/missions-redesign/fondo-progreso-desktop.png") !important;
+
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+
+        /* Ampliar el fondo para ocultar el marco interno */
+        background-size: calc(110% + 32px) calc(110% + 34px) !important;
+
+        background-color: #FFF0AD !important;
+
+        border: 0 !important;
+        border-radius: 28px !important;
+
+        overflow: hidden !important;
+    }
+
+    /* TARJETAS DE MISIONES */
+
+    #screen-misiones .mr-mission-card {
+        background-image: url("../assets/missions-redesign/fondo-mision-desktop.png") !important;
+
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+
+        /* Ocultar los margenes internos del PNG */
+        background-size: calc(100% + 26px) calc(100% + 22px) !important;
+
+        background-color: #FFFFFF !important;
+
+        border: 0 !important;
+        border-radius: 20px !important;
+
+        overflow: hidden !important;
+    }
+
+    /* CONSERVAR EL ESTADO VISUAL DE LAS MISIONES COMPLETADAS */
+
+    #screen-misiones .mr-mission-card.is-completed {
+        outline: 2px solid #86EFAC !important;
+        outline-offset: -2px !important;
+    }
+
+}
+
+/* KIDDO CORRECCION FONDOS MISIONES FIN */
+
+/* KIDDO MISIONES ANCHO COMPLETO INICIO */
+
+@media (min-width: 1024px) {
+
+    /* USAR TODO EL ANCHO DE LA COMPUTADORA */
+
+    #screen-misiones {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        padding: 14px 22px 30px !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-misiones #missions-content-container,
+    #screen-misiones .missions-redesign-container {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* BANNER AMARILLO MAS ANCHO Y ALTO */
+
+    #screen-misiones .mr-hero-card {
+        width: 100% !important;
+        max-width: none !important;
+        height: 270px !important;
+        min-height: 270px !important;
+        box-sizing: border-box !important;
+
+        background-position: center !important;
+        border-radius: 30px !important;
+        overflow: hidden !important;
+    }
+
+    /* PUKY DEL BANNER */
+
+    #screen-misiones .mr-puky-img {
+        max-width: 235px !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
+    /* SECCIONES DE MISIONES */
+
+    #screen-misiones .mr-category-section,
+    #screen-misiones .mr-cards-grid {
+        width: 100% !important;
+        max-width: none !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-misiones .mr-cards-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    /* TARJETAS DE MISIONES MAS LARGAS Y ALTAS */
+
+    #screen-misiones .mr-mission-card {
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 115px !important;
+        height: auto !important;
+        border-radius: 22px !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-misiones .mr-card-body {
+        min-height: 105px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ILUSTRACIONES MAS GRANDES */
+
+    #screen-misiones .mr-card-illustration {
+        width: 92px !important;
+        height: 85px !important;
+    }
+
+    #screen-misiones .mr-mission-illus {
+        max-width: 92px !important;
+        max-height: 85px !important;
+        object-fit: contain !important;
+    }
+
+    /* TEXTOS MAS LEGIBLES */
+
+    #screen-misiones .mr-mission-title {
+        font-size: 19px !important;
+        line-height: 1.2 !important;
+    }
+
+    #screen-misiones .mr-mission-desc {
+        font-size: 15px !important;
+        line-height: 1.35 !important;
+    }
+
+    #screen-misiones .mr-section-title {
+        font-size: 23px !important;
+    }
+
+    /* BOTONES DE ACCION MAS GRANDES */
+
+    #screen-misiones .mr-action-btn-blue,
+    #screen-misiones .mr-action-btn-orange {
+        font-size: 15px !important;
+        min-height: 36px !important;
+        padding: 8px 20px !important;
+    }
+}
+
+/* KIDDO MISIONES ANCHO COMPLETO FIN */
+
+/* KIDDO MISIONES TARJETAS AMPLIADAS INICIO */
+
+@media (min-width: 1024px) {
+
+    /* TARJETAS MAS ALTAS */
+
+    #screen-misiones .mr-mission-card {
+        min-height: 145px !important;
+        height: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* CUERPO DE CADA TARJETA */
+
+    #screen-misiones .mr-card-body {
+        min-height: 135px !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ILUSTRACIONES MAS GRANDES */
+
+    #screen-misiones .mr-card-illustration {
+        width: 110px !important;
+        height: 105px !important;
+        flex-shrink: 0 !important;
+    }
+
+    #screen-misiones .mr-mission-illus {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 110px !important;
+        max-height: 105px !important;
+        object-fit: contain !important;
+    }
+
+    /* TITULOS MAS GRANDES */
+
+    #screen-misiones .mr-mission-title {
+        font-size: 22px !important;
+        line-height: 1.25 !important;
+    }
+
+    /* DESCRIPCIONES MAS LEGIBLES */
+
+    #screen-misiones .mr-mission-desc {
+        font-size: 17px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* ETIQUETAS AUTOMATICA Y FUERA DE LA APP */
+
+    #screen-misiones .mr-tag-pill {
+        font-size: 12px !important;
+        padding: 4px 10px !important;
+    }
+
+    /* ESTADOS PENDIENTE Y COMPLETADO */
+
+    #screen-misiones .mr-status-pill {
+        font-size: 12px !important;
+        padding: 5px 12px !important;
+    }
+
+    /* BOTONES DE ACCION */
+
+    #screen-misiones .mr-action-btn-blue,
+    #screen-misiones .mr-action-btn-orange {
+        font-size: 16px !important;
+        min-height: 42px !important;
+        padding: 9px 24px !important;
+        border-radius: 999px !important;
+    }
+
+    /* BOTON DE MISION COMPLETADA */
+
+    #screen-misiones .mr-done-badge {
+        font-size: 15px !important;
+        padding: 8px 16px !important;
+    }
+
+    /* CIRCULOS DE SELECCION */
+
+    #screen-misiones .mr-mission-checkbox {
+        width: 34px !important;
+        height: 34px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* TITULOS DE LAS SECCIONES */
+
+    #screen-misiones .mr-section-title {
+        font-size: 25px !important;
+    }
+
+    #screen-misiones .mr-section-counter {
+        font-size: 17px !important;
+    }
+
+    /* SEPARACION ENTRE TARJETAS */
+
+    #screen-misiones .mr-cards-grid {
+        gap: 12px !important;
+    }
+}
+
+/* KIDDO MISIONES TARJETAS AMPLIADAS FIN */
+
+/* KIDDO MISIONES AJUSTE 30 POR CIENTO INICIO */
+
+@media (min-width: 1024px) {
+
+    /* TEXTOS DEL BANNER DE PROGRESO */
+
+    #screen-misiones .mr-hero-content h1,
+    #screen-misiones .mr-hero-content h2,
+    #screen-misiones .mr-hero-content h3 {
+        font-size: 29px !important;
+        line-height: 1.2 !important;
+    }
+
+    #screen-misiones .mr-hero-content > p {
+        font-size: 17px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* INDICADORES DE PROGRESO */
+
+    #screen-misiones .mr-progress-slot {
+        min-height: 48px !important;
+        padding: 8px 15px !important;
+    }
+
+    #screen-misiones .mr-progress-slot,
+    #screen-misiones .mr-progress-slot span,
+    #screen-misiones .mr-progress-slot strong,
+    #screen-misiones .mr-stars-label {
+        font-size: 15px !important;
+    }
+
+    #screen-misiones .mr-track {
+        height: 11px !important;
+    }
+
+    /* TARJETAS DE MISIONES 30% MAS ALTAS */
+
+    #screen-misiones .mr-mission-card {
+        min-height: 190px !important;
+        height: auto !important;
+        max-height: none !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-misiones .mr-card-body {
+        min-height: 180px !important;
+        height: auto !important;
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ILUSTRACIONES UN POCO MAS GRANDES */
+
+    #screen-misiones .mr-card-illustration {
+        width: 125px !important;
+        height: 120px !important;
+        flex-shrink: 0 !important;
+    }
+
+    #screen-misiones .mr-mission-illus {
+        max-width: 125px !important;
+        max-height: 120px !important;
+        object-fit: contain !important;
+    }
+
+    /* TEXTOS INTERIORES */
+
+    #screen-misiones .mr-mission-title {
+        font-size: 23px !important;
+        line-height: 1.25 !important;
+    }
+
+    #screen-misiones .mr-mission-desc {
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* BOTONES DE ACCION */
+
+    #screen-misiones .mr-action-btn-blue,
+    #screen-misiones .mr-action-btn-orange {
+        font-size: 17px !important;
+        min-height: 48px !important;
+        padding: 10px 26px !important;
+        border-radius: 999px !important;
+    }
+
+    #screen-misiones .mr-done-badge {
+        font-size: 16px !important;
+        padding: 10px 19px !important;
+    }
+
+    /* SEPARACION ENTRE TARJETAS */
+
+    #screen-misiones .mr-cards-grid {
+        gap: 12px !important;
+    }
+}
+
+/* KIDDO MISIONES AJUSTE 30 POR CIENTO FIN */
+
+/* KIDDO PUKY MISIONES AJUSTE INICIO */
+
+@media (min-width: 1024px) {
+
+    /* PUKY MAS GRANDE Y HACIA LA IZQUIERDA */
+
+    #screen-misiones .mr-puky-img {
+        width: 280px !important;
+        max-width: 280px !important;
+        height: auto !important;
+
+        position: relative !important;
+        left: -70px !important;
+
+        object-fit: contain !important;
+    }
+
+}
+
+/* KIDDO PUKY MISIONES AJUSTE FIN */
