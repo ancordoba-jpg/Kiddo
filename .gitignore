@@ -1,0 +1,12 @@
+﻿
+# Respaldos y archivos temporales
+*.bak
+*.bak-*
+*.bak.*
+supabase/.temp/
+respaldo-antes-recuperacion-*/
+diagnostico-cuentas-kiddo.txt
+.env
+.env.*
+!.env.example
+node_modules/
