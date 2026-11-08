@@ -1,0 +1,33 @@
+/* ==================================================
+   KIDDO - CONTROL DE PANTALLAS DESKTOP
+   Evitar que secciones inactivas ocupen espacio
+   ================================================== */
+
+@media screen and (min-width: 1024px) {
+
+  /* Ocultar completamente las pantallas inactivas */
+  #app-viewport > .kiddo-screen:not(.active) {
+    display: none !important;
+  }
+
+  /* Inicio: conservar su distribucion de dos columnas */
+  #app-viewport > #screen-inicio.active {
+    display: grid !important;
+  }
+
+  /* Musica: conservar sus pestañas y contenido */
+  #app-viewport > #screen-musica.active {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Las demas secciones usan su estructura original */
+  #app-viewport > #screen-juegos.active,
+  #app-viewport > #screen-misiones.active,
+  #app-viewport > #screen-cuentos.active,
+  #app-viewport > #screen-videos.active,
+  #app-viewport > #screen-ajustes.active {
+    display: block !important;
+  }
+
+}

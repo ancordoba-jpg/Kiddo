@@ -1,0 +1,172 @@
+﻿VIDEOS ACTUALES DE MUSICA INFANTIL
+
+NUEVOS ENLACES:
+Manuelita: https://youtu.be/enVHR3HTxas
+Bañar la luna: https://youtu.be/dhsy6epaJGs
+Giraluna: https://youtu.be/wsIQq6W4lpo
+
+====================================
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\data.js
+LINEA: 284
+  275:         tagColor: '#CA8A04',
+  276:         tagBg: '#FEF9C3',
+  277:         description: 'Arpegios mágicos que invitan a soñar y descansar.',
+  278:         synthPreset: 'harp',
+  279:         audioMode: 'synth'
+  280:       }
+  281:     ],
+  282:     children: [
+  283:       {
+  284:         id: 'manuelita',
+  285:         title: 'Manuelita la tortuga',
+  286:         artist: 'María Elena Walsh',
+  287:         videoId: 'MWvldIeacPA',
+  288:         thumbnail: 'https://img.youtube.com/vi/MWvldIeacPA/hqdefault.jpg',
+  289:         description: 'Una canción clásica y tierna para cantar con alegría.',
+  290:         accent: '#F9A8D4'
+  291:       },
+  292:       {
+  293:         id: 'estrellita',
+  294:         title: 'Estrellita, ¿dónde estás?',
+  295:         artist: 'Super Simple Español',
+  296:         videoId: 'qDUfm2_beKE',
+  297:         thumbnail: 'https://img.youtube.com/vi/qDUfm2_beKE/hqdefault.jpg',
+  298:         description: 'Una melodía suave y conocida para acompañar momentos tranquilos.',
+  299:         accent: '#93C5FD'
+  300:       },
+  301:       {
+  302:         id: 'luna-cansada',
+  303:         title: 'Luna cansada',
+
+====================================
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\data.js
+LINEA: 285
+  276:         tagBg: '#FEF9C3',
+  277:         description: 'Arpegios mágicos que invitan a soñar y descansar.',
+  278:         synthPreset: 'harp',
+  279:         audioMode: 'synth'
+  280:       }
+  281:     ],
+  282:     children: [
+  283:       {
+  284:         id: 'manuelita',
+  285:         title: 'Manuelita la tortuga',
+  286:         artist: 'María Elena Walsh',
+  287:         videoId: 'MWvldIeacPA',
+  288:         thumbnail: 'https://img.youtube.com/vi/MWvldIeacPA/hqdefault.jpg',
+  289:         description: 'Una canción clásica y tierna para cantar con alegría.',
+  290:         accent: '#F9A8D4'
+  291:       },
+  292:       {
+  293:         id: 'estrellita',
+  294:         title: 'Estrellita, ¿dónde estás?',
+  295:         artist: 'Super Simple Español',
+  296:         videoId: 'qDUfm2_beKE',
+  297:         thumbnail: 'https://img.youtube.com/vi/qDUfm2_beKE/hqdefault.jpg',
+  298:         description: 'Una melodía suave y conocida para acompañar momentos tranquilos.',
+  299:         accent: '#93C5FD'
+  300:       },
+  301:       {
+  302:         id: 'luna-cansada',
+  303:         title: 'Luna cansada',
+  304:         artist: 'Canticuéntico',
+
+====================================
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\data.js
+LINEA: 357
+  348:         title: 'La araña pequeñita',
+  349:         artist: 'Super Simple Español',
+  350:         videoId: 'XvKotqrAPFA',
+  351:         thumbnail: 'https://img.youtube.com/vi/XvKotqrAPFA/hqdefault.jpg',
+  352:         description: 'Una canción infantil muy conocida para cantar y jugar.',
+  353:         accent: '#DDD6FE'
+  354:       },
+  355:       {
+  356:         id: 'banar-la-luna',
+  357:         title: 'Bañar la luna',
+  358:         artist: 'María Elena Walsh',
+  359:         videoId: 'OMUh_vJXM44',
+  360:         thumbnail: 'https://img.youtube.com/vi/OMUh_vJXM44/hqdefault.jpg',
+  361:         description: 'Una melodía suave, poética y relajante.',
+  362:         accent: '#BAE6FD'
+  363:       },
+  364:       {
+  365:         id: 'giraluna-girasol',
+  366:         title: 'Giraluna, girasol',
+  367:         artist: 'Cantoalegre',
+  368:         videoId: 'HYQLRSI0KT4',
+  369:         thumbnail: 'https://img.youtube.com/vi/HYQLRSI0KT4/hqdefault.jpg',
+  370:         description: 'Una canción amorosa y tranquila con un ritmo delicado.',
+  371:         accent: '#FCA5A5'
+  372:       }
+  373:     ]
+  374:   },
+  375: 
+  376:   // 10 Cuentos Infantiles Clásicos con Páginas y Textos para lectura y narración sincronizada
+
+====================================
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\data.js
+LINEA: 365
+  356:         id: 'banar-la-luna',
+  357:         title: 'Bañar la luna',
+  358:         artist: 'María Elena Walsh',
+  359:         videoId: 'OMUh_vJXM44',
+  360:         thumbnail: 'https://img.youtube.com/vi/OMUh_vJXM44/hqdefault.jpg',
+  361:         description: 'Una melodía suave, poética y relajante.',
+  362:         accent: '#BAE6FD'
+  363:       },
+  364:       {
+  365:         id: 'giraluna-girasol',
+  366:         title: 'Giraluna, girasol',
+  367:         artist: 'Cantoalegre',
+  368:         videoId: 'HYQLRSI0KT4',
+  369:         thumbnail: 'https://img.youtube.com/vi/HYQLRSI0KT4/hqdefault.jpg',
+  370:         description: 'Una canción amorosa y tranquila con un ritmo delicado.',
+  371:         accent: '#FCA5A5'
+  372:       }
+  373:     ]
+  374:   },
+  375: 
+  376:   // 10 Cuentos Infantiles Clásicos con Páginas y Textos para lectura y narración sincronizada
+  377:   // 10 Cuentos Infantiles Clasicos con 6 paginas completas cada uno
+  378:   stories: [
+  379:     {
+  380:       id: 'caperucita',
+  381:       title: 'Caperucita Roja',
+  382:       author: 'Hermanos Grimm / Perrault',
+  383:       icon: '👧🧺',
+  384:       coverImage: 'assets/cuentos/portadas/caperucita.png',
+
+====================================
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\data.js
+LINEA: 366
+  357:         title: 'Bañar la luna',
+  358:         artist: 'María Elena Walsh',
+  359:         videoId: 'OMUh_vJXM44',
+  360:         thumbnail: 'https://img.youtube.com/vi/OMUh_vJXM44/hqdefault.jpg',
+  361:         description: 'Una melodía suave, poética y relajante.',
+  362:         accent: '#BAE6FD'
+  363:       },
+  364:       {
+  365:         id: 'giraluna-girasol',
+  366:         title: 'Giraluna, girasol',
+  367:         artist: 'Cantoalegre',
+  368:         videoId: 'HYQLRSI0KT4',
+  369:         thumbnail: 'https://img.youtube.com/vi/HYQLRSI0KT4/hqdefault.jpg',
+  370:         description: 'Una canción amorosa y tranquila con un ritmo delicado.',
+  371:         accent: '#FCA5A5'
+  372:       }
+  373:     ]
+  374:   },
+  375: 
+  376:   // 10 Cuentos Infantiles Clásicos con Páginas y Textos para lectura y narración sincronizada
+  377:   // 10 Cuentos Infantiles Clasicos con 6 paginas completas cada uno
+  378:   stories: [
+  379:     {
+  380:       id: 'caperucita',
+  381:       title: 'Caperucita Roja',
+  382:       author: 'Hermanos Grimm / Perrault',
+  383:       icon: '👧🧺',
+  384:       coverImage: 'assets/cuentos/portadas/caperucita.png',
+  385:       color: '#FFD1DC',
+

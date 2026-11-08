@@ -282,11 +282,11 @@ const KIDDO_DATA = {
     children: [
       {
         id: 'manuelita',
-        title: 'Manuelita la tortuga',
-        artist: 'María Elena Walsh',
-        videoId: 'MWvldIeacPA',
-        thumbnail: 'https://img.youtube.com/vi/MWvldIeacPA/hqdefault.jpg',
-        description: 'Una canción clásica y tierna para cantar con alegría.',
+        title: 'El Auto de Papá',
+        artist: 'El Reino Infantil',
+        videoId: 'enVHR3HTxas',
+        thumbnail: 'https://img.youtube.com/vi/enVHR3HTxas/hqdefault.jpg',
+        description: 'Una canción infantil divertida para cantar y disfrutar.',
         accent: '#F9A8D4'
       },
       {
@@ -354,20 +354,20 @@ const KIDDO_DATA = {
       },
       {
         id: 'banar-la-luna',
-        title: 'Bañar la luna',
-        artist: 'María Elena Walsh',
-        videoId: 'OMUh_vJXM44',
-        thumbnail: 'https://img.youtube.com/vi/OMUh_vJXM44/hqdefault.jpg',
-        description: 'Una melodía suave, poética y relajante.',
+        title: 'El Pollito Pío',
+        artist: 'Pulcino Pio',
+        videoId: 'dhsy6epaJGs',
+        thumbnail: 'https://img.youtube.com/vi/dhsy6epaJGs/hqdefault.jpg',
+        description: 'Una canción divertida sobre los animales de la granja.',
         accent: '#BAE6FD'
       },
       {
         id: 'giraluna-girasol',
-        title: 'Giraluna, girasol',
-        artist: 'Cantoalegre',
-        videoId: 'HYQLRSI0KT4',
-        thumbnail: 'https://img.youtube.com/vi/HYQLRSI0KT4/hqdefault.jpg',
-        description: 'Una canción amorosa y tranquila con un ritmo delicado.',
+        title: 'La Rana',
+        artist: 'La Granja de Zenón',
+        videoId: 'wsIQq6W4lpo',
+        thumbnail: 'https://img.youtube.com/vi/wsIQq6W4lpo/hqdefault.jpg',
+        description: 'Una canción infantil de la granja para cantar y disfrutar.',
         accent: '#FCA5A5'
       }
     ]
@@ -713,36 +713,42 @@ const KIDDO_DATA = {
         {
           pageNumber: 1,
           imageType: 'ricitos-p1',
+          imageSrc: 'assets/cuentos/ilustraciones/Ricitos de Oro/ricitos-oro-p1.png',
           text: "En una casita del bosque vivían tres osos: uno grande, uno mediano y uno pequeño. Una mañana prepararon avena para desayunar, pero estaba demasiado caliente. Decidieron salir a caminar mientras se enfriaba. Poco después, una niña llamada Ricitos de Oro llegó a la puerta. Llamó varias veces y, como nadie respondió, entró sin permiso.",
           sceneTitle: "Una casa en el bosque"
         },
         {
           pageNumber: 2,
           imageType: 'ricitos-p2',
+          imageSrc: 'assets/cuentos/ilustraciones/Ricitos de Oro/ricitos-oro-p2.png',
           text: "Sobre la mesa había tres platos. Ricitos probó el grande: «¡Está demasiado caliente!». Probó el mediano: «¡Está demasiado frío!». Después probó el pequeño: «¡Este está justo como me gusta!». Y se comió toda la avena del osito. Al terminar, sintió ganas de sentarse y descansar un momento.",
           sceneTitle: "Tres platos de avena"
         },
         {
           pageNumber: 3,
           imageType: 'ricitos-p3',
+          imageSrc: 'assets/cuentos/ilustraciones/Ricitos de Oro/ricitos-oro-p3.png',
           text: "La primera silla era enorme y demasiado dura. La segunda era más pequeña, pero muy blanda. La tercera parecía perfecta para ella. Ricitos se sentó, se acomodó y comenzó a balancearse. ¡Crac! La silla del osito se rompió. La niña se levantó sorprendida. En vez de salir a buscar al dueño, subió las escaleras para explorar la casa.",
           sceneTitle: "Tres sillas diferentes"
         },
         {
           pageNumber: 4,
           imageType: 'ricitos-p4',
+          imageSrc: 'assets/cuentos/ilustraciones/Ricitos de Oro/ricitos-oro-p4.png',
           text: "Arriba encontró tres camas. La grande era muy firme y la mediana, demasiado mullida. La pequeña era cómoda y calentita. Ricitos se acurrucó y se quedó dormida. Mientras tanto, los tres osos regresaron de su paseo. Apenas entraron, descubrieron que alguien había probado la comida y desordenado la sala.",
           sceneTitle: "Tres camas"
         },
         {
           pageNumber: 5,
           imageType: 'ricitos-p5',
+          imageSrc: 'assets/cuentos/ilustraciones/Ricitos de Oro/ricitos-oro-p5.png',
           text: "«¡Alguien comió mi avena!», exclamó el osito. Luego vio su silla rota y se entristeció. Los tres subieron al dormitorio y encontraron a Ricitos dormida. Cuando la niña despertó, se asustó al verlos. Pero los osos no querían hacerle daño: solo deseaban entender por qué había entrado en su casa sin permiso.",
           sceneTitle: "Los osos regresan"
         },
         {
           pageNumber: 6,
           imageType: 'ricitos-p6',
+          imageSrc: 'assets/cuentos/ilustraciones/Ricitos de Oro/ricitos-oro-p6.png',
           text: "Ricitos de Oro reconoció lo que había hecho. «Perdón por entrar, comer su desayuno y romper la silla», dijo avergonzada. Prometió pedir permiso antes de tocar las cosas de otras personas. Los osos aceptaron sus disculpas y la acompañaron hasta el sendero. Al llegar a casa, Ricitos contó lo ocurrido y nunca olvidó aquella importante lección sobre el respeto.",
           sceneTitle: "Aprender a respetar"
         }
@@ -761,36 +767,42 @@ const KIDDO_DATA = {
         {
           pageNumber: 1,
           imageType: 'hansel-p1',
+          imageSrc: 'assets/cuentos/ilustraciones/Hansel y Gretel/Hansel-Gretel-p1.png',
           text: "Hansel y Gretel vivían con su padre y su madrastra en una pequeña casa cerca del bosque. La familia atravesaba tiempos difíciles y a veces había muy poco para comer. Una mañana, los adultos llevaron a los hermanos a buscar leña, pero los dejaron solos entre los árboles. Asustados, los niños se tomaron de la mano y trataron de encontrar el camino de regreso.",
           sceneTitle: "Una familia con dificultades"
         },
         {
           pageNumber: 2,
           imageType: 'hansel-p2',
+          imageSrc: 'assets/cuentos/ilustraciones/Hansel y Gretel/Hansel-Gretel-p2.png',
           text: "Hansel había llevado un pedacito de pan y dejó pequeñas migas para recordar por dónde pasaban. Sin embargo, los pájaros se las comieron. Cuando los hermanos quisieron volver, ya no pudieron seguir el rastro. Caminaron durante horas, se animaron mutuamente y buscaron refugio antes de que llegara la noche.",
           sceneTitle: "Un rastro de migas"
         },
         {
           pageNumber: 3,
           imageType: 'hansel-p3',
+          imageSrc: 'assets/cuentos/ilustraciones/Hansel y Gretel/Hansel-Gretel-p3.png',
           text: "Al día siguiente encontraron algo increíble: una casa hecha de dulces, galletas y azúcar. Como tenían hambre, probaron un trocito. Entonces salió una anciana y los invitó a entrar. Les ofreció comida y camas cómodas, pero su aparente amabilidad escondía malas intenciones: quería mantener a los niños encerrados para quedarse con ellos.",
           sceneTitle: "La casa de golosinas"
         },
         {
           pageNumber: 4,
           imageType: 'hansel-p4',
+          imageSrc: 'assets/cuentos/ilustraciones/Hansel y Gretel/Hansel-Gretel-p4.png',
           text: "La mujer encerró a Hansel en una habitación y obligó a Gretel a ayudarla en la cocina. Cada día preguntaba si Hansel había engordado y él le mostraba un huesito, que ella confundía con su dedo porque veía muy mal. Gretel, mientras tanto, observaba las llaves y buscaba un momento para liberar a su hermano.",
           sceneTitle: "Un plan para escapar"
         },
         {
           pageNumber: 5,
           imageType: 'hansel-p5',
+          imageSrc: 'assets/cuentos/ilustraciones/Hansel y Gretel/Hansel-Gretel-p5.png',
           text: "Un día, cuando la anciana se distrajo junto al horno, Gretel logró apartarse, tomó las llaves y abrió la puerta de Hansel. Los dos escaparon rápidamente de la casa de dulces. Corrieron entre los árboles hasta llegar a un río. Con ayuda de un pato que los llevó de una orilla a otra, pudieron continuar el camino sin regresar junto a la anciana.",
           sceneTitle: "Los hermanos se ayudan"
         },
         {
           pageNumber: 6,
           imageType: 'hansel-p6',
+          imageSrc: 'assets/cuentos/ilustraciones/Hansel y Gretel/Hansel-Gretel-p6.png',
           text: "Después de caminar mucho, reconocieron un sendero conocido y encontraron su hogar. Su padre, arrepentido por haberlos dejado solos, los abrazó emocionado y prometió cuidarlos mejor. La madrastra ya no vivía allí. Con esfuerzo y ayuda de sus vecinos, la familia encontró una forma de salir adelante. Hansel y Gretel recordaron siempre que juntos habían sido más valientes.",
           sceneTitle: "El regreso a casa"
         }
@@ -809,36 +821,42 @@ const KIDDO_DATA = {
         {
           pageNumber: 1,
           imageType: 'pinocho-p1',
+          imageSrc: 'assets/cuentos/ilustraciones/Pinocho/Pinocho-p1.png',
           text: "Un carpintero llamado Geppetto construyó un muñeco de madera y lo llamó Pinocho. Deseaba tanto tener un hijo que se sorprendió cuando, gracias a un poco de magia, el muñeco comenzó a moverse y hablar. Geppetto lo abrazó con alegría. Pinocho quería descubrir el mundo, pero todavía tenía mucho que aprender sobre las decisiones, la verdad y el cuidado de quienes lo querían.",
           sceneTitle: "Un muñeco especial"
         },
         {
           pageNumber: 2,
           imageType: 'pinocho-p2',
+          imageSrc: 'assets/cuentos/ilustraciones/Pinocho/Pinocho-p2.png',
           text: "Geppetto consiguió un libro para que Pinocho pudiera ir a la escuela. Sin embargo, camino a clase, el muñeco escuchó música y se acercó a un teatro de marionetas. Fascinado por las luces, olvidó la escuela. Allí conoció a personas que intentaron aprovecharse de su ingenuidad. Pinocho logró salir, pero comprendió que las decisiones impulsivas podían meterlo en problemas.",
           sceneTitle: "El primer camino equivocado"
         },
         {
           pageNumber: 3,
           imageType: 'pinocho-p3',
+          imageSrc: 'assets/cuentos/ilustraciones/Pinocho/Pinocho-p3.png',
           text: "Cuando un hada bondadosa le preguntó qué había pasado, Pinocho sintió vergüenza y mintió. Entonces su nariz comenzó a crecer. Cada mentira la hacía un poquito más larga. Asustado, confesó la verdad y pidió perdón. El hada lo ayudó y le explicó que decir la verdad es importante, especialmente cuando uno se equivoca. Pinocho prometió esforzarse por actuar mejor.",
           sceneTitle: "Una mentira que crece"
         },
         {
           pageNumber: 4,
           imageType: 'pinocho-p4',
+          imageSrc: 'assets/cuentos/ilustraciones/Pinocho/Pinocho-p4.png',
           text: "Aun así, Pinocho volvió a distraerse. Un muchacho lo invitó a un lugar donde nadie estudiaba y todos jugaban sin descanso. Al principio parecía divertido, pero pronto descubrió que allí los niños eran transformados en burritos. Pinocho también comenzó a cambiar y se asustó. Con valentía logró escapar y buscó el camino de vuelta, dispuesto a encontrar a Geppetto.",
           sceneTitle: "El país de los juegos"
         },
         {
           pageNumber: 5,
           imageType: 'pinocho-p5',
+          imageSrc: 'assets/cuentos/ilustraciones/Pinocho/Pinocho-p5.png',
           text: "Pinocho se enteró de que Geppetto había salido a buscarlo por el mar y no había regresado. Sin dudarlo, fue tras él. En medio de una tormenta, un enorme animal marino los engulló por separado. Dentro de su vientre oscuro, Pinocho encontró a Geppetto. Juntos idearon una forma de salir y, aprovechando un gran estornudo del animal, alcanzaron el mar abierto.",
           sceneTitle: "En busca de Geppetto"
         },
         {
           pageNumber: 6,
           imageType: 'pinocho-p6',
+          imageSrc: 'assets/cuentos/ilustraciones/Pinocho/Pinocho-p6.png',
           text: "Pinocho ayudó a Geppetto a llegar sano y salvo a la playa. De regreso en casa lo cuidó, retomó sus estudios y comenzó a tomar decisiones más responsables. El hada vio cuánto había crecido por dentro y le concedió su mayor deseo: convertirse en un niño de verdad. Pinocho abrazó a Geppetto y comprendió que la valentía también significa reconocer errores y cuidar a los demás.",
           sceneTitle: "Un corazón valiente"
         }
@@ -907,6 +925,73 @@ const KIDDO_DATA = {
       { id: 'crear', name: 'Crear', icon: '🎨' }
     ],
     items: [
+      // NUEVOS VIDEOS KIDDO
+      {
+        id: 'v-kiddo-dwKJw0pTaxo',
+        title: 'El Mono Sílabo Cuenta Los Números Del 1 al 100. Junto a Nícola Cavernícola',
+        channel: 'lunacreciente',
+        category: 'aprender',
+        ageGroups: ['2-4', '5-7', '8-10'],
+        videoUrl: 'https://www.youtube.com/watch?v=dwKJw0pTaxo',
+        videoId: 'dwKJw0pTaxo',
+        embedUrl: 'https://www.youtube-nocookie.com/embed/dwKJw0pTaxo',
+        thumbnail: 'https://i.ytimg.com/vi/dwKJw0pTaxo/hqdefault.jpg',
+        duration: '',
+        description: 'Un video para descubrir y aprender.'
+      },
+      {
+        id: 'v-kiddo-0mPkXjf2KoI',
+        title: 'Palabras de Dos Sílabas para Niños | Separar Sílabas en Español',
+        channel: 'La Maeta Brenda | Educación para Niños',
+        category: 'aprender',
+        ageGroups: ['2-4', '5-7', '8-10'],
+        videoUrl: 'https://www.youtube.com/watch?v=0mPkXjf2KoI',
+        videoId: '0mPkXjf2KoI',
+        embedUrl: 'https://www.youtube-nocookie.com/embed/0mPkXjf2KoI',
+        thumbnail: 'https://i.ytimg.com/vi/0mPkXjf2KoI/hqdefault.jpg',
+        duration: '',
+        description: 'Un video para descubrir y aprender.'
+      },
+      {
+        id: 'v-kiddo-kbXEf9e1rts',
+        title: 'Veo Veo 👀 Animales 🐾🎶 Canciones Infantiles | Plim Plim',
+        channel: 'El Payaso Plim Plim',
+        category: 'entretenimiento',
+        ageGroups: ['2-4', '5-7', '8-10'],
+        videoUrl: 'https://www.youtube.com/watch?v=kbXEf9e1rts',
+        videoId: 'kbXEf9e1rts',
+        embedUrl: 'https://www.youtube-nocookie.com/embed/kbXEf9e1rts',
+        thumbnail: 'https://i.ytimg.com/vi/kbXEf9e1rts/hqdefault.jpg',
+        duration: '',
+        description: 'Un video para disfrutar y divertirse.'
+      },
+      {
+        id: 'v-kiddo-mrxTQZW9b08',
+        title: 'El Baile del Sapito - Las Canciones Dela Granja - Canciones infantiles dela granja',
+        channel: 'Cartoon Studio',
+        category: 'bailar',
+        ageGroups: ['2-4', '5-7', '8-10'],
+        videoUrl: 'https://www.youtube.com/watch?v=mrxTQZW9b08',
+        videoId: 'mrxTQZW9b08',
+        embedUrl: 'https://www.youtube-nocookie.com/embed/mrxTQZW9b08',
+        thumbnail: 'https://i.ytimg.com/vi/mrxTQZW9b08/hqdefault.jpg',
+        duration: '',
+        description: 'Una cancion para bailar y moverse.'
+      },
+      {
+        id: 'v-kiddo-cgEnBkmcpuQ',
+        title: 'CantaJuego - Soy Una Taza (Version Mexico)',
+        channel: 'CantaJuegoVEVO',
+        category: 'bailar',
+        ageGroups: ['2-4', '5-7', '8-10'],
+        videoUrl: 'https://www.youtube.com/watch?v=cgEnBkmcpuQ',
+        videoId: 'cgEnBkmcpuQ',
+        embedUrl: 'https://www.youtube-nocookie.com/embed/cgEnBkmcpuQ',
+        thumbnail: 'https://i.ytimg.com/vi/cgEnBkmcpuQ/hqdefault.jpg',
+        duration: '',
+        description: 'Una cancion para bailar y moverse.'
+      },
+
       // 1. APRENDER (4 videos)
       {
         id: 'vid-ap-1',

@@ -1,0 +1,572 @@
+﻿=== ESTRUCTURA Y FUNCIONES DEL PIANO ===
+
+ARCHIVO: .\js\app.js
+  285:           window.kiddoMissions.render('missions-content-container');
+  286:         }
+  287:         break;
+  288:       case 'puky':
+  289:         this.renderPukyScreen();
+  290:         break;
+  291:       case 'musica':
+  292:         this.renderMusicScreen();
+  293:         break;
+  294:       case 'cuentos':
+  295:         if (window.kiddoStories) {
+  296:           window.kiddoStories.renderCatalog('stories-catalog-grid');
+  297:         }
+  298:         break;
+  299:       case 'videos':
+  300:         this.renderVideosScreen();
+  301:         break;
+  302:       case 'ajustes':
+  303:         if (window.kiddoParental) {
+  304:           window.kiddoParental.renderSettingsScreen();
+  305:         }
+  306:         break;
+  307:     }
+  308:   }
+  309: 
+  310:   // 7. SECCIÓN "INICIO"
+  311:   renderHomeScreen() {
+  312:     const welcomeHello = document.querySelector('.welcome-text-hello');
+  313:     if (welcomeHello) {
+  314:       welcomeHello.textContent = `¡Hola, ${KIDDO_DATA.user.name}!`;
+  315:     }
+  316: 
+  317:     // Montar Puky 2D oficial si aún no está montado
+  318:     const mount = document.getElementById('puky2d-mount');
+  689: 
+  690:   openPukyPlaceholderSlot(slotNumber) {
+  691:     if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  692:     alert(`Espacio ${slotNumber} preparado: Aquí se integrará una nueva funcionalidad para Puky.`);
+  693:   }
+  694: 
+  695:   // 11. SECCIÓN "MÚSICA"
+  696:   renderMusicScreen() {
+  697:     this.switchMusicCategory(this.activeMusicTab);
+  698:   }
+  699: 
+  700:   switchMusicCategory(tabKey) {
+  701:     if (this.activeMusicTab === 'relajante' && tabKey !== 'relajante') {
+  702:       this.stopAllRelaxingMusic();
+  703:     }
+  704:     this.activeMusicTab = tabKey;
+  705:     document.querySelectorAll('.music-subtab-btn').forEach(btn => {
+  706:       if (btn.getAttribute('data-tab') === tabKey) {
+  707:         btn.classList.add('active');
+  708:       } else {
+  709:         btn.classList.remove('active');
+  710:       }
+  711:     });
+  712: 
+  713:     const contentBox = document.getElementById('music-tab-content');
+  714:     if (!contentBox) return;
+  715: 
+  716:     if (tabKey === 'relajante') {
+  717:       contentBox.innerHTML = `
+  718:         <div class="music-relaxing-container">
+  719:           <!-- Banner Hero Relajante -->
+  720:           <div class="relax-hero-banner" role="img" aria-label="Puky descansando relajado">
+  721:             <img src="assets/musica/relajante/fondo-relajante.png" alt="Puky descansando en una nube suave" class="relax-hero-img" />
+  722:           </div>
+  723: 
+  724:           <!-- Contenedor invisible para reproductor YouTube embebido (una sola pista activa) -->
+  725:           <div id="relaxing-yt-player-container" aria-hidden="true" style="display:none;"></div>
+  726: 
+  727:           <!-- Lista vertical de las 4 tarjetas relajantes con iconos 3D -->
+  728:           <div class="music-relaxing-grid">
+  729:             ${KIDDO_DATA.music.relaxing.map(track => {
+  730:               const isPlaying = this.activeRelaxingTrackId === track.id;
+  731:               return `
+  732:                 <div class="relax-track-card ${isPlaying ? 'is-playing' : ''}"
+  733:                      id="track-${track.id}"
+  734:                      style="background: ${track.color}; border: 2px solid ${track.borderColor};"
+  735:                      onclick="window.kiddoApp.toggleRelaxingTrack('${track.id}')">
+  736:                   
+  737:                   <div class="relax-track-icon-wrap" style="border: 1.5px solid ${track.borderColor};">
+  738:                     <img src="${track.iconImage}" alt="${track.title}" class="relax-track-icon-img" />
+  739:                   </div>
+  770:             <span class="piano-banner-avatar" aria-hidden="true">🐨</span>
+  771:             <span class="piano-banner-text">¡Toca las teclas de colores para crear una linda canción conmigo! 🎵✨</span>
+  772:           </div>
+  773: 
+  774:           <div class="piano-notes-fx-layer" id="piano-notes-fx-layer" aria-hidden="true"></div>
+  775: 
+  776:           <span id="piano-puky-face" style="display:none;" aria-hidden="true"></span>
+  777:           <div class="piano-keyboard-wrapper">
+  778:             <div class="piano-keys-container" role="region" aria-label="Teclado del piano virtual">
+  779:               <button class="piano-key key-c" onclick="window.kiddoApp.playKeyNote('DO', this)" aria-label="Nota DO">
+  780:                 <span class="key-note-name">DO</span>
+  781:                 <span class="key-color-dot" style="background: #F87171;"></span>
+  782:               </button>
+  783:               <button class="piano-key key-d" onclick="window.kiddoApp.playKeyNote('RE', this)" aria-label="Nota RE">
+  784:                 <span class="key-note-name">RE</span>
+  785:                 <span class="key-color-dot" style="background: #FB923C;"></span>
+  786:               </button>
+  787:               <button class="piano-key key-e" onclick="window.kiddoApp.playKeyNote('MI', this)" aria-label="Nota MI">
+  788:                 <span class="key-note-name">MI</span>
+  789:                 <span class="key-color-dot" style="background: #FACC15;"></span>
+  790:               </button>
+  791:               <button class="piano-key key-f" onclick="window.kiddoApp.playKeyNote('FA', this)" aria-label="Nota FA">
+  792:                 <span class="key-note-name">FA</span>
+  793:                 <span class="key-color-dot" style="background: #4ADE80;"></span>
+  794:               </button>
+  795:               <button class="piano-key key-g" onclick="window.kiddoApp.playKeyNote('SOL', this)" aria-label="Nota SOL">
+  796:                 <span class="key-note-name">SOL</span>
+  797:                 <span class="key-color-dot" style="background: #38BDF8;"></span>
+  798:               </button>
+  799:               <button class="piano-key key-a" onclick="window.kiddoApp.playKeyNote('LA', this)" aria-label="Nota LA">
+  800:                 <span class="key-note-name">LA</span>
+  801:                 <span class="key-color-dot" style="background: #818CF8;"></span>
+  802:               </button>
+  803:               <button class="piano-key key-b" onclick="window.kiddoApp.playKeyNote('SI', this)" aria-label="Nota SI">
+  804:                 <span class="key-note-name">SI</span>
+  805:                 <span class="key-color-dot" style="background: #C084FC;"></span>
+  806:               </button>
+  807:               <button class="piano-key key-c-high" onclick="window.kiddoApp.playKeyNote('DO-HIGH', this)" aria-label="Nota DO Agudo">
+  808:                 <span class="key-note-name">DO 🌟</span>
+  809:                 <span class="key-color-dot" style="background: #F472B6;"></span>
+  810:               </button>
+  811:             </div>
+  812:           </div>
+  813:         </div>
+  814:       `;
+  815:     } else if (tabKey === 'infantil') {
+  816:       const accentMap = {
+  817:         'pink': '#F9A8D4', 'blue': '#93C5FD', 'purple': '#C4B5FD',
+  818:         'yellow': '#FDE68A', 'green': '#6EE7B7', 'orange': '#FDBA74',
+  819:         'mint': '#A7F3D0', 'lavender': '#DDD6FE', 'sky': '#BAE6FD', 'peach': '#FCA5A5'
+  820:       };
+  821:       contentBox.innerHTML = `
+  822:         <div class="infantil-music-container">
+  823:           <!-- Hero banner superior -->
+  824:           <div class="infantil-hero-banner" role="img" aria-label="Puky con notas musicales">
+  825:             <img src="assets/musica/infantil/fondo-infantil.png.png"
+  826:                  onerror="this.src='assets/musica/infantil/fondo-infantil.png'"
+  827:                  alt="Puky sosteniendo baquetas entre notas musicales"
+  828:                  class="infantil-hero-img" />
+  829:           </div>
+  830: 
+  831:           <!-- Lista de canciones -->
+  832:           <div class="infantil-songs-list">
+  833:             ${KIDDO_DATA.music.children.map(song => `
+
+ARCHIVO: .\index.html
+  516:           </div>
+  517:         </section>
+  518: 
+  519:         <!-- 5. SECCIÓN: MÚSICA -->
+  520:         <section class="kiddo-screen" id="screen-musica" aria-label="Sección Música">
+  521:           <div class="music-subtabs-nav">
+  522:             <button class="music-subtab-btn" data-tab="relajante"
+  523:               onclick="window.kiddoApp.switchMusicCategory('relajante')">🌿 Relajante</button>
+  524:             <button class="music-subtab-btn active" data-tab="crear"
+  525:               onclick="window.kiddoApp.switchMusicCategory('crear')">🎹 Crear Música</button>
+  526:             <button class="music-subtab-btn" data-tab="infantil"
+  527:               onclick="window.kiddoApp.switchMusicCategory('infantil')">🎵 Infantil</button>
+  528:           </div>
+  529:           <div id="music-tab-content"></div>
+  530:         </section>
+  531: 
+  532:         <!-- 6. SECCIÓN: CUENTOS -->
+  533:         <section class="kiddo-screen" id="screen-cuentos" aria-label="Sección Cuentos">
+  534:           <div class="cuentos-banner-card">
+  535:             <img src="assets/cuentos/banner/banner-cuentos.png" alt="Cuentos Infantiles - Historias mágicas con ilustraciones y narración por voz" class="cuentos-banner-img">
+  536:           </div>
+  537:           <div class="stories-catalog-grid" id="stories-catalog-grid"></div>
+  538:         </section>
+  539: 
+  540:         <!-- 6B. PANTALLA DE LECTURA DE CUENTO (Lector de Cuentos) -->
+  541:         <section class="kiddo-screen" id="screen-story-reader" aria-label="Lector de Cuentos">
+  542:           <div class="story-reader-view">
+  543:             <div class="story-reader-top-bar">
+  544:               <button class="story-back-btn" onclick="window.kiddoStories.closeReader()">← Volver</button>
+  545:               <span class="story-reader-title-badge" id="story-reader-title">Caperucita Roja</span>
+  546:               <span class="story-page-number" id="story-reader-page-indicator">Página 1 de 4</span>
+  547:             </div>
+  548: 
+  549:             <div class="story-book-frame">
+  550:               <div class="story-reader-illustration-container" id="story-reader-illustration"></div>
+  551:               <div class="story-reader-text-container" id="story-reader-text"></div>
+  552:             </div>
+  553: 
+  554:             <div class="story-reader-actions">
+  555:               <button class="story-nav-btn" id="story-prev-btn" onclick="window.kiddoStories.prevPage()">◀
+
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\app.js
+  285:           window.kiddoMissions.render('missions-content-container');
+  286:         }
+  287:         break;
+  288:       case 'puky':
+  289:         this.renderPukyScreen();
+  290:         break;
+  291:       case 'musica':
+  292:         this.renderMusicScreen();
+  293:         break;
+  294:       case 'cuentos':
+  295:         if (window.kiddoStories) {
+  296:           window.kiddoStories.renderCatalog('stories-catalog-grid');
+  297:         }
+  298:         break;
+  299:       case 'videos':
+  300:         this.renderVideosScreen();
+  301:         break;
+  302:       case 'ajustes':
+  303:         if (window.kiddoParental) {
+  304:           window.kiddoParental.renderSettingsScreen();
+  305:         }
+  306:         break;
+  307:     }
+  308:   }
+  309: 
+  310:   // 7. SECCIÓN "INICIO"
+  311:   renderHomeScreen() {
+  312:     const welcomeHello = document.querySelector('.welcome-text-hello');
+  313:     if (welcomeHello) {
+  314:       welcomeHello.textContent = `¡Hola, ${KIDDO_DATA.user.name}!`;
+  315:     }
+  316: 
+  317:     // Montar Puky 2D oficial si aún no está montado
+  318:     const mount = document.getElementById('puky2d-mount');
+  689: 
+  690:   openPukyPlaceholderSlot(slotNumber) {
+  691:     if (window.kiddoAudio) window.kiddoAudio.playBubbleSound();
+  692:     alert(`Espacio ${slotNumber} preparado: Aquí se integrará una nueva funcionalidad para Puky.`);
+  693:   }
+  694: 
+  695:   // 11. SECCIÓN "MÚSICA"
+  696:   renderMusicScreen() {
+  697:     this.switchMusicCategory(this.activeMusicTab);
+  698:   }
+  699: 
+  700:   switchMusicCategory(tabKey) {
+  701:     if (this.activeMusicTab === 'relajante' && tabKey !== 'relajante') {
+  702:       this.stopAllRelaxingMusic();
+  703:     }
+  704:     this.activeMusicTab = tabKey;
+  705:     document.querySelectorAll('.music-subtab-btn').forEach(btn => {
+  706:       if (btn.getAttribute('data-tab') === tabKey) {
+  707:         btn.classList.add('active');
+  708:       } else {
+  709:         btn.classList.remove('active');
+  710:       }
+  711:     });
+  712: 
+  713:     const contentBox = document.getElementById('music-tab-content');
+  714:     if (!contentBox) return;
+  715: 
+  716:     if (tabKey === 'relajante') {
+  717:       contentBox.innerHTML = `
+  718:         <div class="music-relaxing-container">
+  719:           <!-- Banner Hero Relajante -->
+  720:           <div class="relax-hero-banner" role="img" aria-label="Puky descansando relajado">
+  721:             <img src="assets/musica/relajante/fondo-relajante.png" alt="Puky descansando en una nube suave" class="relax-hero-img" />
+  722:           </div>
+  723: 
+  724:           <!-- Contenedor invisible para reproductor YouTube embebido (una sola pista activa) -->
+  725:           <div id="relaxing-yt-player-container" aria-hidden="true" style="display:none;"></div>
+  726: 
+  727:           <!-- Lista vertical de las 4 tarjetas relajantes con iconos 3D -->
+  728:           <div class="music-relaxing-grid">
+  729:             ${KIDDO_DATA.music.relaxing.map(track => {
+  730:               const isPlaying = this.activeRelaxingTrackId === track.id;
+  731:               return `
+  732:                 <div class="relax-track-card ${isPlaying ? 'is-playing' : ''}"
+  733:                      id="track-${track.id}"
+  734:                      style="background: ${track.color}; border: 2px solid ${track.borderColor};"
+  735:                      onclick="window.kiddoApp.toggleRelaxingTrack('${track.id}')">
+  736:                   
+  737:                   <div class="relax-track-icon-wrap" style="border: 1.5px solid ${track.borderColor};">
+  738:                     <img src="${track.iconImage}" alt="${track.title}" class="relax-track-icon-img" />
+  739:                   </div>
+  770:             <span class="piano-banner-avatar" aria-hidden="true">🐨</span>
+  771:             <span class="piano-banner-text">¡Toca las teclas de colores para crear una linda canción conmigo! 🎵✨</span>
+  772:           </div>
+  773: 
+  774:           <div class="piano-notes-fx-layer" id="piano-notes-fx-layer" aria-hidden="true"></div>
+  775: 
+  776:           <span id="piano-puky-face" style="display:none;" aria-hidden="true"></span>
+  777:           <div class="piano-keyboard-wrapper">
+  778:             <div class="piano-keys-container" role="region" aria-label="Teclado del piano virtual">
+  779:               <button class="piano-key key-c" onclick="window.kiddoApp.playKeyNote('DO', this)" aria-label="Nota DO">
+  780:                 <span class="key-note-name">DO</span>
+  781:                 <span class="key-color-dot" style="background: #F87171;"></span>
+  782:               </button>
+  783:               <button class="piano-key key-d" onclick="window.kiddoApp.playKeyNote('RE', this)" aria-label="Nota RE">
+  784:                 <span class="key-note-name">RE</span>
+  785:                 <span class="key-color-dot" style="background: #FB923C;"></span>
+  786:               </button>
+  787:               <button class="piano-key key-e" onclick="window.kiddoApp.playKeyNote('MI', this)" aria-label="Nota MI">
+  788:                 <span class="key-note-name">MI</span>
+  789:                 <span class="key-color-dot" style="background: #FACC15;"></span>
+  790:               </button>
+  791:               <button class="piano-key key-f" onclick="window.kiddoApp.playKeyNote('FA', this)" aria-label="Nota FA">
+  792:                 <span class="key-note-name">FA</span>
+  793:                 <span class="key-color-dot" style="background: #4ADE80;"></span>
+  794:               </button>
+  795:               <button class="piano-key key-g" onclick="window.kiddoApp.playKeyNote('SOL', this)" aria-label="Nota SOL">
+  796:                 <span class="key-note-name">SOL</span>
+  797:                 <span class="key-color-dot" style="background: #38BDF8;"></span>
+  798:               </button>
+  799:               <button class="piano-key key-a" onclick="window.kiddoApp.playKeyNote('LA', this)" aria-label="Nota LA">
+  800:                 <span class="key-note-name">LA</span>
+  801:                 <span class="key-color-dot" style="background: #818CF8;"></span>
+  802:               </button>
+  803:               <button class="piano-key key-b" onclick="window.kiddoApp.playKeyNote('SI', this)" aria-label="Nota SI">
+  804:                 <span class="key-note-name">SI</span>
+  805:                 <span class="key-color-dot" style="background: #C084FC;"></span>
+  806:               </button>
+  807:               <button class="piano-key key-c-high" onclick="window.kiddoApp.playKeyNote('DO-HIGH', this)" aria-label="Nota DO Agudo">
+  808:                 <span class="key-note-name">DO 🌟</span>
+  809:                 <span class="key-color-dot" style="background: #F472B6;"></span>
+  810:               </button>
+  811:             </div>
+  812:           </div>
+  813:         </div>
+  814:       `;
+  815:     } else if (tabKey === 'infantil') {
+  816:       const accentMap = {
+  817:         'pink': '#F9A8D4', 'blue': '#93C5FD', 'purple': '#C4B5FD',
+  818:         'yellow': '#FDE68A', 'green': '#6EE7B7', 'orange': '#FDBA74',
+  819:         'mint': '#A7F3D0', 'lavender': '#DDD6FE', 'sky': '#BAE6FD', 'peach': '#FCA5A5'
+  820:       };
+  821:       contentBox.innerHTML = `
+  822:         <div class="infantil-music-container">
+  823:           <!-- Hero banner superior -->
+  824:           <div class="infantil-hero-banner" role="img" aria-label="Puky con notas musicales">
+  825:             <img src="assets/musica/infantil/fondo-infantil.png.png"
+  826:                  onerror="this.src='assets/musica/infantil/fondo-infantil.png'"
+  827:                  alt="Puky sosteniendo baquetas entre notas musicales"
+  828:                  class="infantil-hero-img" />
+  829:           </div>
+  830: 
+  831:           <!-- Lista de canciones -->
+  832:           <div class="infantil-songs-list">
+  833:             ${KIDDO_DATA.music.children.map(song => `
+
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\js\missions.js
+ 1617:         }, 150);
+ 1618:       } else if (nav.screen === 'cuentos' && window.kiddoStories && nav.param) {
+ 1619:         setTimeout(() => {
+ 1620:           window.kiddoStories.openStory(nav.param);
+ 1621:         }, 150);
+ 1622:       } else if (nav.screen === 'musica') {
+ 1623:         setTimeout(() => {
+ 1624:           if (typeof window.kiddoApp.switchMusicCategory === 'function') {
+ 1625:             window.kiddoApp.switchMusicCategory('crear');
+ 1626:           }
+ 1627:         }, 150);
+ 1628:       }
+ 1629:     }
+ 1630:   }
+ 1631: 
+ 1632:   // =================================================================
+ 1633:   // 8. RENDERIZADO VISUAL DE LA SECCIÓN MISIONES (REDESIGN)
+ 1634:   // =================================================================
+ 1635: 
+ 1636:   render(containerId = 'missions-content-container') {
+ 1637:     const container = document.getElementById(containerId);
+ 1638:     if (!container) return;
+ 1639: 
+ 1640:     this.checkDayRollover();
+ 1641:     const state = this.state;
+ 1642:     if (!state) return;
+ 1643: 
+ 1644:     const missions = state.missions || [];
+ 1645:     const inAppMissions = missions.filter(m => m.type === 'in_app');
+ 1646:     const outAppMissions = missions.filter(m => m.type === 'out_app');
+ 1647: 
+ 1648:     const totalCount = missions.length;
+ 1649:     const completedCount = missions.filter(m => m.completed).length;
+ 1650:     const inAppCompleted = inAppMissions.filter(m => m.completed).length;
+ 1651:     const outAppCompleted = outAppMissions.filter(m => m.completed).length;
+
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\css\components.css
+  247: 
+  248: .piano-speech-bubble {
+  249:   font-size: 13px;
+  250:   font-weight: 700;
+  251:   color: #2D3748;
+  252: }
+  253: 
+  254: .piano-keys-container {
+  255:   display: flex;
+  256:   gap: 6px;
+  257:   justify-content: center;
+  258:   padding: 10px 0;
+  259: }
+  260: 
+  261: .piano-key {
+  262:   flex: 1;
+  263:   height: 140px;
+  264:   background: #FFFFFF;
+  265:   border: 2px solid #CBD5E1;
+  266:   border-radius: 0 0 16px 16px;
+  267:   display: flex;
+  268:   flex-direction: column;
+  269:   justify-content: flex-end;
+  270:   align-items: center;
+  271:   padding-bottom: 12px;
+  272:   cursor: pointer;
+  273:   box-shadow: 0 6px 0 #94A3B8;
+  274:   transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s;
+  275: }
+  276: 
+  277: .piano-key:active,
+  278: .piano-key.is-pressed {
+  279:   transform: translateY(5px);
+  280:   box-shadow: 0 1px 0 #94A3B8;
+  281:   background-color: #FEF08A;
+  282: }
+  283: 
+  284: .key-note-name {
+  285:   font-family: var(--font-heading);
+  286:   font-size: 14px;
+  287:   font-weight: 700;
+  288:   color: #334155;
+  289:   margin-bottom: 6px;
+  290: }
+  291: 
+  292: .key-color-dot {
+  293:   width: 14px;
+  294:   height: 14px;
+  295:   border-radius: 50%;
+  296: }
+  297: 
+  298: /* ANIMACIONES */
+  299: @keyframes fadeIn {
+  300:   from { opacity: 0; }
+  301:   to { opacity: 1; }
+  302: }
+  303: 
+  304: @keyframes slideUp {
+
+ARCHIVO: C:\Users\flore\OneDrive\Escritorio\Kiddo\css\screens.css
+ 1624: 
+ 1625: .music-subtab-btn[data-tab="relajante"].active {
+ 1626:   background: #2563EB;
+ 1627:   color: #FFFFFF;
+ 1628:   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+ 1629: }
+ 1630: 
+ 1631: #music-tab-content {
+ 1632:   flex: 1;
+ 1633:   min-height: 0;
+ 1634:   display: flex;
+ 1635:   flex-direction: column;
+ 1636:   position: relative;
+ 1637:   overflow-y: auto;
+ 1638: }
+ 1639: 
+ 1640: /* ─── XILÓFONO / PIANO VIRTUAL CON NUEVO ESCENARIO PUKY ─── */
+ 1641: .virtual-piano-experience {
+ 1642:   flex: 1;
+ 1643:   min-height: 0;
+ 1644:   height: 100%;
+ 1645:   width: 100%;
+ 1646:   display: flex;
+ 1647:   flex-direction: column;
+ 1648:   justify-content: flex-end; /* Ubica el piano sobre el piso de madera inferior */
+ 1649:   align-items: center;
+ 1650:   position: relative;
+ 1651:   background-image: url('../assets/musica/fondos/fondo-piano.png') !important;
+ 1652:   background-color: transparent !important;
+ 1653:   background-size: cover;
+ 1654:   background-position: center top;
+ 1655:   background-repeat: no-repeat;
+ 1656:   border-radius: 22px !important;
+ 1657:   border: 2px solid rgba(255, 215, 230, 0.6) !important;
+ 1754:   }
+ 1755:   100% {
+ 1756:     opacity: 0;
+ 1757:     transform: translate(calc(-50% + var(--drift-x, 0px)), -75px) scale(0.85) rotate(calc(var(--note-rotate, 0deg) * 1.5));
+ 1758:   }
+ 1759: }
+ 1760: 
+ 1761: .piano-keyboard-wrapper {
+ 1762:   background: rgba(255, 252, 247, 0.94);
+ 1763:   backdrop-filter: blur(10px);
+ 1764:   -webkit-backdrop-filter: blur(10px);
+ 1765:   border: 3.5px solid #F6DFCA;
+ 1766:   border-radius: 24px;
+ 1767:   padding: 8px 8px 12px;
+ 1768:   box-shadow: 0 12px 28px rgba(120, 75, 25, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+ 1769:   width: 100%;
+ 1770:   max-width: 420px;
+ 1771:   box-sizing: border-box;
+ 1772:   margin: 0 auto;
+ 1773:   z-index: 10;
+ 1774: }
+ 1775: 
+ 1776: .piano-keys-container {
+ 1777:   display: flex;
+ 1778:   justify-content: space-between;
+ 1779:   gap: 5px;
+ 1780:   width: 100%;
+ 1781: }
+ 1782: 
+ 1783: .piano-key {
+ 1784:   flex: 1;
+ 1785:   min-width: 0;
+ 1786:   height: clamp(120px, 22vh, 155px);
+ 1787:   background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF8 100%);
+ 1788:   border: 1.5px solid #EFE4D6;
+ 1789:   border-radius: 14px;
+ 1790:   display: flex;
+ 1791:   flex-direction: column;
+ 1792:   align-items: center;
+ 1793:   justify-content: space-between;
+ 1794:   padding: 10px 2px;
+ 1795:   cursor: pointer;
+ 1796:   box-shadow: 0 5px 0 #E3D4C1, 0 6px 12px rgba(0, 0, 0, 0.05);
+ 1797:   transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+ 1798:   position: relative;
+ 1799:   outline: none;
+ 1800:   touch-action: manipulation;
+ 1801: }
+ 1802: 
+ 1803: .piano-key:active,
+ 1804: .piano-key.is-pressed {
+ 1805:   transform: translateY(4px);
+ 1806:   box-shadow: 0 1px 0 #E3D4C1, 0 2px 4px rgba(0, 0, 0, 0.08);
+ 1807:   background: linear-gradient(180deg, #FFF9F2 0%, #F5ECE0 100%);
+ 1808: }
+ 1809: 
+ 1810: .key-note-name {
+ 1811:   font-family: var(--font-heading);
+ 1812:   font-size: 13px;
+ 1813:   font-weight: 800;
+ 1814:   color: #2D3748;
+ 1815:   letter-spacing: -0.3px;
+ 1816: }
+ 1817: 
+ 1818: .piano-key.key-c-high .key-note-name {
+ 1819:   font-size: 11px;
+ 1820:   white-space: nowrap;
+ 1821: }
+ 1822: 
+ 1823: .key-color-dot {
+ 1824:   width: 16px;
+ 1825:   height: 16px;
+ 1826:   border-radius: 50%;
+ 1827:   display: inline-block;
+ 1828:   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+ 1829:   border: 1.5px solid #FFFFFF;
+ 1830: }
+ 1831: 
+ 1832: /* ─── PESTAÑA MÚSICA RELAJANTE (HERO + 4 TARJETAS PASTEL) ─── */
+ 1833: .music-relaxing-container {
+ 1834:   width: 100%;
+ 1835:   display: flex;
+ 1836:   flex-direction: column;
+ 1837:   gap: 12px;
+ 1838:   padding-bottom: 26px;
+ 1839:   box-sizing: border-box;
+ 1840: }
+ 1841: 
+ 1842: .relax-hero-banner {
+ 1843:   width: 100%;
+ 1844:   border-radius: 22px;
+
+=== FONDO DE MUSICA ===
+IMAGEN NO ENCONTRADA

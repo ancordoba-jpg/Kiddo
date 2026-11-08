@@ -1,0 +1,64 @@
+/* ====================================================
+   KIDDO - LECTOR DE CUENTOS DESKTOP
+   Ilustraciones grandes y lectura adaptable
+   ==================================================== */
+
+@media screen and (min-width: 1024px) {
+
+  /* Area de ilustracion */
+  .story-reader-illustration-container {
+    width: 100% !important;
+
+    height: clamp(340px, 52dvh, 520px) !important;
+    min-height: 340px !important;
+    max-height: 520px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 8px !important;
+    box-sizing: border-box !important;
+
+    margin-bottom: 12px !important;
+    border-radius: 20px !important;
+
+    overflow: hidden !important;
+  }
+
+  /* Imagen mas grande sin deformacion */
+  .story-reader-illustration-container
+  .story-reader-illustration-img {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    border-radius: 16px !important;
+  }
+
+  /* Texto del cuento */
+  .story-reader-text-container {
+    font-size: 18px !important;
+    line-height: 1.65 !important;
+    font-weight: 600 !important;
+
+    min-height: 0 !important;
+    height: auto !important;
+
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+
+    text-align: left !important;
+    overflow-wrap: break-word !important;
+  }
+
+}
+
+/* FIN KIDDO LECTOR DE CUENTOS DESKTOP */

@@ -1,0 +1,32 @@
+/* ================================================
+   KIDDO - LIMITES DE DESPLAZAMIENTO DESKTOP
+   Eliminar espacio reservado para menu movil
+   ================================================ */
+
+@media screen and (min-width: 1024px) {
+
+  /* Contenedor principal */
+  .app-content-viewport {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Musica tiene una reserva inferior adicional */
+  .app-content-viewport:has(#screen-musica.active),
+  .app-content-viewport.viewport-musica {
+    padding-bottom: 0 !important;
+  }
+
+  /* Las listas conservan su desplazamiento real */
+  #screen-musica #music-tab-content {
+    overscroll-behavior-y: contain;
+  }
+
+  /* Evitar que el desplazamiento pase al contenedor exterior */
+  .kiddo-screen.active {
+    overscroll-behavior-y: contain;
+  }
+
+}

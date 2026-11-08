@@ -1,0 +1,25 @@
+﻿=== ESTRUCTURA HTML DE MUSICA ===
+
+  index.html:515:            </div>
+  index.html:516:          </div>
+  index.html:517:        </section>
+  index.html:518:
+  index.html:519:        <!-- 5. SECCIÓN: MÚSICA -->
+> index.html:520:        <section class="kiddo-screen" id="screen-musica" aria-label="Sección Música">
+  index.html:521:          <div class="music-subtabs-nav">
+  index.html:522:            <button class="music-subtab-btn" data-tab="relajante"
+  index.html:523:              onclick="window.kiddoApp.switchMusicCategory('relajante')">🌿 Relajante</button>
+  index.html:524:            <button class="music-subtab-btn active" data-tab="crear"
+  index.html:525:              onclick="window.kiddoApp.switchMusicCategory('crear')">🎹 Crear Música</button>
+  index.html:526:            <button class="music-subtab-btn" data-tab="infantil"
+  index.html:527:              onclick="window.kiddoApp.switchMusicCategory('infantil')">🎵 Infantil</button>
+  index.html:528:          </div>
+  index.html:529:          <div id="music-tab-content"></div>
+  index.html:530:        </section>
+
+
+
+=== ARCHIVOS CSS Y JS RELACIONADOS ===
+
+=== IMAGEN DE FONDO ===
+Falta copiar fondo-crear-musica-desktop.png a assets\music

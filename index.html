@@ -75,6 +75,18 @@
   <link rel="stylesheet" href="css/pantalla-completa-desktop.css">
   <link rel="stylesheet" href="css/proporciones-misiones-desktop.css">
   <link rel="stylesheet" href="css/proporciones-puky-desktop.css">
+  <link rel="stylesheet" href="css/proporciones-musica-desktop.css?v=2">
+  <link rel="stylesheet" href="css/scroll-inicio-desktop.css?v=1">
+  <link rel="stylesheet" href="css/pantallas-activas-desktop.css?v=1">
+  <link rel="stylesheet" href="css/inicio-ocupar-pantalla-desktop.css?v=1">
+  <link rel="stylesheet" href="css/proporciones-cuentos-desktop.css?v=1">
+  <link rel="stylesheet" href="css/lector-cuentos-desktop.css?v=2">
+  <link rel="stylesheet" href="css/banner-videos-desktop.css?v=1">
+  <link rel="stylesheet" href="css/banner-ajustes-desktop.css?v=3">
+  <link rel="stylesheet" href="css/panel-parental-responsive.css?v=1">
+  <link rel="stylesheet" href="css/inicio-desktop-balance.css?v=20261108-092919">
+  <link rel="stylesheet" href="css/iconos-navegacion.css?v=20261108-114233">
+  <link rel="stylesheet" href="css/logo-encabezado-kiddo.css?v=20261108-115425">
 </head>
 
 <body>
@@ -532,7 +544,12 @@
         <!-- 6. SECCIÓN: CUENTOS -->
         <section class="kiddo-screen" id="screen-cuentos" aria-label="Sección Cuentos">
           <div class="cuentos-banner-card">
-            <img src="assets/cuentos/banner/banner-cuentos.png" alt="Cuentos Infantiles - Historias mágicas con ilustraciones y narración por voz" class="cuentos-banner-img">
+            <!-- KIDDO-CUENTOS-PICTURE-INICIO -->
+<picture class="kiddo-cuentos-desktop-picture">
+  <source media="(min-width: 1024px)" srcset="assets/cuentos/banner/banner-cuentos-desktop.png?v=20261107-232705">
+  <img src="assets/cuentos/banner/banner-cuentos.png" alt="Cuentos Infantiles - Historias mágicas con ilustraciones y narración por voz" class="cuentos-banner-img">
+</picture>
+<!-- KIDDO-CUENTOS-PICTURE-FIN -->
           </div>
           <div class="stories-catalog-grid" id="stories-catalog-grid"></div>
         </section>
@@ -569,7 +586,10 @@
         <!-- 7. SECCIÓN: VIDEOS -->
         <section class="kiddo-screen" id="screen-videos" aria-label="Sección Videos">
           <div class="video-banner-card">
-            <img src="assets/videos/banner/banner-videos.png" alt="Videos Infantiles - Aprende, baila y diviértete con videos supervisados" class="video-banner-img">
+            <picture class="kiddo-banner-videos-responsive">
+  <source media="(min-width: 1024px)" srcset="assets/videos/banner/banner-videos-desktop.png">
+  <img src="assets/videos/banner/banner-videos.png" alt="Videos Infantiles - Aprende, baila y diviértete con videos supervisados" class="video-banner-img">
+</picture>
           </div>
 
           <div id="videos-content-container"></div>
@@ -587,38 +607,38 @@
       <nav class="main-bottom-navigation" id="main-bottom-nav" aria-label="Navegación Principal">
         <button class="nav-tab-btn active" data-screen="inicio" onclick="window.kiddoApp.navigateTo('inicio')"
           title="Inicio">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #0284C7;">🏠</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/01_inicio_casa.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Inicio</span>
         </button>
         <button class="nav-tab-btn" data-screen="juegos" onclick="window.kiddoApp.navigateTo('juegos')" title="Juegos">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #9333EA;">🎮</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/02_juegos_control.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Juegos</span>
         </button>
         <button class="nav-tab-btn" data-screen="misiones" onclick="window.kiddoApp.navigateTo('misiones')"
           title="Misiones">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #F59E0B;">⭐</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/03_misiones_estrella.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Misiones</span>
         </button>
         <button class="nav-tab-btn" data-screen="puky" onclick="window.kiddoApp.navigateTo('puky')" title="Puky">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #64748B;">🐨</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/04_puky_koala.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Puky</span>
         </button>
         <button class="nav-tab-btn" data-screen="musica" onclick="window.kiddoApp.navigateTo('musica')" title="Música">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #EC4899;">🎵</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/05_musica_nota.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Música</span>
         </button>
         <button class="nav-tab-btn" data-screen="cuentos" onclick="window.kiddoApp.navigateTo('cuentos')"
           title="Cuentos">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #0284C7;">📖</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/06_cuentos_libro.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Cuentos</span>
         </button>
         <button class="nav-tab-btn" data-screen="videos" onclick="window.kiddoApp.navigateTo('videos')" title="Videos">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #F43F5E;">📺</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/07_videos_televisor.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Videos</span>
         </button>
         <button class="nav-tab-btn" data-screen="ajustes" onclick="window.kiddoApp.navigateTo('ajustes')"
           title="Ajustes">
-          <span class="nav-icon-box"><span class="nav-icon" style="color: #64748B;">⚙️</span></span>
+          <span class="nav-icon-box"><span class="nav-icon"><img class="kiddo-nav-icon-img" src="assets/iconos-navegacion/08_ajustes_engranaje.png" alt="" aria-hidden="true"></span></span>
           <span class="nav-label">Ajustes</span>
         </button>
       </nav>
@@ -817,6 +837,8 @@
   <script src="js/menu-desplegable.js"></script>
   <script src="js/actividades-reales.js"></script>
   <script src="js/puky-panel-desktop.js"></script>
+  <script src="js/puky-prendas-desktop.js"></script>
+  <script src="js/panel-parental-visual.js?v=1"></script>
 </body>
 
 </html>

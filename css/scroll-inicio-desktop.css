@@ -1,0 +1,76 @@
+/* ====================================================
+   KIDDO - INICIO DESKTOP
+   Distribucion original + desplazamiento natural
+   ==================================================== */
+
+@media screen and (min-width: 1024px) {
+
+  /* Contenedor que utiliza la rueda del mouse */
+  .app-content-viewport:has(> #screen-inicio.active) {
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* Recuperar el GRID de Inicio */
+  #screen-inicio.active {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1.1fr)
+      minmax(0, 0.9fr) !important;
+
+    grid-template-rows:
+      auto auto auto !important;
+
+    grid-auto-rows: min-content !important;
+
+    align-content: start !important;
+    align-items: start !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 16px !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* Banner de bienvenida */
+  #screen-inicio.active .home-welcome-card {
+    grid-column: 1 / -1;
+  }
+
+  /* Escenario principal de Puky */
+  #screen-inicio.active .puky-hero-card {
+    grid-column: 1;
+    grid-row: 2 / 4;
+  }
+
+  /* Accesos rapidos */
+  #screen-inicio.active .categories-row-section {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Actividades recientes */
+  #screen-inicio.active .recent-activities-section {
+    grid-column: 2;
+    grid-row: 3;
+
+    height: auto !important;
+    min-height: 0 !important;
+    align-self: start !important;
+  }
+
+}
