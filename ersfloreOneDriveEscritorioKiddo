@@ -1,0 +1,64 @@
+ assets/ajustes/banner-ajustes-desktop.png          |  Bin [31m0[m -> [32m1921658[m bytes
+ assets/cuentos/banner/banner-cuentos-desktop.png   |  Bin [31m0[m -> [32m1813438[m bytes
+ .../Hansel y Gretel/Hansel-Gretel-p1.png           |  Bin [31m0[m -> [32m2591300[m bytes
+ .../Hansel y Gretel/Hansel-Gretel-p2.png           |  Bin [31m0[m -> [32m2686782[m bytes
+ .../Hansel y Gretel/Hansel-Gretel-p3.png           |  Bin [31m0[m -> [32m2754196[m bytes
+ .../Hansel y Gretel/Hansel-Gretel-p4.png           |  Bin [31m0[m -> [32m2453780[m bytes
+ .../Hansel y Gretel/Hansel-Gretel-p5.png           |  Bin [31m0[m -> [32m2776091[m bytes
+ .../Hansel y Gretel/Hansel-Gretel-p6.png           |  Bin [31m0[m -> [32m2528126[m bytes
+ .../cuentos/ilustraciones/Pinocho/Pinocho-p1.png   |  Bin [31m0[m -> [32m2455918[m bytes
+ .../cuentos/ilustraciones/Pinocho/Pinocho-p2.png   |  Bin [31m0[m -> [32m2553994[m bytes
+ .../cuentos/ilustraciones/Pinocho/Pinocho-p3.png   |  Bin [31m0[m -> [32m2440906[m bytes
+ .../cuentos/ilustraciones/Pinocho/Pinocho-p4.png   |  Bin [31m0[m -> [32m2606108[m bytes
+ .../cuentos/ilustraciones/Pinocho/Pinocho-p5.png   |  Bin [31m0[m -> [32m2650813[m bytes
+ .../cuentos/ilustraciones/Pinocho/Pinocho-p6.png   |  Bin [31m0[m -> [32m2493515[m bytes
+ .../Ricitos de Oro/ricitos-oro-p1.png              |  Bin [31m0[m -> [32m2718942[m bytes
+ .../Ricitos de Oro/ricitos-oro-p2.png              |  Bin [31m0[m -> [32m2482540[m bytes
+ .../Ricitos de Oro/ricitos-oro-p3.png              |  Bin [31m0[m -> [32m2435893[m bytes
+ .../Ricitos de Oro/ricitos-oro-p4.png              |  Bin [31m0[m -> [32m2516685[m bytes
+ .../Ricitos de Oro/ricitos-oro-p5.png              |  Bin [31m0[m -> [32m2827503[m bytes
+ .../Ricitos de Oro/ricitos-oro-p6.png              |  Bin [31m0[m -> [32m2999843[m bytes
+ assets/home-redesign/banner-bienvenida-desktop.png |  Bin [31m1075370[m -> [32m1066735[m bytes
+ assets/iconos-navegacion/01_inicio_casa.png        |  Bin [31m0[m -> [32m126515[m bytes
+ assets/iconos-navegacion/02_juegos_control.png     |  Bin [31m0[m -> [32m125354[m bytes
+ assets/iconos-navegacion/03_misiones_estrella.png  |  Bin [31m0[m -> [32m117679[m bytes
+ assets/iconos-navegacion/04_puky_koala.png         |  Bin [31m0[m -> [32m136232[m bytes
+ assets/iconos-navegacion/05_musica_nota.png        |  Bin [31m0[m -> [32m95869[m bytes
+ assets/iconos-navegacion/06_cuentos_libro.png      |  Bin [31m0[m -> [32m98708[m bytes
+ assets/iconos-navegacion/07_videos_televisor.png   |  Bin [31m0[m -> [32m98014[m bytes
+ assets/iconos-navegacion/08_ajustes_engranaje.png  |  Bin [31m0[m -> [32m61472[m bytes
+ assets/logo/logo-kiddo-color-encabezado.png        |  Bin [31m0[m -> [32m1253663[m bytes
+ assets/music/fondo-crear-musica-desktop.png        |  Bin [31m0[m -> [32m1625098[m bytes
+ .../musica/fondos/fondo-crear-musica-desktop.png   |  Bin [31m0[m -> [32m1625098[m bytes
+ .../infantil/banner-musica-infantil-desktop.png    |  Bin [31m0[m -> [32m1750572[m bytes
+ .../musica/relajante/fondo-relajante-desktop.png   |  Bin [31m0[m -> [32m1627157[m bytes
+ assets/parental/banner-control-parental.png        |  Bin [31m0[m -> [32m1172258[m bytes
+ assets/parental/puky-horario-permitido.png         |  Bin [31m0[m -> [32m1343125[m bytes
+ assets/parental/puky-tiempo-pantalla.png           |  Bin [31m0[m -> [32m1187205[m bytes
+ assets/videos/banner/banner-videos-desktop.png     |  Bin [31m0[m -> [32m1837648[m bytes
+ css/banner-ajustes-desktop.css                     |  369 [32m+[m
+ css/banner-videos-desktop.css                      |   21 [32m+[m
+ css/iconos-navegacion.css                          |   81 [32m+[m
+ css/inicio-desktop-balance.css                     |  155 [32m+[m
+ css/inicio-ocupar-pantalla-desktop.css             |  185 [32m+[m
+ css/lector-cuentos-desktop.css                     |   64 [32m+[m
+ ...-scroll-desktop.css.desactivado-20261107-225258 |   32 [32m+[m
+ css/logo-encabezado-kiddo.css                      |   81 [32m+[m
+ css/panel-parental-responsive.css                  |  491 [32m++[m
+ css/pantallas-activas-desktop.css                  |   33 [32m+[m
+ css/proporciones-cuentos-desktop.css               |   77 [32m+[m
+ css/proporciones-musica-desktop.css                | 1135 [32m+++[m
+ css/scroll-inicio-desktop.css                      |   76 [32m+[m
+ diagnostico-espacio-musica.txt                     | 3475 [32m++++++++++[m
+ diagnostico-musica-desktop.txt                     |   25 [32m+[m
+ diagnostico-nuevas-ilustraciones.txt               |  994 [32m+++[m
+ diagnostico-prendas-desktop.txt                    |  803 [32m+++[m
+ diagnostico-scroll-inicio.txt                      | 7328 [32m++++++++++++++++++++[m
+ estructura-piano-kiddo.txt                         |  572 [32m++[m
+ index.html                                         |   42 [32m+[m[31m-[m
+ js/data.js                                         |  115 [32m+[m[31m-[m
+ js/inicio-desktop-balance.js                       |   87 [32m+[m
+ js/panel-parental-visual.js                        |  125 [32m+[m
+ js/puky-prendas-desktop.js                         |  120 [32m+[m
+ videos-infantiles-reemplazo.txt                    |  172 [32m+[m
+ 63 files changed, 16633 insertions(+), 25 deletions(-)

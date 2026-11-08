@@ -1,0 +1,138 @@
+/* ================================================
+   KIDDO - AJUSTES MANUALES PARA COMPUTADORAS
+
+   width = tamaño
+   top   = distancia desde arriba
+   left  = distancia desde la izquierda
+   right = distancia desde la derecha
+
+   Cambia solamente los numeros.
+   Guarda con Ctrl + S y actualiza Chrome.
+   ================================================ */
+
+@media screen and (min-width: 1024px) {
+
+    /* ESTRELLA - IZQUIERDA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-star {
+        width: 250px !important;
+        top: 20px !important;
+        left: -80px !important;
+        right: auto !important;
+        scale: 1 !important;
+    }
+
+    /* MARIPOSA - IZQUIERDA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-butterfly {
+        width: 190px !important;
+        top: 250px !important;
+        left: 180px !important;
+        right: auto !important;
+        scale: 1 !important;
+    }
+
+    /* NUBE VIOLETA - IZQUIERDA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-cloud-lilac {
+        width: 230px !important;
+        top: 360px !important;
+        left: -170px !important;
+        right: auto !important;
+        scale: 1 !important;
+    }
+
+    /* ABEJA - IZQUIERDA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-bee {
+        width: 180px !important;
+        top: 550px !important;
+        left: 90px !important;
+        right: auto !important;
+        scale: 1 !important;
+    }
+
+    /* ARCOIRIS - DERECHA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-rainbow {
+        width: 280px !important;
+        top: 10px !important;
+        right: -80px !important;
+        left: auto !important;
+        scale: 1 !important;
+    }
+
+    /* FLOR - DERECHA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-flower {
+        width: 200px !important;
+        top: 225px !important;
+        right: 100px !important;
+        left: auto !important;
+        scale: 1 !important;
+    }
+
+    /* NUBE VERDE - DERECHA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-cloud-mint {
+        width: 210px !important;
+        top: 375px !important;
+        right: -200px !important;
+        left: auto !important;
+        scale: 1 !important;
+    }
+
+    /* COHETE - DERECHA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-rocket {
+        width: 200px !important;
+        top: 520px !important;
+        right: 180px !important;
+        left: auto !important;
+        scale: 1 !important;
+    }
+
+    /* LETRAS ABC - DERECHA */
+    #screen-login .login-decorations-layer img.login-decor-item.decor-abc {
+        width: 200px !important;
+        top: 580px !important;
+        right: -20px !important;
+        left: auto !important;
+        scale: 1 !important;
+    }
+
+    /* ANCHO DEL FORMULARIO */
+    #screen-login .login-form-card {
+        width: 500px !important;
+        max-width: 500px !important;
+    }
+
+    #screen-login .login-form-card .input-field-group,
+    #screen-login .login-form-card .input-wrapper,
+    #screen-login .login-submit-btn {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+}
+
+/* INICIO AJUSTE DECORACIONES 50 */
+
+/* EXCLUSIVAMENTE PARA COMPUTADORAS */
+@media screen and (min-width: 1024px) {
+
+    /* IZQUIERDA: 50% mas grandes y 10vw hacia el centro */
+
+    #screen-login .login-decorations-layer img.decor-star,
+    #screen-login .login-decorations-layer img.decor-butterfly,
+    #screen-login .login-decorations-layer img.decor-cloud-lilac,
+    #screen-login .login-decorations-layer img.decor-bee {
+        scale: 1.5 !important;
+        translate: 10vw 0 !important;
+    }
+
+    /* DERECHA: 50% mas grandes y 10vw hacia el centro */
+
+    #screen-login .login-decorations-layer img.decor-rainbow,
+    #screen-login .login-decorations-layer img.decor-flower,
+    #screen-login .login-decorations-layer img.decor-cloud-mint,
+    #screen-login .login-decorations-layer img.decor-rocket,
+    #screen-login .login-decorations-layer img.decor-abc {
+        scale: 1.5 !important;
+        translate: -10vw 0 !important;
+    }
+}
+
+/* FIN AJUSTE DECORACIONES 50 */

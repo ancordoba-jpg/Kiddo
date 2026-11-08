@@ -1,0 +1,82 @@
+/* KIDDO - CREAR MUSICA - SOLO COMPUTADORAS */
+
+@media screen and (min-width: 1024px) {
+
+  /* Contenedor de la seccion */
+  #screen-musica #music-tab-content {
+    width: 100% !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  /* Escenario completo */
+  #screen-musica .virtual-piano-experience {
+    position: relative !important;
+    display: block !important;
+    flex: 0 0 auto !important;
+
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+
+    aspect-ratio: 1648 / 928 !important;
+
+    background-image: url("../assets/music/fondo-crear-musica-desktop.png") !important;
+    background-size: 100% 100% !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* Piano debajo de Puky */
+  #screen-musica .virtual-piano-experience
+  .piano-keyboard-wrapper {
+    position: absolute !important;
+
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: 3% !important;
+
+    transform: translateX(-50%) !important;
+
+    width: 46% !important;
+    max-width: 680px !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    z-index: 20 !important;
+  }
+
+  /* Teclas originales */
+  #screen-musica .virtual-piano-experience
+  .piano-keys-container {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  #screen-musica .virtual-piano-experience
+  .piano-key {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    height: clamp(95px, 10vw, 145px) !important;
+  }
+
+  /* Evitar que las notas animadas bloqueen el piano */
+  #screen-musica .virtual-piano-experience
+  .piano-notes-fx-layer {
+    pointer-events: none !important;
+  }
+
+}

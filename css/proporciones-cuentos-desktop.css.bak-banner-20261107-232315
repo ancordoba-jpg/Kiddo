@@ -1,0 +1,54 @@
+/* ================================================
+   KIDDO - PROPORCIONES CUENTOS DESKTOP
+   Banner compacto y tarjetas mas altas
+   ================================================ */
+
+@media screen and (min-width: 1024px) {
+
+  /* Banner mas bajo, manteniendo el ancho */
+  #screen-cuentos.active .cuentos-banner-img {
+    display: block !important;
+    width: 100% !important;
+    height: clamp(280px, 39vh, 350px) !important;
+    max-height: 350px !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    border-radius: 26px !important;
+  }
+
+  /* Contenedor del banner */
+  #screen-cuentos.active .cuentos-banner {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Tarjetas de cuentos mas largas verticalmente */
+  #screen-cuentos.active .stories-catalog-grid .story-card {
+    min-height: 145px !important;
+    height: auto !important;
+    padding: 18px 20px !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+  }
+
+  /* Imagen de portada un poco mas grande */
+  #screen-cuentos.active .story-card-cover-wrap {
+    width: 105px !important;
+    height: 105px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Titulos mas legibles */
+  #screen-cuentos.active .story-card-title {
+    font-size: 17px !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Descripcion */
+  #screen-cuentos.active .story-card-desc {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+}

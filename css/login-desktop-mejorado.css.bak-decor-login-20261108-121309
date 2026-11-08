@@ -1,0 +1,51 @@
+/* ==========================================
+   KIDDO - LOGIN MEJORADO PARA COMPUTADORAS
+   ========================================== */
+
+@media screen and (min-width: 1024px) {
+
+    /* Ampliar el formulario, sin mover el logo */
+
+    #screen-login .login-form-card {
+        width: 450px !important;
+        max-width: 90vw !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-login .login-form-card form,
+    #screen-login .login-form-card .input-field-group,
+    #screen-login .login-form-card .input-wrapper {
+        width: 100% !important;
+        max-width: none !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-login .login-form-card .kiddo-input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    #screen-login .login-submit-btn {
+        width: 100% !important;
+        max-width: none !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Decoraciones laterales 25% mas grandes.
+       scale conserva las posiciones y rotaciones
+       originales de cada elemento. */
+
+    #screen-login .decor-star,
+    #screen-login .decor-rainbow,
+    #screen-login .decor-butterfly,
+    #screen-login .decor-flower,
+    #screen-login .decor-bee,
+    #screen-login .decor-rocket,
+    #screen-login .decor-abc,
+    #screen-login .decor-cloud-lilac,
+    #screen-login .decor-cloud-mint {
+        scale: 1.25 !important;
+    }
+}

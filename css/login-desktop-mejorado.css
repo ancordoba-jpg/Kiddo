@@ -1,0 +1,158 @@
+/* =====================================================
+   KIDDO - LOGIN DESKTOP MEJORADO
+   Decoraciones laterales mas grandes y mejor distribuidas
+   ===================================================== */
+
+@media screen and (min-width: 1024px) {
+
+  /* Contenedor general */
+  #screen-login,
+  .screen-login,
+  .login-screen {
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  /* Formulario un poco mas ancho */
+  #screen-login .login-form-card,
+  .screen-login .login-form-card,
+  .login-screen .login-form-card,
+  #screen-login .login-form,
+  .screen-login .login-form,
+  .login-screen .login-form {
+    width: 500px !important;
+    max-width: 500px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #screen-login .login-submit-btn,
+  .screen-login .login-submit-btn,
+  .login-screen .login-submit-btn,
+  #screen-login .kiddo-input,
+  .screen-login .kiddo-input,
+  .login-screen .kiddo-input,
+  #screen-login input,
+  .screen-login input,
+  .login-screen input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Decoraciones: mas grandes */
+  #screen-login .decor-star,
+  #screen-login .decor-butterfly,
+  #screen-login .decor-bee,
+  #screen-login .decor-rainbow,
+  #screen-login .decor-flower,
+  #screen-login .decor-rocket,
+  #screen-login .decor-abc,
+  #screen-login .decor-cloud-lilac,
+  #screen-login .decor-cloud-mint,
+  .screen-login .decor-star,
+  .screen-login .decor-butterfly,
+  .screen-login .decor-bee,
+  .screen-login .decor-rainbow,
+  .screen-login .decor-flower,
+  .screen-login .decor-rocket,
+  .screen-login .decor-abc,
+  .screen-login .decor-cloud-lilac,
+  .screen-login .decor-cloud-mint,
+  .login-screen .decor-star,
+  .login-screen .decor-butterfly,
+  .login-screen .decor-bee,
+  .login-screen .decor-rainbow,
+  .login-screen .decor-flower,
+  .login-screen .decor-rocket,
+  .login-screen .decor-abc,
+  .login-screen .decor-cloud-lilac,
+  .login-screen .decor-cloud-mint {
+    position: absolute !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    transform-origin: center center !important;
+  }
+
+  /* Lado izquierdo */
+  #screen-login .decor-star,
+  .screen-login .decor-star,
+  .login-screen .decor-star {
+    top: 30px !important;
+    left: 70px !important;
+    width: 88px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-butterfly,
+  .screen-login .decor-butterfly,
+  .login-screen .decor-butterfly {
+    top: 190px !important;
+    left: 45px !important;
+    width: 78px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-cloud-lilac,
+  .screen-login .decor-cloud-lilac,
+  .login-screen .decor-cloud-lilac {
+    top: 355px !important;
+    left: -10px !important;
+    width: 58px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-bee,
+  .screen-login .decor-bee,
+  .login-screen .decor-bee {
+    top: 525px !important;
+    left: 42px !important;
+    width: 88px !important;
+    height: auto !important;
+  }
+
+  /* Lado derecho */
+  #screen-login .decor-rainbow,
+  .screen-login .decor-rainbow,
+  .login-screen .decor-rainbow {
+    top: 40px !important;
+    right: 35px !important;
+    width: 118px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-flower,
+  .screen-login .decor-flower,
+  .login-screen .decor-flower {
+    top: 205px !important;
+    right: 55px !important;
+    width: 72px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-cloud-mint,
+  .screen-login .decor-cloud-mint,
+  .login-screen .decor-cloud-mint {
+    top: 365px !important;
+    right: -12px !important;
+    width: 66px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-rocket,
+  .screen-login .decor-rocket,
+  .login-screen .decor-rocket {
+    top: 500px !important;
+    right: 42px !important;
+    width: 82px !important;
+    height: auto !important;
+  }
+
+  #screen-login .decor-abc,
+  .screen-login .decor-abc,
+  .login-screen .decor-abc {
+    top: 620px !important;
+    right: 48px !important;
+    width: 92px !important;
+    height: auto !important;
+  }
+}

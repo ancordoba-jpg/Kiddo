@@ -1,0 +1,436 @@
+/* KIDDO - NUEVO PANEL PARENTAL RESPONSIVE */
+
+/* Cabecera ilustrada */
+.kiddo-parent-hero-new {
+    position: relative !important;
+    isolation: isolate;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 185px;
+    padding: 22px 30px !important;
+    border-radius: 30px !important;
+    overflow: hidden !important;
+
+    background-color: #2057a9 !important;
+    background-image:
+        linear-gradient(90deg,
+          rgba(12,39,100,.28),
+          rgba(12,39,100,0) 75%),
+        url("../assets/parental/banner-control-parental.png") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+
+    color: #fff !important;
+    box-shadow: 0 10px 24px rgba(37,79,148,.12);
+}
+
+.kiddo-parent-hero-new h1,
+.kiddo-parent-hero-new h2,
+.kiddo-parent-hero-new .parent-dash-title-wrap h2 {
+    color: white !important;
+    font-size: clamp(23px, 2.2vw, 35px) !important;
+    line-height: 1.2 !important;
+}
+
+.kiddo-parent-hero-new .parent-dash-title-wrap p {
+    color: #f0f6ff !important;
+}
+
+/* Tarjetas principales */
+.kiddo-parent-card-time,
+.kiddo-parent-card-schedule {
+    position: relative !important;
+    isolation: isolate;
+    box-sizing: border-box;
+    overflow: hidden !important;
+    border-radius: 26px !important;
+    background-color: #fff !important;
+    box-shadow: 0 7px 22px rgba(46,75,115,.08) !important;
+}
+
+/* Ilustraciones decorativas */
+.kiddo-parent-card-time::after,
+.kiddo-parent-card-schedule::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+    width: min(24%, 300px);
+    height: 165px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right bottom;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    z-index: 0;
+}
+
+.kiddo-parent-card-time::after {
+    background-image:
+      url("../assets/parental/puky-tiempo-pantalla.png");
+}
+
+.kiddo-parent-card-schedule::after {
+    background-image:
+      url("../assets/parental/puky-horario-permitido.png");
+}
+
+/* Mantener los controles por encima de las ilustraciones */
+.kiddo-parent-card-time > *,
+.kiddo-parent-card-schedule > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Estadisticas con colores suaves */
+.kiddo-parent-card-time .time-stat-pill {
+    border-radius: 21px !important;
+    padding: 12px !important;
+}
+
+/* TABLETS */
+@media (min-width: 600px) and (max-width: 1023px) {
+
+    .kiddo-parent-hero-new {
+        min-height: 170px;
+        padding: 20px !important;
+        border-radius: 24px !important;
+    }
+
+    .kiddo-parent-card-time::after,
+    .kiddo-parent-card-schedule::after {
+        width: 24%;
+        height: 125px;
+        opacity: .85;
+    }
+}
+
+/* CELULARES */
+@media (max-width: 599px) {
+
+    .kiddo-parent-hero-new {
+        min-height: 215px;
+        padding: 18px !important;
+        border-radius: 22px !important;
+        background-position: 58% center !important;
+        background-image:
+          linear-gradient(
+            90deg,
+            rgba(13,43,107,.74),
+            rgba(13,43,107,.25)
+          ),
+          url("../assets/parental/banner-control-parental.png") !important;
+    }
+
+    .kiddo-parent-hero-new h1,
+    .kiddo-parent-hero-new h2 {
+        font-size: 23px !important;
+    }
+
+    .kiddo-parent-card-time,
+    .kiddo-parent-card-schedule {
+        border-radius: 20px !important;
+    }
+
+    .kiddo-parent-card-time::after,
+    .kiddo-parent-card-schedule::after {
+        width: 105px;
+        height: 90px;
+        right: 5px;
+        top: 10px;
+        bottom: auto;
+        opacity: .28;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kiddo-parent-hero-new,
+    .kiddo-parent-card-time,
+    .kiddo-parent-card-schedule {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* KIDDO PARENTAL MEJORA VISUAL V2 INICIO */
+
+/* ==========================================
+   TARJETAS PRINCIPALES
+   ========================================== */
+
+.kiddo-parent-card-time,
+.kiddo-parent-card-schedule {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+    border: 1px solid #e8ecf5 !important;
+    border-radius: 26px !important;
+    background: #ffffff !important;
+    box-shadow: 0 8px 22px rgba(39, 67, 111, .08) !important;
+}
+
+/* ==========================================
+   ESTADISTICAS CON COLORES PASTEL
+   ========================================== */
+
+.kiddo-parent-card-time .time-stat-pill {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+
+    min-height: 78px !important;
+    border-radius: 22px !important;
+    border: 1px solid rgba(160, 170, 205, .10) !important;
+
+    padding: 12px 16px !important;
+    box-sizing: border-box !important;
+}
+
+/* Tiempo usado: violeta */
+.kiddo-parent-card-time .time-stat-pill:nth-child(3n + 1) {
+    background: linear-gradient(120deg, #f5f0ff, #eeeafa) !important;
+    color: #5544a0 !important;
+}
+
+/* Tiempo restante: verde */
+.kiddo-parent-card-time .time-stat-pill:nth-child(3n + 2) {
+    background: linear-gradient(120deg, #ecfcf6, #def7ee) !important;
+    color: #087c58 !important;
+}
+
+/* Limite diario: celeste */
+.kiddo-parent-card-time .time-stat-pill:nth-child(3n + 3) {
+    background: linear-gradient(120deg, #edf7ff, #dfedff) !important;
+    color: #185d99 !important;
+}
+
+/* Iconos decorativos de las estadisticas */
+.kiddo-parent-card-time .time-stat-pill::before {
+    display: inline-flex;
+    flex: 0 0 52px;
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 17px;
+    font-size: 27px;
+    line-height: 1;
+}
+
+.kiddo-parent-card-time .time-stat-pill:nth-child(3n + 1)::before {
+    content: "🖥️";
+    background: #e6dcff;
+}
+
+.kiddo-parent-card-time .time-stat-pill:nth-child(3n + 2)::before {
+    content: "⌛";
+    background: #d3f5e7;
+}
+
+.kiddo-parent-card-time .time-stat-pill:nth-child(3n + 3)::before {
+    content: "🗓️";
+    background: #d2eafd;
+}
+
+/* ==========================================
+   ILUSTRACION: TIEMPO DE PANTALLA
+   ========================================== */
+
+.kiddo-parent-card-time {
+    min-height: 370px !important;
+}
+
+.kiddo-parent-card-time::after {
+    content: "" !important;
+
+    background-image:
+      url("../assets/parental/puky-tiempo-pantalla.png") !important;
+
+    position: absolute !important;
+    display: block !important;
+
+    width: min(26%, 360px) !important;
+    height: 205px !important;
+
+    right: 12px !important;
+    bottom: 8px !important;
+    top: auto !important;
+    left: auto !important;
+
+    background-size: contain !important;
+    background-position: right bottom !important;
+    background-repeat: no-repeat !important;
+
+    mix-blend-mode: multiply;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+/* ==========================================
+   ILUSTRACION: HORARIO PERMITIDO
+   ========================================== */
+
+.kiddo-parent-card-schedule {
+    min-height: 215px !important;
+    padding-right: clamp(220px, 25%, 370px) !important;
+}
+
+.kiddo-parent-card-schedule::after {
+    content: "" !important;
+
+    background-image:
+      url("../assets/parental/puky-horario-permitido.png") !important;
+
+    position: absolute !important;
+    display: block !important;
+
+    width: min(27%, 370px) !important;
+    height: 185px !important;
+
+    right: 12px !important;
+    bottom: 8px !important;
+    top: auto !important;
+    left: auto !important;
+
+    background-size: contain !important;
+    background-position: right bottom !important;
+    background-repeat: no-repeat !important;
+
+    mix-blend-mode: multiply;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+/* Controles por encima de los decorativos */
+.kiddo-parent-card-time > *,
+.kiddo-parent-card-schedule > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   BOTONES Y PROGRESO
+   ========================================== */
+
+.kiddo-parent-card-time button,
+.kiddo-parent-card-schedule button {
+    border-radius: 999px !important;
+    transition: background-color .2s ease,
+                box-shadow .2s ease !important;
+}
+
+.kiddo-parent-card-time button:focus-visible,
+.kiddo-parent-card-schedule button:focus-visible {
+    outline: 3px solid #a8d9ff !important;
+    outline-offset: 3px !important;
+}
+
+.kiddo-parent-card-time .time-progress-bar-fill {
+    background: linear-gradient(90deg, #30a9eb, #258fdf) !important;
+    border-radius: 999px !important;
+}
+
+/* ==========================================
+   TABLETS
+   ========================================== */
+
+@media (min-width: 600px) and (max-width: 1023px) {
+
+    .kiddo-parent-card-time {
+        min-height: 350px !important;
+    }
+
+    .kiddo-parent-card-time::after {
+        width: 210px !important;
+        height: 140px !important;
+        right: 8px !important;
+    }
+
+    .kiddo-parent-card-schedule {
+        padding-right: 195px !important;
+        min-height: 210px !important;
+    }
+
+    .kiddo-parent-card-schedule::after {
+        width: 185px !important;
+        height: 150px !important;
+        right: 8px !important;
+    }
+
+    .kiddo-parent-card-time .time-stat-pill {
+        min-height: 70px !important;
+        gap: 8px !important;
+    }
+
+    .kiddo-parent-card-time .time-stat-pill::before {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+    }
+}
+
+/* ==========================================
+   CELULARES
+   ========================================== */
+
+@media (max-width: 599px) {
+
+    .kiddo-parent-card-time,
+    .kiddo-parent-card-schedule {
+        padding: 16px !important;
+        border-radius: 20px !important;
+    }
+
+    .kiddo-parent-card-time {
+        min-height: 0 !important;
+        padding-bottom: 110px !important;
+    }
+
+    .kiddo-parent-card-time::after {
+        width: 150px !important;
+        height: 100px !important;
+        right: 8px !important;
+        bottom: 4px !important;
+        top: auto !important;
+        opacity: 1 !important;
+    }
+
+    .kiddo-parent-card-schedule {
+        padding-right: 16px !important;
+        padding-bottom: 120px !important;
+        min-height: 0 !important;
+    }
+
+    .kiddo-parent-card-schedule::after {
+        width: 170px !important;
+        height: 110px !important;
+        right: 8px !important;
+        bottom: 4px !important;
+        top: auto !important;
+        opacity: 1 !important;
+    }
+
+    .kiddo-parent-card-time .time-stat-pill {
+        min-height: 65px !important;
+        padding: 10px !important;
+        gap: 8px !important;
+    }
+
+    .kiddo-parent-card-time .time-stat-pill::before {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        border-radius: 12px;
+    }
+}
+
+/* KIDDO PARENTAL MEJORA VISUAL V2 FIN */

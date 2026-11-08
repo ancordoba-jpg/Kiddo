@@ -1,0 +1,47 @@
+/* =====================================================
+   KIDDO - CORRECCION DE SCROLL DE INICIO
+   EXCLUSIVAMENTE COMPUTADORAS
+   ===================================================== */
+
+@media screen and (min-width: 1024px) {
+
+  /* Contenedor principal de Inicio */
+  .app-content-viewport:has(#screen-inicio.active) {
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    overscroll-behavior-y: auto !important;
+
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* La pantalla Inicio se adapta al contenido real */
+  #screen-inicio.active {
+
+    display: block !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    overflow: visible !important;
+    overscroll-behavior-y: auto !important;
+
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* Evitar reservas inferiores en Inicio */
+  .app-content-viewport:has(#screen-inicio.active)
+  > #screen-inicio.active {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+}
