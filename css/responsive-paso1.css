@@ -1,0 +1,27 @@
+@media (max-width: 599px) {
+  .app-device-wrapper {
+    max-width: 440px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .app-device-wrapper {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-device-wrapper {
+    width: 100%;
+    max-width: 1440px;
+    height: 100dvh;
+    max-height: none;
+    margin: 0 auto;
+    border-radius: 0;
+  }
+}

@@ -1,0 +1,34 @@
+& {
+    $ErrorActionPreference = "Stop"
+
+    $proyecto = "C:\Users\flore\OneDrive\Escritorio\Kiddo"
+    $destino = Join-Path $proyecto "css\pantalla-completa-desktop.css"
+
+    $contenido = Get-Clipboard -Raw
+
+    if (
+        [string]::IsNullOrWhiteSpace($contenido) -or
+        $contenido -notmatch '\.app-device-wrapper' -or
+        $contenido -notmatch 'min-width'
+    ) {
+        throw "El portapapeles no contiene el CSS esperado. No se modifico nada."
+    }
+
+    if (Test-Path $destino) {
+        $respaldo = "C:\Users\flore\OneDrive\Escritorio\pantalla-completa-desktop-respaldo.css"
+        Copy-Item $destino $respaldo -ErrorAction Stop
+    }
+
+    $utf8 = New-Object System.Text.UTF8Encoding($false)
+
+    [System.IO.File]::WriteAllText(
+        $destino,
+        $contenido,
+        $utf8
+    )
+
+    Write-Host ""
+    Write-Host "CSS RECUPERADO CORRECTAMENTE" -ForegroundColor Green
+    Write-Host "Archivo: $destino"
+    Write-Host "Caracteres: $($contenido.Length)"
+}
