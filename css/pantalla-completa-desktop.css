@@ -32,3 +32,11 @@
     Write-Host "Archivo: $destino"
     Write-Host "Caracteres: $($contenido.Length)"
 }
+/* Kiddo: ocupar todo el ancho disponible en computadoras */
+@media (min-width: 1024px) {
+    html body #kiddo-app-root,
+    html body .app-device-wrapper {
+        width: 100% !important;
+        max-width: none !important;
+    }
+}
